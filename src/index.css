@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", sans-serif;
+  
+  --color-primary-bg: #0a0a0a;
+  --color-secondary-bg: #0f0f0f;
+  --color-tertiary-bg: #141414;
+  --color-card-bg: #121212;
+  --color-contact-bg: #1a1a1a;
+  
+  --color-text-main: #ffffff;
+  --color-text-muted: #cccccc;
+  --color-text-subtle: #888888;
+}
+
+@layer base {
+  body {
+    @apply bg-primary-bg text-text-muted font-sans font-light;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .blur-in {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .blur-in.visible {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes scroll-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scroll-line-anim {
+  animation: scroll-line 2s infinite ease-in-out;
+}
