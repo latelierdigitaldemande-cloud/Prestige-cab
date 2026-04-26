@@ -72,7 +72,7 @@ const About = ({ t }: AboutProps) => {
               title={t.about_title}
             />
 
-            <p className="text-text-muted text-sm md:text-base leading-relaxed mb-6 md:mb-8 font-light mt-[-2.5rem] md:mt-[-3.5rem]" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
+            <p className="text-text-muted text-lg md:text-xl leading-relaxed mb-6 md:mb-8 font-light mt-[-2.5rem] md:mt-[-3.5rem]" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
 
             {/* Collapsible Quality Stack - Scaled down 10% */}
             <div className="flex flex-col gap-3 text-left">
@@ -109,7 +109,7 @@ const About = ({ t }: AboutProps) => {
                     className="overflow-hidden"
                   >
                     <div className="pl-[64px] pb-5 pr-4">
-                      <p className="text-text-muted text-[13px] md:text-sm font-light leading-relaxed max-w-xl">
+                      <p className="text-text-muted text-base md:text-lg font-light leading-relaxed max-w-xl">
                         {feat.desc}
                       </p>
                     </div>
@@ -135,7 +135,7 @@ const About = ({ t }: AboutProps) => {
 
           <div className="max-w-3xl">
             <p 
-              className="text-text-muted text-base md:text-xl font-light leading-relaxed mb-12"
+              className="text-text-muted text-lg md:text-2xl font-light leading-relaxed mb-12"
               dangerouslySetInnerHTML={{ __html: t.about_callout }} 
             />
 
