@@ -72,7 +72,7 @@ const About = ({ t }: AboutProps) => {
               title={t.about_title}
             />
 
-            <p className="text-text-muted text-lg md:text-xl leading-relaxed mb-6 md:mb-8 font-light mt-[-2.5rem] md:mt-[-3.5rem]" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
+            <p className="text-text-muted text-base md:text-xl leading-relaxed mb-6 md:mb-8 font-light mt-[-2.5rem] md:mt-[-3.5rem]" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
 
             {/* Collapsible Quality Stack - Scaled down 10% */}
             <div className="flex flex-col gap-3 text-left">
@@ -92,7 +92,7 @@ const About = ({ t }: AboutProps) => {
                       <feat.icon size={20} strokeWidth={1.5} />
                     </div>
                     
-                    <h3 className={`text-xl md:text-xl font-extrabold tracking-tighter transition-all duration-500 ${
+                    <h3 className={`text-2xl md:text-xl font-extrabold tracking-tighter transition-all duration-500 ${
                       expandedIndex === index ? 'text-white translate-x-1' : 'text-white/40 group-hover:text-white/70'
                     }`}>
                       {feat.title}
