@@ -92,7 +92,7 @@ const About = ({ t }: AboutProps) => {
                       <feat.icon size={20} strokeWidth={1.5} />
                     </div>
                     
-                    <h3 className={`text-lg md:text-xl font-extrabold tracking-tighter transition-all duration-500 ${
+                    <h3 className={`text-xl md:text-xl font-extrabold tracking-tighter transition-all duration-500 ${
                       expandedIndex === index ? 'text-white translate-x-1' : 'text-white/40 group-hover:text-white/70'
                     }`}>
                       {feat.title}

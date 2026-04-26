@@ -35,7 +35,7 @@ const Hero = ({ t }: HeroProps) => {
           </div>
 
           {/* Title */}
-          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold uppercase leading-[1.05] mb-10 tracking-tight">
+          <h1 className="text-white text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold uppercase leading-[1.05] mb-10 tracking-tight">
             {t.hero_title1} <br />
             <span className="text-text-muted">{t.hero_title2}</span>
           </h1>

@@ -44,7 +44,7 @@ const FleetFAQ = ({ t }: FleetFAQProps) => {
                   className="w-full py-6 md:py-8 flex items-start justify-between text-left transition-colors duration-500 px-4 -mx-4 rounded-xl"
                 >
                   <div className="flex flex-col">
-                    <h3 className={`text-sm md:text-lg tracking-tight transition-all duration-500 text-white ${
+                    <h3 className={`text-lg md:text-lg tracking-tight transition-all duration-500 text-white ${
                       openIndex === index ? 'font-bold' : 'font-medium'
                     }`}>
                       {faq.q}

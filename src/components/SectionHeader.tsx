@@ -47,7 +47,7 @@ const SectionHeader = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className={`font-display ${inverted ? 'text-black' : 'text-white'} ${
-          titleClassName || 'text-4xl sm:text-5xl lg:text-6xl'
+          titleClassName || 'text-5xl sm:text-5xl lg:text-6xl'
         } font-bold leading-[1.1] tracking-tight`}
       >
         {isStringTitle ? (

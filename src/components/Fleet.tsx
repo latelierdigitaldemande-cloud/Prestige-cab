@@ -58,7 +58,7 @@ const Fleet = ({ t }: FleetProps) => {
             badgeText={t.fleet_label}
             title={{ primary: t.fleet_title1, secondary: t.fleet_title2 }}
             className="!mb-0"
-            titleClassName="text-2xl sm:text-3xl lg:text-5xl"
+            titleClassName="text-3xl sm:text-3xl lg:text-5xl"
           />
         </div>
 

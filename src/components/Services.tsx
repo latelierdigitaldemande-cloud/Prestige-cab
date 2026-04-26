@@ -58,7 +58,7 @@ const Services = ({ t }: ServicesProps) => {
               badgeText={t.svc_label}
               title={t.svc_title}
               className="!mb-8 md:!mb-10"
-              titleClassName="text-3xl sm:text-4xl lg:text-5xl max-w-lg"
+              titleClassName="text-4xl sm:text-4xl lg:text-5xl max-w-lg"
             />
 
             {/* Collapsible Service Stack - Aligned with About Style */}
@@ -81,7 +81,7 @@ const Services = ({ t }: ServicesProps) => {
                       <service.icon size={18} strokeWidth={1.5} />
                     </div>
 
-                    <h3 className={`text-base md:text-lg font-extrabold tracking-tighter transition-all duration-500 flex-1 text-white ${
+                    <h3 className={`text-xl md:text-lg font-extrabold tracking-tighter transition-all duration-500 flex-1 text-white ${
                       activeIndex === index ? 'translate-x-1' : ''
                     }`}>
                       {service.title}
