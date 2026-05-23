@@ -45,15 +45,15 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
 
   return (
     <nav
-      className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 transition-all duration-300 bg-[#0a0a0a]/15 backdrop-blur-md border border-white/10 rounded-3xl py-3.5 px-6 md:px-10 shadow-2xl shadow-black/30 animate-in fade-in slide-in-from-top-4 duration-500"
+      className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 transition-all duration-300 bg-[#0a0a0a]/15 backdrop-blur-md border border-white/10 rounded-3xl py-5 px-6 md:px-10 shadow-2xl shadow-black/30 animate-in fade-in slide-in-from-top-4 duration-500"
     >
       <div className="flex items-center justify-between w-full">
         {/* Logo */}
         <div className="flex-1 flex justify-start">
           <a href="#" className="flex items-center group">
             <div className="flex flex-col">
-              <span className="text-white font-luxury font-light text-xl md:text-3xl leading-none tracking-[0.14em]">ABDI</span>
-              <span className="text-white/60 font-sans font-light text-[8px] md:text-[10px] tracking-[0.25em] uppercase leading-none mt-1 md:mt-1.5">CHAUFFEUR</span>
+              <span className="text-white font-luxury font-light text-2xl sm:text-3xl md:text-[38px] leading-none tracking-[0.14em]">ABDI</span>
+              <span className="text-white/60 font-sans font-light text-[9px] sm:text-[10px] md:text-[12px] tracking-[0.25em] uppercase leading-none mt-1 md:mt-2">CHAUFFEUR</span>
             </div>
           </a>
         </div>
@@ -180,8 +180,8 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
           >
             <div className="flex justify-between items-center mb-12">
               <a href="#" className="flex flex-col">
-                <span className="text-white font-luxury font-light text-3xl tracking-[0.14em] uppercase leading-none">ABDI</span>
-                <span className="text-white/60 font-sans font-light text-[10px] tracking-[0.25em] uppercase leading-none mt-1.5">CHAUFFEUR</span>
+                <span className="text-white font-luxury font-light text-4xl tracking-[0.14em] uppercase leading-none">ABDI</span>
+                <span className="text-white/60 font-sans font-light text-[12px] tracking-[0.25em] uppercase leading-none mt-2">CHAUFFEUR</span>
               </a>
               <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1">
                 <X size={28} />
