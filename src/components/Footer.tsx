@@ -12,7 +12,7 @@ const Footer = ({ t, lang }: FooterProps) => {
 
   return (
     <footer className="bg-primary-bg pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
           
           {/* Brand Column */}

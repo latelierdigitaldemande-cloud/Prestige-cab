@@ -31,7 +31,7 @@ const Reviews = ({ t }: ReviewsProps) => {
 
   return (
     <section id="reviews" className="py-24 md:py-32 bg-secondary-bg overflow-hidden border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6">
         <SectionHeader
           badgeIcon={Users}
           badgeText={t.rev_label.replace('— ', '')}

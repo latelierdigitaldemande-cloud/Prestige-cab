@@ -200,7 +200,7 @@ ${destStr}
       <div className="absolute top-0 left-1/4 w-[40rem] h-[25rem] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[30rem] h-[20rem] bg-white/[0.01] rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 15 }}

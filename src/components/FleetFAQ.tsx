@@ -20,7 +20,7 @@ const FleetFAQ = ({ t }: FleetFAQProps) => {
 
   return (
     <section id="fleet-faq" className="py-24 md:py-32 relative overflow-hidden bg-tertiary-bg border-y border-white/5">
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         <SectionHeader
           badgeIcon={Car}
           badgeText="FAQ"

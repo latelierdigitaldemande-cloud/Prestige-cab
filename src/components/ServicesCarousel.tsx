@@ -33,7 +33,7 @@ const ServicesCarousel = ({ t }: ServicesCarouselProps) => {
 
   return (
     <section id="services" className="py-24 md:py-32 bg-secondary-bg overflow-hidden border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-10">
         <div className="flex-1">
           <SectionHeader
             badgeIcon={LayoutGrid}
@@ -52,7 +52,7 @@ const ServicesCarousel = ({ t }: ServicesCarouselProps) => {
         </motion.p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-nowrap lg:gap-8 lg:overflow-x-auto lg:snap-x lg:snap-mandatory lg:hide-scrollbar pb-20 pt-4 md:gap-8">
           {serviceItems.map((service, index) => (
             <motion.article

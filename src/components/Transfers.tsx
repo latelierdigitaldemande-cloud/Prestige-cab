@@ -20,7 +20,7 @@ const Transfers = ({ t }: TransfersProps) => {
       {/* Visual Accent */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent skew-x-[-15deg] translate-x-1/4" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-16 lg:gap-24 items-start">
           
           <motion.div

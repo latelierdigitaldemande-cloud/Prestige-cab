@@ -28,7 +28,7 @@ const Contact = ({ t }: ContactProps) => {
 
   return (
     <section id="contact" className="py-24 md:py-40 bg-tertiary-bg overflow-hidden border-t border-white/5 relative">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
           
           <motion.div

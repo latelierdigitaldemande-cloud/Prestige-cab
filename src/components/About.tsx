@@ -33,7 +33,7 @@ const About = ({ t }: AboutProps) => {
 
   return (
     <section id="about" className="relative min-h-screen flex items-center bg-primary-bg overflow-hidden py-12 md:py-20">
-      <div className="max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full h-full flex flex-col justify-center">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Carousel - Restored Original Design */}
           <motion.div

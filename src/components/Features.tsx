@@ -59,7 +59,7 @@ const Features = ({ t }: FeaturesProps) => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-end mb-16 md:mb-24">
           <SectionHeader
             badgeIcon={Star}

@@ -45,7 +45,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
 
   return (
     <nav
-      className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 transition-all duration-300 bg-[#0a0a0a]/15 backdrop-blur-md border border-white/10 rounded-3xl py-4 px-6 md:px-10 shadow-2xl shadow-black/30 animate-in fade-in slide-in-from-top-4 duration-500"
+      className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-7xl z-50 transition-all duration-300 bg-[#0a0a0a]/15 backdrop-blur-md border border-white/10 rounded-3xl py-4 px-4 sm:px-5 md:px-8 shadow-2xl shadow-black/30 animate-in fade-in slide-in-from-top-4 duration-500"
     >
       <div className="flex items-center justify-between w-full">
         {/* Logo */}
