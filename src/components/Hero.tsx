@@ -27,7 +27,7 @@ const Hero = ({ t }: HeroProps) => {
           className="flex flex-col items-center"
         >
           {/* Title */}
-          <h1 className="text-[23px] sm:text-[29px] md:text-[47px] lg:text-[59px] font-luxury font-medium uppercase tracking-[0.1em] leading-[1.4] sm:leading-[1.3] mb-10 text-white max-w-4xl px-0">
+          <h1 className="text-[23px] sm:text-[29px] md:text-[47px] lg:text-[59px] font-luxury font-bold uppercase tracking-[0.1em] leading-[1.4] sm:leading-[1.3] mb-10 text-white max-w-4xl px-0">
             <span className="block sm:inline">{t.hero_title1}</span>{' '}
             <span className="block sm:inline">{t.hero_title2}</span>
           </h1>
