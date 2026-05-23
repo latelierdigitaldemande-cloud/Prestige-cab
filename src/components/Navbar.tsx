@@ -52,8 +52,8 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
         <div className="flex-1 flex justify-start">
           <a href="#" className="flex items-center group">
             <div className="flex flex-col">
-              <span className="text-white font-luxury font-light text-2xl sm:text-3xl md:text-[38px] leading-none tracking-[0.14em]">ABDI</span>
-              <span className="text-white/60 font-sans font-light text-[9px] sm:text-[10px] md:text-[12px] tracking-[0.25em] uppercase leading-none mt-1 md:mt-2">CHAUFFEUR</span>
+              <span className="text-white font-luxury font-semibold text-[27px] sm:text-3xl md:text-[38px] leading-none tracking-[0.14em]">ABDI</span>
+              <span className="text-white/60 font-sans font-light text-[11px] sm:text-[10.5px] md:text-[12px] tracking-[0.25em] uppercase leading-none mt-1 sm:mt-1.5 md:mt-2">CHAUFFEUR</span>
             </div>
           </a>
         </div>
@@ -180,7 +180,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
           >
             <div className="flex justify-between items-center mb-12">
               <a href="#" className="flex flex-col">
-                <span className="text-white font-luxury font-light text-4xl tracking-[0.14em] uppercase leading-none">ABDI</span>
+                <span className="text-white font-luxury font-semibold text-4xl tracking-[0.14em] uppercase leading-none">ABDI</span>
                 <span className="text-white/60 font-sans font-light text-[12px] tracking-[0.25em] uppercase leading-none mt-2">CHAUFFEUR</span>
               </a>
               <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1">

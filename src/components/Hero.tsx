@@ -7,19 +7,19 @@ interface HeroProps {
 
 const Hero = ({ t }: HeroProps) => {
   return (
-    <header id="hero" className="relative h-[65dvh] max-h-[65dvh] min-h-[480px] flex items-end sm:items-center justify-center text-center overflow-hidden bg-primary-bg pb-20 sm:pb-0">
+    <header id="hero" className="relative h-[75dvh] max-h-[75dvh] min-h-[480px] flex items-end sm:items-center justify-center text-center overflow-hidden bg-primary-bg pb-20 sm:pb-0">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
+         <img
           src="https://i.ibb.co/d0nZF1YW/Image-13-04-2026-00-37.jpg"
-          className="w-full h-full object-cover object-[70%_20%] sm:object-[25%_20%] opacity-85"
+          className="w-full h-full object-cover object-[50%_20%] sm:object-[20%_20%] opacity-100"
           referrerPolicy="no-referrer"
           alt="Hero background"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-bg via-primary-bg/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-primary-bg to-transparent"></div>
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 w-full flex flex-col items-center pt-28 sm:pt-32 pb-0 md:pt-36">
+      <div className="relative z-10 max-w-5xl mx-auto px-0.5 sm:px-6 w-full flex flex-col items-center pt-28 sm:pt-32 pb-0 md:pt-36">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ const Hero = ({ t }: HeroProps) => {
           className="flex flex-col items-center"
         >
           {/* Title */}
-          <h1 className="text-[23px] sm:text-[29px] md:text-[47px] lg:text-[59px] font-luxury font-light uppercase tracking-[0.1em] leading-[1.4] sm:leading-[1.3] mb-10 text-white max-w-4xl px-0">
+          <h1 className="text-[23px] sm:text-[29px] md:text-[47px] lg:text-[59px] font-luxury font-medium uppercase tracking-[0.1em] leading-[1.4] sm:leading-[1.3] mb-10 text-white max-w-4xl px-0">
             <span className="block sm:inline">{t.hero_title1}</span>{' '}
             <span className="block sm:inline">{t.hero_title2}</span>
           </h1>
