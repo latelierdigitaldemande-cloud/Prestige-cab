@@ -17,13 +17,10 @@ const Footer = ({ t, lang }: FooterProps) => {
           
           {/* Brand Column */}
           <div className="flex flex-col gap-8">
-            <div className="flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-black">
-                <Car size={24} />
-              </div>
+            <div className="flex items-center group">
               <div className="flex flex-col">
-                <span className="text-white font-display font-extrabold text-lg leading-none tracking-tight">PRESTIGE</span>
-                <span className="text-white/60 font-sans font-light text-[10px] tracking-[0.2em] uppercase leading-none mt-1">CAB SERVICE</span>
+                <span className="text-white font-luxury font-light text-2xl leading-none tracking-[0.12em]">ABDI</span>
+                <span className="text-white/60 font-sans font-light text-[9px] tracking-[0.25em] uppercase leading-none mt-1.5">CHAUFFEUR</span>
               </div>
             </div>
             <p className="text-text-muted text-xs leading-relaxed max-w-xs font-light">
@@ -96,7 +93,7 @@ const Footer = ({ t, lang }: FooterProps) => {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-text-muted text-[10px] font-light uppercase tracking-widest">
-            © {currentYear} PRESTIGE CAB SERVICE. TOUS DROITS RÉSERVÉS.
+            © {currentYear} ABDI CHAUFFEUR. TOUS DROITS RÉSERVÉS.
           </p>
           <div className="flex items-center gap-8">
             <a href="#" className="text-text-muted hover:text-white text-[10px] font-light uppercase tracking-widest transition-colors">Mentions Légales</a>

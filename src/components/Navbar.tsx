@@ -45,18 +45,15 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
 
   return (
     <nav
-      className="absolute top-0 left-0 w-full z-50 transition-all duration-500 bg-transparent py-6 border-b border-white/5"
+      className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 transition-all duration-300 bg-[#0a0a0a]/15 backdrop-blur-md border border-white/10 rounded-3xl py-3.5 px-6 md:px-10 shadow-2xl shadow-black/30 animate-in fade-in slide-in-from-top-4 duration-500"
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="flex items-center justify-between w-full">
         {/* Logo */}
         <div className="flex-1 flex justify-start">
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-black group-hover:bg-text-muted transition-colors">
-              <Car size={24} />
-            </div>
+          <a href="#" className="flex items-center group">
             <div className="flex flex-col">
-              <span className="text-white font-display font-extrabold text-lg leading-none tracking-tight">PRESTIGE</span>
-              <span className="text-white/60 font-sans font-light text-[10px] tracking-[0.2em] uppercase leading-none mt-1">CAB SERVICE</span>
+              <span className="text-white font-luxury font-light text-xl md:text-3xl leading-none tracking-[0.14em]">ABDI</span>
+              <span className="text-white/60 font-sans font-light text-[8px] md:text-[10px] tracking-[0.25em] uppercase leading-none mt-1 md:mt-1.5">CHAUFFEUR</span>
             </div>
           </a>
         </div>
@@ -118,10 +115,10 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
         <div className="flex-1 flex justify-end items-center gap-4 md:gap-6">
           {/* Lang Switcher Desktop */}
           <div className="hidden md:relative md:block" onMouseEnter={() => setLangMenuOpen(true)} onMouseLeave={() => setLangMenuOpen(false)}>
-            <button className="flex items-center gap-2 bg-transparent border-2 border-white/50 rounded-full px-4 py-1.5 text-white text-[10px] font-bold tracking-[0.15em] uppercase transition-all hover:bg-white hover:text-black backdrop-blur-sm">
-              <Globe size={14} />
+            <button className="flex items-center gap-1.5 bg-transparent border border-white/40 rounded-full px-3 py-1 text-white text-[9px] font-bold tracking-[0.14em] uppercase transition-all hover:bg-white hover:text-black backdrop-blur-sm">
+              <Globe size={12} />
               <span>{lang}</span>
-              <ChevronDown size={12} className={`transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown size={10} className={`transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
             </button>
             <AnimatePresence>
               {langMenuOpen && (
@@ -131,12 +128,12 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
                   exit={{ opacity: 0, y: 10 }}
                   className="absolute right-0 top-full pt-2 w-24"
                 >
-                  <div className="bg-primary-bg/95 backdrop-blur-2xl border-2 border-white/50 rounded-xl p-1 shadow-2xl overflow-hidden">
+                  <div className="bg-primary-bg/95 backdrop-blur-2xl border border-white/40 rounded-xl p-1 shadow-2xl overflow-hidden">
                     {(['fr', 'en'] as Language[]).map((l) => (
                       <button
                         key={l}
                         onClick={() => setLang(l)}
-                        className={`w-full text-left px-3 py-2 text-[10px] font-bold uppercase tracking-[0.15em] transition-colors rounded-lg ${
+                        className={`w-full text-left px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] transition-colors rounded-lg ${
                           lang === l ? 'bg-white/10 text-white' : 'text-text-muted hover:text-white hover:bg-white/5'
                         }`}
                       >
@@ -160,7 +157,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
-              className="px-3 py-1.5 bg-transparent border-2 border-white/50 rounded-full text-white text-[10px] uppercase font-bold backdrop-blur-sm"
+              className="px-2.5 py-1 bg-transparent border border-white/40 rounded-full text-white text-[9px] uppercase font-bold backdrop-blur-sm"
             >
               {lang}
             </button>
@@ -182,9 +179,9 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
             className="fixed inset-0 bg-primary-bg z-[100] flex flex-col p-8 md:hidden"
           >
             <div className="flex justify-between items-center mb-12">
-              <a href="#" className="flex items-center gap-2">
-                <Car className="text-white" size={28} />
-                <span className="text-white font-display font-extrabold text-xl tracking-tight uppercase">PRESTIGE</span>
+              <a href="#" className="flex flex-col">
+                <span className="text-white font-luxury font-light text-3xl tracking-[0.14em] uppercase leading-none">ABDI</span>
+                <span className="text-white/60 font-sans font-light text-[10px] tracking-[0.25em] uppercase leading-none mt-1.5">CHAUFFEUR</span>
               </a>
               <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1">
                 <X size={28} />

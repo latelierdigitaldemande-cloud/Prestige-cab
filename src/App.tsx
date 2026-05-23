@@ -8,6 +8,7 @@ import { translations } from './translations';
 import { Language } from './types';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import BookingForm from './components/BookingForm';
 import Services from './components/Services';
 import About from './components/About';
 import Features from './components/Features';
@@ -43,6 +44,7 @@ export default function App() {
       <Navbar lang={lang} setLang={handleSetLang} t={t} />
       <main>
         <Hero t={t} />
+        <BookingForm lang={lang} />
         <About t={t} />
         <Services t={t} />
         <Features t={t} />

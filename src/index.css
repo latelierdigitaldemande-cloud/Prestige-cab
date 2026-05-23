@@ -3,6 +3,7 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Manrope", sans-serif;
+  --font-luxury: "Cormorant Garamond", serif;
   
   --color-primary-bg: #0a0a0a;
   --color-secondary-bg: #0f0f0f;
