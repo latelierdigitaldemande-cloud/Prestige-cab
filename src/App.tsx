@@ -12,11 +12,8 @@ import BookingForm from './components/BookingForm';
 import Services from './components/Services';
 import About from './components/About';
 import Features from './components/Features';
-import Transfers from './components/Transfers';
-import ServicesCarousel from './components/ServicesCarousel';
 import Fleet from './components/Fleet';
 import FleetFAQ from './components/FleetFAQ';
-import Reviews from './components/Reviews';
 import Contact from './components/Contact';
 import WhatsAppCTA from './components/WhatsAppCTA';
 import Footer from './components/Footer';
@@ -48,11 +45,8 @@ export default function App() {
         <About t={t} />
         <Services t={t} />
         <Features t={t} />
-        <ServicesCarousel t={t} />
         <Fleet t={t} />
         <FleetFAQ t={t} />
-        <Transfers t={t} />
-        <Reviews t={t} />
         <Contact t={t} />
       </main>
       <Footer t={t} lang={lang} />

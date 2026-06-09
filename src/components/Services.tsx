@@ -47,139 +47,79 @@ const Services = ({ t }: ServicesProps) => {
   ];
 
   return (
-    <section id="services" className="relative min-h-[90vh] flex items-center bg-primary-bg py-12 md:py-20 overflow-hidden">
+    <section id="services" className="relative min-h-[60vh] flex items-center bg-primary-bg py-12 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full relative z-10">
-        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-center">
-          
-          {/* Left Column - Service Exploration */}
-          <div className="flex flex-col h-full justify-center">
-            <SectionHeader
-              badgeIcon={Briefcase}
-              badgeText={t.svc_label}
-              title={t.svc_title}
-              className="!mb-8 md:!mb-10"
-              titleClassName="text-4xl sm:text-4xl lg:text-5xl max-w-lg"
-            />
+        <div className="flex flex-col h-full justify-center max-w-3xl">
+          <SectionHeader
+            badgeIcon={Briefcase}
+            badgeText={t.svc_label}
+            title={t.svc_title}
+            className="!mb-8 md:!mb-10"
+            titleClassName="text-[44px] lg:text-[56px]"
+          />
 
-            {/* Collapsible Service Stack - Aligned with About Style */}
-            <div className="flex flex-col text-left">
-              {services.map((service, index) => (
-                <div
-                  key={service.id}
-                  className={`group flex flex-col ${
-                    index !== services.length - 1 ? 'border-b border-white/5' : ''
-                  }`}
+          {/* Collapsible Service Stack */}
+          <div className="flex flex-col text-left">
+            {services.map((service, index) => (
+              <div
+                key={service.id}
+                className={`group flex flex-col ${
+                  index !== services.length - 1 ? 'border-b border-white/5' : ''
+                }`}
+              >
+                <button
+                  onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                  className="flex items-center gap-5 w-full text-left focus:outline-none py-4"
                 >
-                  <button
-                    onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                    className="flex items-center gap-5 w-full text-left focus:outline-none py-3.5"
-                  >
-                    {/* High-Contrast Icon Pod - Exactly like About */}
-                    <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl transition-all duration-700 shadow-xl ${
-                      activeIndex === index ? 'bg-white text-black -rotate-6' : 'bg-white/5 text-white'
-                    }`}>
-                      <service.icon size={18} strokeWidth={1.5} />
-                    </div>
-
-                    <h3 className={`text-xl md:text-lg font-extrabold tracking-tighter transition-all duration-500 flex-1 text-white ${
-                      activeIndex === index ? 'translate-x-1' : ''
-                    }`}>
-                      {service.title}
-                    </h3>
-
-                    {/* Interaction Indicator - New high-visibility button */}
-                    <div className="relative flex items-center justify-center">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
-                        activeIndex === index 
-                          ? 'bg-white text-black rotate-180 scale-110' 
-                          : 'bg-white/10 text-white group-hover:bg-white/20 group-hover:scale-105'
-                      }`}>
-                        <Plus 
-                          size={18} 
-                          strokeWidth={2.5} 
-                          className={`transition-transform duration-500 ${activeIndex === index ? 'rotate-45' : ''}`}
-                        />
-                      </div>
-                    </div>
-                  </button>
-                  
-                  <AnimatePresence initial={false}>
-                    {activeIndex === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pl-[64px] pb-5 pr-4 flex flex-col gap-5">
-                          <p className="text-text-muted text-[13px] md:text-sm font-light leading-relaxed max-w-md">
-                            {service.desc}
-                          </p>
-                          
-                          {/* Mobile/Tablet Image Visual */}
-                          <motion.div 
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="lg:hidden w-full aspect-[16/10] rounded-2xl overflow-hidden border border-white/10 shadow-lg"
-                          >
-                            <img 
-                              src={service.image} 
-                              alt={service.title}
-                              className="w-full h-full object-cover"
-                              referrerPolicy="no-referrer"
-                            />
-                          </motion.div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column - Pure Immersive Visual (Reduced Size) */}
-          <div className="relative hidden lg:block rounded-[2rem] overflow-hidden bg-white/[0.02] aspect-[4/3] max-h-[500px]">
-            <AnimatePresence mode="wait">
-              {activeIndex !== null ? (
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0"
-                >
-                  <img
-                    src={services[activeIndex].image}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                    alt={services[activeIndex].title}
-                  />
-                  
-                  {/* Minimalist Floating Icon */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-                    {(() => {
-                      const Icon = services[activeIndex].icon;
-                      return <Icon size={320} strokeWidth={0.3} className="text-white" />;
-                    })()}
+                  {/* High-Contrast Icon Pod */}
+                  <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl transition-all duration-700 shadow-xl ${
+                    activeIndex === index ? 'bg-white text-black -rotate-6' : 'bg-white/5 text-white'
+                  }`}>
+                    <service.icon size={18} strokeWidth={1.5} />
                   </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="empty"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 flex items-center justify-center bg-white/[0.02]"
-                >
-                  <Briefcase size={80} strokeWidth={0.5} className="text-white/10" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
 
+                  <h3 className={`text-xl md:text-2xl font-extrabold tracking-tighter transition-all duration-500 flex-1 text-white ${
+                    activeIndex === index ? 'translate-x-1' : ''
+                  }`}>
+                    {service.title}
+                  </h3>
+
+                  {/* Interaction Indicator */}
+                  <div className="relative flex items-center justify-center">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
+                      activeIndex === index 
+                        ? 'bg-white text-black rotate-180 scale-110' 
+                        : 'bg-white/10 text-white group-hover:bg-white/20 group-hover:scale-105'
+                    }`}>
+                      <Plus 
+                        size={18} 
+                        strokeWidth={2.5} 
+                        className={`transition-transform duration-500 ${activeIndex === index ? 'rotate-45' : ''}`}
+                      />
+                    </div>
+                  </div>
+                </button>
+                
+                <AnimatePresence initial={false}>
+                  {activeIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-[60px] pb-6 pr-4 flex flex-col gap-5">
+                        <p className="text-text-muted text-sm md:text-base font-light leading-relaxed max-w-2xl">
+                          {service.desc}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

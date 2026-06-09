@@ -47,24 +47,13 @@ const Features = ({ t }: FeaturesProps) => {
       id="features" 
       className="py-24 md:py-32 bg-tertiary-bg overflow-hidden border-y border-white/5 relative"
     >
-      {/* Discrete Background Effects (Matches Gallery Style) */}
-      <div className="absolute inset-0 pointer-events-none z-0 opacity-40">
-        {/* Soft Blooms */}
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-white/[0.02] blur-[150px] rounded-full" />
-        <div className="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] bg-white/[0.015] blur-[180px] rounded-full" />
-        
-        {/* Large Decorative Icon - Faint & Rotated */}
-        <div className="absolute -bottom-32 -right-32 opacity-[0.02] rotate-[15deg] scale-150">
-          <Star size={600} strokeWidth={0.3} className="text-white" />
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-end mb-16 md:mb-24">
           <SectionHeader
             badgeIcon={Star}
             badgeText={t.feat_label.replace('— ', '')}
             title={{ primary: t.feat_title1, secondary: t.feat_title2 }}
+            titleClassName="text-[44px] lg:text-[56px]"
             className="!mb-0"
           />
           <motion.div
@@ -90,7 +79,7 @@ const Features = ({ t }: FeaturesProps) => {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {cards.map((card, index) => (
             <motion.article
               key={index}
@@ -98,7 +87,7 @@ const Features = ({ t }: FeaturesProps) => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15, duration: 1, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true, margin: "-100px" }}
-              className={`group flex flex-col ${index === 2 ? 'hidden md:flex' : ''}`}
+              className="group flex flex-col"
             >
               <motion.div 
                 style={{ y: card.y }}

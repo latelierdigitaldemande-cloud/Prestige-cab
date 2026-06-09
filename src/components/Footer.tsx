@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Car, Mail, Phone, MapPin, Instagram, Facebook, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import { Language, Translation } from '../types';
 
 interface FooterProps {
@@ -13,28 +13,7 @@ const Footer = ({ t, lang }: FooterProps) => {
   return (
     <footer className="bg-primary-bg pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
-          
-          {/* Brand Column */}
-          <div className="flex flex-col gap-8">
-            <div className="flex items-center group">
-              <div className="flex flex-col">
-                <span className="text-white font-luxury font-light text-2xl leading-none tracking-[0.12em]">LUXURA</span>
-                <span className="text-white/60 font-sans font-light text-[9px] tracking-[0.25em] uppercase leading-none mt-1.5">CHAUFFEUR</span>
-              </div>
-            </div>
-            <p className="text-text-muted text-xs leading-relaxed max-w-xs font-light">
-              Service de chauffeur privé premium à Paris et en Île-de-France. Excellence, discrétion et ponctualité pour tous vos déplacements.
-            </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all">
-                <Instagram size={14} />
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all">
-                <Facebook size={14} />
-              </a>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
 
           {/* Navigation */}
           <div className="flex flex-col gap-6">
@@ -55,6 +34,16 @@ const Footer = ({ t, lang }: FooterProps) => {
               <li><a href="#transfer-cdg-paris" className="text-text-muted hover:text-white text-xs font-light transition-colors">CDG → Paris</a></li>
               <li><a href="#transfer-orly-paris" className="text-text-muted hover:text-white text-xs font-light transition-colors">Orly → Paris</a></li>
               <li><a href="#transfer-paris-disney" className="text-text-muted hover:text-white text-xs font-light transition-colors">Disneyland Paris</a></li>
+            </ul>
+          </div>
+
+          {/* Legal Column */}
+          <div className="flex flex-col gap-6">
+            <h4 className="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Légal</h4>
+            <ul className="flex flex-col gap-4">
+              <li><a href="#cgu" className="text-text-muted hover:text-white text-xs font-light transition-colors uppercase tracking-widest">CGU</a></li>
+              <li><a href="#privacy" className="text-text-muted hover:text-white text-xs font-light transition-colors uppercase tracking-widest">Confidentialité</a></li>
+              <li><a href="#cookies" className="text-text-muted hover:text-white text-xs font-light transition-colors uppercase tracking-widest">Cookies</a></li>
             </ul>
           </div>
 
@@ -88,6 +77,7 @@ const Footer = ({ t, lang }: FooterProps) => {
               </li>
             </ul>
           </div>
+
         </div>
 
         {/* Bottom Bar */}
@@ -95,10 +85,6 @@ const Footer = ({ t, lang }: FooterProps) => {
           <p className="text-text-muted text-[10px] font-light uppercase tracking-widest">
             © {currentYear} LUXURA CHAUFFEUR. TOUS DROITS RÉSERVÉS.
           </p>
-          <div className="flex items-center gap-8">
-            <a href="#" className="text-text-muted hover:text-white text-[10px] font-light uppercase tracking-widest transition-colors">Mentions Légales</a>
-            <a href="#" className="text-text-muted hover:text-white text-[10px] font-light uppercase tracking-widest transition-colors">Confidentialité</a>
-          </div>
         </div>
       </div>
 

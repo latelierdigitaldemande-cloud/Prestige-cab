@@ -16,7 +16,6 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
     { title: t.nav_home, href: '#' },
     { title: t.nav_services, href: '#services' },
     { title: t.nav_fleet, href: '#fleet' },
-    { title: t.nav_corporate, href: '#transfers' },
     { title: t.nav_contact, href: '#contact' },
   ];
 

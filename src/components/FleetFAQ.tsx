@@ -26,6 +26,7 @@ const FleetFAQ = ({ t }: FleetFAQProps) => {
           badgeText="FAQ"
           title={t.fleet_faq_title}
           centered
+          titleClassName="text-[44px] lg:text-[56px]"
         />
 
         <div className="mt-16 md:mt-24">
