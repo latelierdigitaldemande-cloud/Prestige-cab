@@ -28,11 +28,11 @@ const Hero = ({ t }: HeroProps) => {
         >
           {/* Upper Label */}
           <span className="text-[10px] min-[375px]:text-[12px] sm:text-[14px] font-sans font-medium tracking-[0.22em] sm:tracking-[0.25em] text-white/70 uppercase mb-3 sm:mb-4">
-            AIRPORT TRANSFERS - ELITE FLEET
+            GLOBAL CHAUFFEUR NETWORK
           </span>
 
           {/* Title */}
-          <h1 className="text-[32px] min-[375px]:text-[38px] sm:text-[42px] md:text-[50px] lg:text-[62px] font-luxury font-bold tracking-normal leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-5 md:mb-6 text-white max-w-4xl px-0 text-left">
+          <h1 className="text-[36px] min-[375px]:text-[42px] sm:text-[42px] md:text-[50px] lg:text-[62px] font-luxury font-bold tracking-normal leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-5 md:mb-6 text-white max-w-4xl px-0 text-left">
             <span className="block sm:inline">{t.hero_title1}</span>{' '}
             <span className="block sm:inline">{t.hero_title2}</span>
           </h1>
@@ -47,7 +47,7 @@ const Hero = ({ t }: HeroProps) => {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center sm:min-w-[200px] min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-[18px] bg-white text-black hover:bg-white/90 rounded-full text-[14px] sm:text-[15px] font-black tracking-normal uppercase transition-all duration-300 shadow-lg"
+              className="hidden sm:inline-flex items-center justify-center sm:min-w-[200px] min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-[18px] bg-white text-black hover:bg-white/90 rounded-full text-[14px] sm:text-[15px] font-black tracking-normal uppercase transition-all duration-300 shadow-lg"
             >
               INSTANT QUOTE
             </a>
