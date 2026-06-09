@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="fr" class="bg-[#0a0a0a] text-[#cccccc] scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELIE CHAUFFEUR - Service de Chauffeur Premium à Paris</title>
+  
+  <!-- Font Imports -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration with dynamic CSS variables -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-bg': 'var(--primary-bg, #0a0a0a)',
+            'secondary-bg': 'var(--secondary-bg, #0f0f0f)',
+            'tertiary-bg': 'var(--tertiary-bg, #141414)',
+            'card-bg': 'var(--card-bg, #121212)',
+            'contact-bg': 'var(--contact-bg, #1a1a1a)',
+            'text-main': 'var(--text-main, #ffffff)',
+            'text-muted': 'var(--text-muted, #cccccc)',
+            'text-subtle': 'var(--text-subtle, #888888)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Manrope', 'sans-serif'],
+            luxury: ['Cormorant Garamond', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --primary-bg: #0a0a0a;
+      --secondary-bg: #0f0f0f;
+      --tertiary-bg: #141414;
+      --card-bg: #121212;
+      --contact-bg: #1a1a1a;
+      --text-main: #ffffff;
+      --text-muted: #cccccc;
+      --text-subtle: #888888;
+    }
+
+    html.light {
+      --primary-bg: #f9f9f9;
+      --secondary-bg: #f3f3f3;
+      --tertiary-bg: #ffffff;
+      --card-bg: #ffffff;
+      --contact-bg: #eaeaea;
+      --text-main: #000000;
+      --text-muted: #1a1a1a;
+      --text-subtle: #444444;
+    }
+
+    /* Smooth CSS motion effects repeating the motion/react specs */
+    body {
+      background-color: var(--primary-bg, #0a0a0a);
+      color: var(--text-muted, #cccccc);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* Soft transitions for theme toggle */
+    html, body, nav, section, div, article, h1, h2, h3, h4, p, span, button {
+      transition-property: background-color, border-color, color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 400ms;
+    }
+
+    /* Motion: fade-in-up for Hero and Titles */
+    .motion-fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .motion-fade-in-up.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Motion: fade-in-left for Carousel slide-in */
+    .motion-fade-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .motion-fade-in-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Motion: pure fade-in for callouts */
+    .motion-fade-in {
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+    .motion-fade-in.active {
+      opacity: 1;
+    }
+
+    /* Scroll animations */
+    @keyframes scroll-line {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    .scroll-line-anim {
+      animation: scroll-line 2s infinite ease-in-out;
+    }
+
+    @keyframes scroll-button-bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, 6px); }
+    }
+    .scroll-button-anim {
+      animation: scroll-button-bounce 2.5s infinite ease-in-out;
+    }
+
+    /* Drop-down / collapsible quality stack */
+    .accordion-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .accordion-content.expanded {
+      max-height: 15rem;
+      opacity: 1;
+    }
+
+    /* Custom overlay scrollbar prevention and layout tweaks */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes slide-down {
+      from { transform: translate(-50%, -20px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+    .main-navbar-anim {
+      animation: slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Dynamic Light Mode overrides for elements with hardcoded dark classes or custom assets */
+    html.light {
+      background-color: #f9f9f9 !important;
+    }
+
+    /* Navbar - Nav stays solid black even in light mode for prestige high-contrast feel */
+    html.light nav {
+      background-color: #000000 !important;
+      border-color: rgba(255, 255, 255, 0.1) !important;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3) !important;
+    }
+    html.light nav span.text-white {
+      color: #ffffff !important;
+    }
+    html.light nav span.text-white\/60 {
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+    html.light nav a.text-text-muted,
+    html.light nav div.text-text-subtle {
+      color: #cccccc !important;
+    }
+    html.light nav a.text-text-muted:hover {
+      color: #ffffff !important;
+    }
+    html.light nav button.border-white\/40 {
+      border-color: rgba(255, 255, 255, 0.4) !important;
+      color: #ffffff !important;
+    }
+    html.light nav button.border-white\/40:hover {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+    }
+    html.light nav a#nav-cta {
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      color: #ffffff !important;
+    }
+    html.light nav a#nav-cta:hover {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+    }
+    html.light nav .group-hover\:rotate-180 {
+      color: #cccccc !important;
+    }
+    /* Dropdown sub-menus inside nav */
+    html.light nav .absolute .bg-primary-bg\/95 {
+      background-color: rgba(10, 10, 10, 0.95) !important;
+      border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    html.light nav .absolute .bg-primary-bg\/95 a {
+      color: #cccccc !important;
+    }
+    html.light nav .absolute .bg-primary-bg\/95 a:hover {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      color: #ffffff !important;
+    }
+
+    /* Mobile menu */
+    html.light #mobile-menu {
+      background-color: #ffffff !important;
+    }
+    html.light #mobile-menu span.text-white {
+      color: #000000 !important;
+    }
+    html.light #mobile-menu span.text-white\/60 {
+      color: rgba(0, 0, 0, 0.5) !important;
+    }
+    html.light #mobile-menu a {
+      color: #1a1a1a !important;
+      border-color: rgba(0, 0, 0, 0.05) !important;
+    }
+    html.light #mobile-menu button {
+      color: #000000 !important;
+    }
+    html.light #mobile-menu a.bg-white {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+
+    /* Hero Section */
+    html.light #hero h1 {
+      color: #ffffff !important; /* Keep hero heading white on background image for high-contrast visibility */
+    }
+    html.light #hero button span {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+    html.light #hero button span:hover {
+      color: #ffffff !important;
+    }
+
+    /* Expertise (About) Section */
+    html.light #about {
+      border-color: rgba(0, 0, 0, 0.04) !important;
+    }
+    html.light #about .text-white {
+      color: #000000 !important;
+    }
+    html.light #about [id^="icon-pod-"] {
+      color: #ffffff !important;
+    }
+    html.light #about .border-white\/10 {
+      border-color: rgba(0, 0, 0, 0.08) !important;
+    }
+    html.light #about .bg-primary-bg\/40 {
+      background-color: rgba(255, 255, 255, 0.4) !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+    }
+    html.light #about-heading {
+      color: #000000 !important;
+    }
+    html.light #about-description {
+      color: #333333 !important;
+    }
+    html.light #about-description span.text-white {
+      color: #000000 !important;
+    }
+    html.light #about .opacity-30 {
+      opacity: 0.15 !important;
+    }
+    html.light #about p#about-callout-text {
+      color: #333333 !important;
+    }
+    html.light #about a.bg-white {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+    html.light #about a.bg-white:hover {
+      background-color: #222222 !important;
+    }
+    html.light #about a.bg-white i {
+      color: #ffffff !important;
+    }
+    html.light #about button .bg-white\/5 {
+      background-color: rgba(0,0,0,0.04) !important;
+      color: #000000 !important;
+    }
+    html.light #about button .text-white\/40 {
+      color: rgba(0,0,0,0.3) !important;
+    }
+    html.light #about button .group-hover\:text-white\/70:hover {
+      color: rgba(0,0,0,0.6) !important;
+    }
+    html.light #accordion-content-0 p,
+    html.light #accordion-content-1 p {
+      color: #333333 !important;
+    }
+
+    /* Experience Section */
+    html.light #about .border-white\/30,
+    html.light #about .border-white\/50 {
+      border-color: rgba(0,0,0,0.2) !important;
+    }
+    html.light #about #about-badge {
+      color: #000000 !important;
+    }
+
+    /* Experience Section */
+    html.light #experience .border-white\/50,
+    html.light #experience .border-white\/30 {
+      border-color: rgba(0,0,0,0.2) !important;
+    }
+    html.light #experience .bg-white {
+      background-color: #000000 !important;
+    }
+    html.light #experience .bg-white i {
+      color: #ffffff !important;
+    }
+    html.light #experience #experience-badge {
+      color: #000000 !important;
+    }
+    html.light #experience h2 {
+      color: #000000 !important;
+    }
+    html.light #experience h2 .text-white\/40 {
+      color: rgba(0,0,0,0.35) !important;
+    }
+    html.light #experience .border-white\/10 {
+      border-color: rgba(0,0,0,0.08) !important;
+    }
+    html.light #experience p#experience-description {
+      color: #333333 !important;
+    }
+    html.light #experience .w-1.5 {
+      background-color: rgba(0,0,0,0.3) !important;
+    }
+    html.light #experience span.text-white\/60 {
+      color: #333333 !important;
+    }
+    html.light #experience article div {
+      border-color: rgba(0,0,0,0.06) !important;
+    }
+    html.light #experience .blur-\[150px\] {
+      background-color: rgba(0,0,0,0.01) !important;
+    }
+    html.light #experience .blur-\[180px\] {
+      background-color: rgba(0,0,0,0.01) !important;
+    }
+
+    /* Services Carousel Section */
+    html.light #services-carousel {
+      background-color: var(--secondary-bg, #f3f3f3) !important;
+      border-color: rgba(0,0,0,0.06) !important;
+    }
+    html.light .services-badge-container {
+      border-color: rgba(0,0,0,0.2);
+    }
+    html.light .services-badge-icon {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    html.light .services-badge-text {
+      color: #000000;
+    }
+    html.light #services-carousel-heading {
+      color: #000000 !important;
+    }
+    html.light #services-carousel-sub {
+      color: rgba(0,0,0,0.6) !important;
+    }
+    html.light #services-carousel article {
+      background-color: #ffffff !important;
+      border-color: rgba(0,0,0,0.08) !important;
+    }
+    html.light #services-carousel article:hover {
+      border-color: rgba(0,0,0,0.2) !important;
+    }
+    html.light #services-carousel article h3 {
+      color: #000000 !important;
+    }
+    html.light #services-carousel article [id^="icon-card-"] {
+      background-color: rgba(0,0,0,0.04) !important;
+      border-color: rgba(0,0,0,0.08) !important;
+      color: #000000 !important;
+    }
+    html.light #services-carousel article:hover [id^="icon-card-"] {
+      background-color: rgba(0,0,0,0.08) !important;
+      border-color: rgba(0,0,0,0.15) !important;
+    }
+    html.light #services-carousel article p {
+      color: rgba(0,0,0,0.6) !important;
+    }
+    html.light #services-carousel article button {
+      color: #000000 !important;
+    }
+    html.light #services-carousel article button:hover {
+      color: rgba(0,0,0,0.5) !important;
+    }
+
+    /* Fleet Section */
+    html.light #fleet .border-white\/5 {
+      border-color: rgba(0,0,0,0.06) !important;
+    }
+    html.light #fleet .border-white\/50,
+    html.light #fleet .border-white\/30 {
+      border-color: rgba(0,0,0,0.2) !important;
+    }
+    html.light #fleet .bg-transparent {
+      background-color: transparent !important;
+    }
+    html.light #fleet #fleet-badge {
+      color: #000000 !important;
+    }
+    html.light #fleet #fleet-heading {
+      color: #000000 !important;
+    }
+    html.light #fleet h2 .text-white\/40 {
+      color: rgba(0,0,0,0.3) !important;
+    }
+    html.light #fleet .border-white\/10 {
+      border-color: rgba(0,0,0,0.08) !important;
+    }
+    html.light #fleet .bg-white\/5 {
+      background-color: rgba(0,0,0,0.04) !important;
+      border-color: rgba(0,0,0,0.06) !important;
+    }
+    html.light #fleet .bg-white\/5 i {
+      color: rgba(0,0,0,0.5) !important;
+    }
+    html.light #fleet .text-white\/30 {
+      color: rgba(0,0,0,0.4) !important;
+    }
+    html.light #fleet a.bg-white {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+    html.light #fleet a.bg-white:hover {
+      background-color: #222222 !important;
+    }
+    html.light #fleet a.bg-white i {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+
+    /* Testimonials / Reviews Section */
+    html.light #reviews .border-white\/50,
+    html.light #reviews .border-white\/30 {
+      border-color: rgba(0,0,0,0.2) !important;
+    }
+    html.light #reviews .bg-white {
+      background-color: #000000 !important;
+    }
+    html.light #reviews .bg-white i {
+      color: #ffffff !important;
+    }
+    html.light #reviews #reviews-badge {
+      color: #000000 !important;
+    }
+    html.light #reviews #reviews-heading {
+      color: #000000 !important;
+    }
+    html.light #reviews .grid > div {
+      background-color: #ffffff !important;
+      border-color: rgba(0,0,0,0.06) !important;
+    }
+    html.light #reviews .grid > div:hover {
+      border-color: rgba(0,0,0,0.18) !important;
+    }
+    html.light #reviews p {
+      color: #1a1a1a !important;
+    }
+    html.light #reviews .mt-auto .bg-white\/5 {
+      background-color: rgba(0,0,0,0.04) !important;
+      border-color: rgba(0,0,0,0.08) !important;
+      color: #000000 !important;
+    }
+    html.light #reviews .mt-auto .bg-white\/5:hover {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+    html.light #reviews .mt-auto span.text-white {
+      color: #000000 !important;
+    }
+    html.light #reviews .mt-auto span.text-text-subtle {
+      color: rgba(0,0,0,0.4) !important;
+    }
+
+    /* FAQ Section */
+    html.light #fleet-faq .border-white\/50,
+    html.light #fleet-faq .border-white\/30 {
+      border-color: rgba(0,0,0,0.2) !important;
+    }
+    html.light #fleet-faq .bg-white {
+      background-color: #000000 !important;
+    }
+    html.light #fleet-faq .bg-white i {
+      color: #ffffff !important;
+    }
+    html.light #fleet-faq .text-white {
+      color: #000000 !important;
+    }
+    html.light #fleet-faq #faq-heading {
+      color: #000000 !important;
+    }
+    html.light #fleet-faq .border-t {
+      border-color: rgba(0,0,0,0.08) !important;
+    }
+    html.light #fleet-faq div.group {
+      border-color: rgba(0,0,0,0.08) !important;
+    }
+    html.light #fleet-faq p {
+      color: #333333 !important;
+    }
+  </style>
+
+  <script>
+    // Immediately check theme before page renders to avoid flicker
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.remove('light');
+      }
+    })();
+  </script>
+</head>
+<body class="min-h-screen overflow-x-hidden font-sans font-light">
+
+  <!-- Main Fixed Navigation Bar -->
+  <nav
+    class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black border-b border-white/10 py-5 px-4 sm:px-6 md:px-8 shadow-2xl"
+  >
+    <div class="flex items-center justify-between w-full max-w-7xl mx-auto">
+      
+      <!-- Brand Logo / Identity -->
+      <div class="flex-1 flex justify-start">
+        <a href="#" class="flex items-center group">
+          <div class="flex flex-col">
+            <span class="text-white font-luxury font-semibold text-[23px] sm:text-[27px] md:text-[34px] leading-none tracking-[0.14em]">ELIE</span>
+            <span class="text-white/60 font-sans font-light text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.25em] uppercase leading-none mt-1 sm:mt-1.5">CHAUFFEUR</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Links with Hover Dropdowns -->
+      <div class="hidden md:flex flex-1 justify-center items-center gap-6 lg:gap-8">
+        
+        <!-- Dropdown "Services" -->
+        <div class="relative group py-2">
+          <div class="flex items-center gap-1 cursor-pointer">
+            <a
+              id="nav-link-services"
+              href="#services"
+              class="text-text-muted hover:text-white text-xs font-normal transition-colors uppercase tracking-widest"
+            >
+              Services
+            </a>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-text-subtle transition-transform duration-300 group-hover:rotate-180"></i>
+          </div>
+          
+          <!-- Dropdown container -->
+          <div class="absolute top-full left-1/2 -translate-x-1/2 pt-4 min-w-[220px] opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+            <div class="bg-primary-bg/95 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-2xl">
+              <a id="nav-sub-airports" href="#transfers" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Gares & Aéroports
+              </a>
+              <a id="nav-sub-paris" href="#services" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Paris Centre / Périphérie
+              </a>
+              <a id="nav-sub-tours" href="#services" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Visite Touristique
+              </a>
+              <a id="nav-sub-business" href="#services" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Business
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dropdown "Flotte" -->
+        <div class="relative group py-2">
+          <div class="flex items-center gap-1 cursor-pointer">
+            <a
+              id="nav-link-fleet"
+              href="#fleet"
+              class="text-text-muted hover:text-white text-xs font-normal transition-colors uppercase tracking-widest"
+            >
+              Flotte
+            </a>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-text-subtle transition-transform duration-300 group-hover:rotate-180"></i>
+          </div>
+          
+          <div class="absolute top-full left-1/2 -translate-x-1/2 pt-4 min-w-[180px] opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+            <div class="bg-primary-bg/95 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-2xl">
+              <a id="nav-sub-berline" href="#fleet" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Berline
+              </a>
+              <a id="nav-sub-business-vehicle" href="#fleet" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Business
+              </a>
+              <a id="nav-sub-van" href="#fleet" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Van
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Link "FAQ" -->
+        <div class="relative group py-2">
+          <div class="flex items-center gap-1 cursor-pointer">
+            <a
+              id="nav-link-faq"
+              href="#fleet-faq"
+              class="text-text-muted hover:text-white text-xs font-normal transition-colors uppercase tracking-widest"
+            >
+              FAQ
+            </a>
+          </div>
+        </div>
+
+        <!-- Dropdown "Transferts" -->
+        <div class="relative group py-2">
+          <div class="flex items-center gap-1 cursor-pointer">
+            <a
+              id="nav-link-transfers"
+              href="#transfers"
+              class="text-text-muted hover:text-white text-xs font-normal transition-colors uppercase tracking-widest"
+            >
+              Transferts
+            </a>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-text-subtle transition-transform duration-300 group-hover:rotate-180"></i>
+          </div>
+          
+          <div class="absolute top-full left-1/2 -translate-x-1/2 pt-4 min-w-[240px] opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+            <div class="bg-primary-bg/95 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-2xl flex flex-col gap-0.5">
+              <a id="nav-sub-paris-cdg" href="#transfers" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Transfert Paris → CDG
+              </a>
+              <a id="nav-sub-cdg-paris" href="#transfers" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Transfert CDG → Paris
+              </a>
+              <a id="nav-sub-orly-paris" href="#transfers" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Transfert Orly → Paris
+              </a>
+              <a id="nav-sub-paris-disney" href="#transfers" class="block px-4 py-2.5 text-[10px] text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-all uppercase tracking-widest">
+                Transfert Paris → Disneyland
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Link "Contact" -->
+        <div class="relative group py-2">
+          <div class="flex items-center gap-1 cursor-pointer">
+            <a
+              id="nav-link-contact"
+              href="#contact"
+              class="text-text-muted hover:text-white text-xs font-normal transition-colors uppercase tracking-widest"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Desktop Controls & CTA, Mobile Menu buttons -->
+      <div class="flex-1 flex justify-end items-center gap-4 md:gap-6">
+        
+        <!-- Desktop Lang Switcher Dropdown (hover trigger) -->
+        <div class="hidden md:relative md:block group py-2">
+          <button class="flex items-center gap-1.5 bg-transparent border border-white/40 rounded-full px-3 py-1.5 text-white text-[9px] font-bold tracking-[0.14em] uppercase transition-all hover:bg-white hover:text-black backdrop-blur-sm">
+            <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+            <span id="current-lang-text">FR</span>
+            <i data-lucide="chevron-down" class="w-2.5 h-2.5 transition-transform duration-300 group-hover:rotate-180"></i>
+          </button>
+          
+          <div class="absolute right-0 top-full pt-2 w-24 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+            <div class="bg-primary-bg/95 backdrop-blur-2xl border border-white/40 rounded-xl p-1 shadow-2xl overflow-hidden flex flex-col gap-1">
+              <button
+                onclick="switchLanguage('fr')"
+                id="lang-fr-desk-btn"
+                class="w-full text-left px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] transition-colors rounded-lg bg-white/10 text-white"
+              >
+                FR
+              </button>
+              <button
+                onclick="switchLanguage('en')"
+                id="lang-en-desk-btn"
+                class="w-full text-left px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] transition-colors rounded-lg text-text-muted hover:text-white hover:bg-white/5"
+              >
+                EN
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theme Switcher Button (Desktop) -->
+        <button
+          id="theme-toggle-btn"
+          onclick="toggleTheme()"
+          class="hidden md:flex bg-transparent border border-white/40 rounded-full p-2 text-white hover:bg-white hover:text-black transition-all items-center justify-center backdrop-blur-sm"
+          title="Switch Theme"
+        >
+          <i data-lucide="sun" class="w-3.5 h-3.5 hidden" id="theme-icon-sun"></i>
+          <i data-lucide="moon" class="w-3.5 h-3.5" id="theme-icon-moon"></i>
+        </button>
+
+        <!-- Main Desktop Phone CTA -->
+        <a
+          href="tel:+33662284837"
+          id="nav-cta"
+          class="hidden md:block px-6 py-2.5 border-2 border-white/50 rounded-full text-[10px] font-bold text-white hover:bg-white hover:text-black transition-all duration-500 tracking-[0.2em] uppercase backdrop-blur-sm"
+        >
+          Réservation
+        </a>
+
+        <!-- Mobile triggers & language switcher button -->
+        <div class="md:hidden flex items-center gap-2">
+          <!-- Theme Switcher Button (Mobile) -->
+          <button
+            onclick="toggleTheme()"
+            class="bg-transparent border border-white/40 rounded-full p-1.5 text-white hover:bg-white hover:text-black transition-all flex items-center justify-center backdrop-blur-sm"
+          >
+            <i data-lucide="sun" class="w-3.5 h-3.5 hidden" id="theme-icon-sun-mob"></i>
+            <i data-lucide="moon" class="w-3.5 h-3.5" id="theme-icon-moon-mob"></i>
+          </button>
+          <button
+            onclick="switchLanguage(currentLang === 'fr' ? 'en' : 'fr')"
+            class="px-2.5 py-1 bg-transparent border border-white/40 rounded-full text-white text-[9px] uppercase font-bold backdrop-blur-sm"
+          >
+            <span id="current-lang-mob-text">FR</span>
+          </button>
+          <button onclick="toggleMobileMenu(true)" class="text-white p-1 hover:text-white/80 active:scale-95 transition-all">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Drawer Overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-primary-bg z-[100] flex flex-col p-8 md:hidden transition-all duration-500 ease-out translate-x-full opacity-0 pointer-events-none"
+  >
+    <div class="flex justify-between items-center mb-12">
+      <a href="#" class="flex flex-col">
+        <span class="text-white font-luxury font-semibold text-3xl tracking-[0.14em] uppercase leading-none">ELIE</span>
+        <span class="text-white/60 font-sans font-light text-[11px] tracking-[0.25em] uppercase leading-none mt-2">CHAUFFEUR</span>
+      </a>
+      <button onclick="toggleMobileMenu(false)" class="text-white p-1 hover:text-white/80 active:scale-95 transition-all">
+        <i data-lucide="x" class="w-7 h-7"></i>
+      </button>
+    </div>
+    
+    <div class="flex flex-col gap-6 overflow-y-auto">
+      <a id="mobile-link-services" href="#services" onclick="toggleMobileMenu(false)" class="text-white text-xl font-normal uppercase tracking-widest border-b border-white/5 pb-4">
+        Services
+      </a>
+      <a id="mobile-link-fleet" href="#fleet" onclick="toggleMobileMenu(false)" class="text-white text-xl font-normal uppercase tracking-widest border-b border-white/5 pb-4">
+        Flotte
+      </a>
+      <a id="mobile-link-faq" href="#fleet-faq" onclick="toggleMobileMenu(false)" class="text-white text-xl font-normal uppercase tracking-widest border-b border-white/5 pb-4">
+        FAQ
+      </a>
+      <a id="mobile-link-transfers" href="#transfers" onclick="toggleMobileMenu(false)" class="text-white text-xl font-normal uppercase tracking-widest border-b border-white/5 pb-4">
+        Transferts
+      </a>
+      <a id="mobile-link-contact" href="#contact" onclick="toggleMobileMenu(false)" class="text-white text-xl font-normal uppercase tracking-widest border-b border-white/5 pb-4">
+        Contact
+      </a>
+    </div>
+
+    <!-- Mobile Navigation phone button -->
+    <a
+      href="tel:+33662284837"
+      class="mt-auto w-full py-5 bg-white text-black rounded-full text-center text-xs font-semibold tracking-[0.14em] uppercase hover:bg-white/90 active:scale-95 transition-all shadow-xl"
+    >
+      +33 6 62 28 48 37
+    </a>
+  </div>
+
+  <!-- Main Container -->
+  <main>
+    
+    <!-- Hero Section -->
+    <header id="hero" class="relative h-[85vh] min-h-[480px] sm:h-[85dvh] flex items-end sm:items-center justify-center text-center overflow-hidden bg-primary-bg pb-20 sm:pb-0">
+      <!-- Background Image with Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://i.ibb.co/d0nZF1YW/Image-13-04-2026-00-37.jpg"
+          class="w-full h-full object-cover object-[50%_20%] sm:object-[20%_20%] opacity-100"
+          referrerPolicy="no-referrer"
+          alt="Hero background"
+        />
+        <div class="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-primary-bg via-primary-bg/75 to-transparent"></div>
+      </div>
+
+      <!-- Hero Header Text (animated) -->
+      <div class="relative z-10 max-w-5xl mx-auto px-3 sm:px-4 md:px-5 w-full flex flex-col items-center pt-28 sm:pt-32 pb-0 md:pt-36">
+        <div class="motion-fade-in-up active flex flex-col items-center">
+          <!-- Title -->
+          <h1 class="text-[27px] sm:text-[29px] md:text-[47px] lg:text-[59px] font-luxury font-black uppercase tracking-[0.05em] leading-[1.4] sm:leading-[1.3] mb-10 text-white max-w-4xl px-0">
+            <span class="block sm:inline" id="hero-title-1">VOTRE CHAUFFEUR PRIVÉ</span> 
+            <span class="block sm:inline" id="hero-title-2">À PARIS ET EN FRANCE</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator Button -->
+      <button
+        onclick="scrollToAbout()"
+        class="absolute bottom-10 left-1/2 scroll-button-anim z-10 flex flex-col items-center gap-2.5 group cursor-pointer focus:outline-none"
+      >
+        <span id="scroll-text" class="text-text-subtle text-[9px] font-medium tracking-[0.25em] uppercase group-hover:text-white transition-colors duration-300">
+          Scroll
+        </span>
+        <div class="w-[1px] h-10 bg-white/20 relative overflow-hidden">
+          <div class="scroll-line-anim absolute left-0 right-0 h-4 bg-gradient-to-b from-transparent via-white/90 to-transparent"></div>
+        </div>
+      </button>
+    </header>
+
+    <!-- Expertise (About) Section -->
+    <section id="about" class="relative bg-primary-bg overflow-hidden py-24 md:py-32">
+      <div class="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 w-full h-full flex flex-col justify-center">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          
+          <!-- Static Image Left -->
+          <div
+            id="carousel-container"
+            class="motion-fade-in-left relative h-[580px] md:h-[420px] lg:h-[480px] w-full overflow-hidden rounded-3xl bg-tertiary-bg border border-white/10 group shadow-2xl"
+          >
+            <img
+              id="carousel-image"
+              src="https://www.haimourinternational.com/wp-content/uploads/2025/09/transport-delegation.webp"
+              class="absolute inset-0 w-full h-full object-cover opacity-100"
+              referrerPolicy="no-referrer"
+              alt="Chauffeur service"
+            />
+          </div>
+
+          <!-- Text Details Right -->
+          <div class="flex flex-col">
+            
+            <!-- Section Header (recreated exactly from SectionHeader Component) -->
+            <div class="flex flex-col items-start text-left mb-16 md:mb-24">
+              <!-- Badge -->
+              <div class="motion-fade-in-up inline-flex items-center gap-3 mb-8 pl-1.5 pr-4 py-1.5 rounded-full border-2 border-white/30 bg-transparent shadow-inner w-fit backdrop-blur-sm">
+                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
+                  <i data-lucide="shield-check" class="w-3.5 h-3.5 text-white"></i>
+                </span>
+                <span id="about-badge" class="text-white text-[9px] font-bold uppercase tracking-[0.15em]">
+                  Expertise
+                </span>
+              </div>
+
+              <!-- Main Heading Title -->
+              <h2 id="about-heading" class="motion-fade-in-up font-display text-white text-[2.15rem] sm:text-[2.875rem] lg:text-[3.6rem] font-bold leading-[1.1] tracking-tight">
+                Une Expérience de Transport Exceptionnelle
+              </h2>
+            </div>
+
+            <!-- Description with negative top margin -->
+            <p id="about-description" class="text-text-muted text-sm md:text-lg leading-relaxed mb-6 md:mb-8 font-light mt-[-2.5rem] md:mt-[-3.5rem]">
+              Elie Chauffeur propose des services de chauffeur privé sur mesure : <span class='text-white font-bold'>location de véhicule avec chauffeur</span>, transferts aéroports et gares, visites touristiques et déplacements professionnels à Paris et en Ile-de-France.
+            </p>
+
+            <!-- Collapsible Quality Stack -->
+            <div class="flex flex-col gap-2.5 text-left">
+              
+              <!-- Accordion Card 1 (Chauffeurs / Service Attentionné) -->
+              <div class="group flex flex-col">
+                <div
+                  class="flex items-center gap-3.5 w-full text-left pt-2 pb-0.5"
+                >
+                  <!-- Icon Pod -->
+                  <div id="icon-pod-0" class="w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-full transition-all duration-700 shadow-xl bg-green-600 text-white">
+                    <i data-lucide="star" class="w-3.5 h-3.5" stroke-width="1.5"></i>
+                  </div>
+                  <!-- Heading -->
+                  <h3 id="feat-title-0" class="text-lg md:text-base font-extrabold tracking-tighter transition-all duration-500 text-white">
+                    Service Attentionné
+                  </h3>
+                </div>
+                
+                <!-- Inner Description Content -->
+                <div id="accordion-content-0" class="accordion-content expanded">
+                  <div class="pl-11 pb-3 pr-4">
+                    <p id="feat-desc-0" class="text-text-muted text-xs md:text-sm font-light leading-relaxed max-w-xl">
+                      Nos chauffeurs allient courtoisie et professionnalisme, veillant à votre confort du début à la fin.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accordion Card 2 (Punctuality / Ponctualité Absolue) -->
+              <div class="group flex flex-col">
+                <div
+                  class="flex items-center gap-3.5 w-full text-left pt-2 pb-0.5"
+                >
+                  <!-- Icon Pod -->
+                  <div id="icon-pod-1" class="w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-full transition-all duration-700 shadow-xl bg-green-600 text-white">
+                    <i data-lucide="clock" class="w-3.5 h-3.5" stroke-width="1.5"></i>
+                  </div>
+                  <!-- Heading -->
+                  <h3 id="feat-title-1" class="text-lg md:text-base font-extrabold tracking-tighter transition-all duration-500 text-white">
+                    Ponctualité Absolue
+                  </h3>
+                </div>
+                
+                <!-- Inner Description Content -->
+                <div id="accordion-content-1" class="accordion-content expanded">
+                  <div class="pl-11 pb-3 pr-4">
+                    <p id="feat-desc-1" class="text-text-muted text-xs md:text-sm font-light leading-relaxed max-w-xl">
+                      Nous surveillons le trafic en temps réel et ajustons nos itinéraires pour que vous arriviez toujours à l'heure.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Callout Conclusion text & Button -->
+        <div class="motion-fade-in mt-20 md:mt-24 flex flex-col items-center text-center">
+
+          <div class="max-w-xl">
+            <p id="about-callout-text" class="text-text-muted text-sm sm:text-base md:text-lg font-light leading-snug mb-12">
+              Optez pour Elie Chauffeur, votre allié de confiance pour tous vos déplacements à Paris. Que vous soyez un particulier ou un professionnel, nous adaptons nos services à vos exigences afin de vous proposer une expérience premium.
+            </p>
+
+            <a
+              href="tel:+33662284837"
+              class="inline-flex items-center gap-2.5 px-7 py-3 bg-white text-black hover:bg-white/90 rounded-full text-sm md:text-base font-bold transition-all duration-500 shadow-2xl"
+            >
+              <i data-lucide="calendar" class="w-[18px] h-[18px] text-black"></i>
+              <span id="hero-cta-text">Réserver un Chauffeur</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Services Carousel Section -->
+    <section id="services-carousel" class="py-24 md:py-32 bg-secondary-bg overflow-hidden border-t border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 mb-8 md:mb-12 flex flex-col items-center text-center gap-6">
+        <div class="flex flex-col items-center">
+          <!-- Section Header Badge & Title -->
+          <div class="services-badge-container motion-fade-in-up inline-flex items-center gap-3 mb-8 pl-1.5 pr-4 py-1.5 rounded-full border-2 border-white/30 bg-transparent shadow-inner w-fit backdrop-blur-sm">
+            <span class="services-badge-icon flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
+              <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-white"></i>
+            </span>
+            <span id="services-carousel-badge" class="services-badge-text text-white text-[9px] font-bold uppercase tracking-[0.14em]">
+              Services
+            </span>
+          </div>
+          <h2 id="services-carousel-heading" class="motion-fade-in-up font-display text-white text-[2.15rem] sm:text-[2.875rem] lg:text-[3.6rem] font-bold leading-[1.1] tracking-tight">
+            Nos solutions de transport<br>pensée pour vous
+          </h2>
+        </div>
+        <p id="services-carousel-sub" class="motion-fade-in-up text-text-subtle text-lg font-light max-w-sm leading-relaxed">
+          Un service d'exception, à votre disposition.
+        </p>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-3 sm:px-5 md:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pb-4 pt-4">
+          
+          <!-- Card 1 -->
+          <article class="motion-fade-in-up w-full bg-tertiary-bg rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-700 group mb-8 lg:mb-0 text-left relative shadow-2xl">
+            <div class="aspect-[16/10] overflow-hidden bg-primary-bg relative">
+              <img
+                src="https://www.haimourinternational.com/wp-content/uploads/2025/09/s2.jpg.webp"
+                class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+                alt="Station & Airport Transfers"
+              />
+            </div>
+            <div class="p-6 md:p-8 flex flex-col h-[230px] md:h-[280px]">
+              <div class="mb-3 w-8 h-8 text-white bg-white/5 border border-white/10 rounded-lg flex items-center justify-center p-1.5 transition-all group-hover:bg-white/10 group-hover:border-white/20 shrink-0" id="icon-card-0"></div>
+              <h3 id="carousel-svc-title-0" class="text-white text-lg md:text-xl font-bold mb-2 tracking-tight leading-tight">
+                Transferts Gares & Aéroports
+              </h3>
+              <p id="carousel-svc-desc-0" class="text-text-subtle text-xs sm:text-sm leading-relaxed mb-4 font-light flex-grow">
+                CDG, Orly, Gare du Nord, Gare de Lyon : prise en charge ponctuelle à toute heure.
+              </p>
+              <button class="flex items-center justify-between text-[13px] md:text-sm font-semibold text-white hover:text-text-subtle mt-auto transition-colors w-full group/btn">
+                <span id="carousel-svc-explore-0">Découvrir le Service</span>
+                <i data-lucide="arrow-up-right" class="w-[14px] h-[14px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="motion-fade-in-up w-full bg-tertiary-bg rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-700 group mb-8 lg:mb-0 text-left relative shadow-2xl">
+            <div class="aspect-[16/10] overflow-hidden bg-primary-bg relative">
+              <img
+                src="https://www.haimourinternational.com/wp-content/uploads/2025/09/s3.jpg.webp"
+                class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+                alt="Central Paris / Suburbs"
+              />
+            </div>
+            <div class="p-6 md:p-8 flex flex-col h-[230px] md:h-[280px]">
+              <div class="mb-3 w-8 h-8 text-white bg-white/5 border border-white/10 rounded-lg flex items-center justify-center p-1.5 transition-all group-hover:bg-white/10 group-hover:border-white/20 shrink-0" id="icon-card-1"></div>
+              <h3 id="carousel-svc-title-1" class="text-white text-lg md:text-xl font-bold mb-2 tracking-tight leading-tight">
+                Paris Centre / Périphérie
+              </h3>
+              <p id="carousel-svc-desc-1" class="text-text-subtle text-xs sm:text-sm leading-relaxed mb-4 font-light flex-grow">
+                Déplacements intra-muros ou en banlieue : votre chauffeur privé à la demande.
+              </p>
+              <button class="flex items-center justify-between text-[13px] md:text-sm font-semibold text-white hover:text-text-subtle mt-auto transition-colors w-full group/btn">
+                <span id="carousel-svc-explore-1">Découvrir le Service</span>
+                <i data-lucide="arrow-up-right" class="w-[14px] h-[14px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="motion-fade-in-up w-full bg-tertiary-bg rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-700 group mb-8 lg:mb-0 text-left relative shadow-2xl">
+            <div class="aspect-[16/10] overflow-hidden bg-primary-bg relative">
+              <img
+                src="https://www.haimourinternational.com/wp-content/uploads/2025/09/luxury-vehicle-provided-for-a-private-airport-tran-2025-03-10-01-51-18-utc.jpg.webp"
+                class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+                alt="Sightseeing Tours"
+              />
+            </div>
+            <div class="p-6 md:p-8 flex flex-col h-[230px] md:h-[280px]">
+              <div class="mb-3 w-8 h-8 text-white bg-white/5 border border-white/10 rounded-lg flex items-center justify-center p-1.5 transition-all group-hover:bg-white/10 group-hover:border-white/20 shrink-0" id="icon-card-2"></div>
+              <h3 id="carousel-svc-title-2" class="text-white text-lg md:text-xl font-bold mb-2 tracking-tight leading-tight">
+                Visite Touristique
+              </h3>
+              <p id="carousel-svc-desc-2" class="text-text-subtle text-xs sm:text-sm leading-relaxed mb-4 font-light flex-grow">
+                Tour Eiffel, Versailles, Louvre : découvrez Paris et ses environs à votre rythme avec un chauffeur dédié.
+              </p>
+              <button class="flex items-center justify-between text-[13px] md:text-sm font-semibold text-white hover:text-text-subtle mt-auto transition-colors w-full group/btn">
+                <span id="carousel-svc-explore-2">Découvrir le Service</span>
+                <i data-lucide="arrow-up-right" class="w-[14px] h-[14px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="motion-fade-in-up w-full bg-tertiary-bg rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-700 group mb-8 lg:mb-0 text-left relative shadow-2xl">
+            <div class="aspect-[16/10] overflow-hidden bg-primary-bg relative">
+              <img
+                src="https://www.haimourinternational.com/wp-content/uploads/2025/09/s1.jpg.webp"
+                class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+                alt="Business"
+              />
+            </div>
+            <div class="p-6 md:p-8 flex flex-col h-[230px] md:h-[280px]">
+              <div class="mb-3 w-8 h-8 text-white bg-white/5 border border-white/10 rounded-lg flex items-center justify-center p-1.5 transition-all group-hover:bg-white/10 group-hover:border-white/20 shrink-0" id="icon-card-3"></div>
+              <h3 id="carousel-svc-title-3" class="text-white text-lg md:text-xl font-bold mb-2 tracking-tight leading-tight">
+                Déplacement affaires
+              </h3>
+              <p id="carousel-svc-desc-3" class="text-text-subtle text-xs sm:text-sm leading-relaxed mb-4 font-light flex-grow">
+                Solutions de transport dédiées pour cadres, réunions d'affaires et déplacements professionnels.
+              </p>
+              <button class="flex items-center justify-between text-[13px] md:text-sm font-semibold text-white hover:text-text-subtle mt-auto transition-colors w-full group/btn">
+                <span id="carousel-svc-explore-3">Découvrir le Service</span>
+                <i data-lucide="arrow-up-right" class="w-[14px] h-[14px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Onboard Experience Section -->
+    <section id="experience" class="relative py-24 md:py-32 bg-tertiary-bg overflow-hidden border-b border-white/5">
+      <!-- Discrete Background Effects -->
+      <div class="absolute inset-0 pointer-events-none z-0 opacity-40">
+        <!-- Soft Blooms -->
+        <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-white/[0.02] blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] bg-white/[0.015] blur-[180px] rounded-full"></div>
+        
+        <!-- Large Decorative Icon - Faint & Rotated -->
+        <div class="absolute -bottom-32 -right-32 opacity-[0.02] rotate-[15deg] scale-150">
+          <i data-lucide="star" class="w-[600px] h-[600px] text-white" stroke-width="0.3"></i>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-end mb-16 md:mb-24">
+          <!-- Section Header -->
+          <div class="flex flex-col items-start text-left">
+            <!-- Badge -->
+            <div class="motion-fade-in-up inline-flex items-center gap-3 mb-8 pl-1.5 pr-4 py-1.5 rounded-full border-2 border-white/30 bg-transparent shadow-inner w-fit backdrop-blur-sm">
+              <span class="flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
+                <i data-lucide="star" class="w-3.5 h-3.5 text-white"></i>
+              </span>
+              <span id="experience-badge" class="text-white text-[9px] font-bold uppercase tracking-[0.15em]">
+                Expérience à Bord
+              </span>
+            </div>
+
+            <!-- Main Heading Title -->
+            <h2 id="experience-heading" class="motion-fade-in-up font-display text-white text-5xl sm:text-5xl lg:text-3xl xl:text-6xl font-bold leading-[1.1] tracking-tight">
+              Confort Inégalé<br><span class="text-white/40">dans Chaque Détail</span>
+            </h2>
+          </div>
+
+          <!-- Description and specifications -->
+          <div class="motion-fade-in-up flex flex-col gap-6 lg:pl-10 border-l-0 lg:border-l border-white/10 text-left">
+            <p id="experience-description" class="text-text-subtle text-base md:text-lg font-light leading-relaxed">
+              Plongez dans un univers de sérénité où chaque détail est pensé pour votre bien-être. Nos véhicules sont équipés des dernières technologies pour transformer chaque trajet en une parenthèse de détente absolue.
+            </p>
+            <div class="flex flex-wrap gap-4 md:gap-8">
+              <div class="flex items-center gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-white/40"></div>
+                <span id="experience-spec-1" class="text-[10px] md:text-xs text-white/60 uppercase tracking-[0.2em] font-medium">
+                  Wi-Fi Haute Vitesse & Chargeurs
+                </span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-white/40"></div>
+                <span id="experience-spec-2" class="text-[10px] md:text-xs text-white/60 uppercase tracking-[0.2em] font-medium">
+                  Rafraîchissements & Presse à Bord
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          <!-- Card 1 -->
+          <article class="motion-fade-in-up group flex flex-col text-left">
+            <div id="experience-photo-1" class="aspect-[2/3] md:aspect-[2/3] rounded-3xl overflow-hidden border border-white/10 bg-primary-bg shadow-2xl relative will-change-transform">
+              <img
+                src="https://images.unsplash.com/photo-1629019878688-f5d58a41b188?auto=format&fit=crop&q=80&w=800"
+                class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+                alt="Divertissement"
+              />
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="motion-fade-in-up group flex flex-col text-left">
+            <div id="experience-photo-2" class="aspect-[2/3] md:aspect-[2/3] rounded-3xl overflow-hidden border border-white/10 bg-primary-bg shadow-2xl relative will-change-transform">
+              <img
+                src="https://images.unsplash.com/photo-1720731035872-7aa3708996c1?auto=format&fit=crop&q=80&w=800"
+                class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+                alt="Espace & Confort"
+              />
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="motion-fade-in-up group hidden md:flex flex-col text-left">
+            <div id="experience-photo-3" class="aspect-[2/3] md:aspect-[2/3] rounded-3xl overflow-hidden border border-white/10 bg-primary-bg shadow-2xl relative will-change-transform">
+              <img
+                src="https://prestige-transfer-london.com/transfer/mercedes-v-londone_web.jpg"
+                class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+                alt="Service Premium"
+              />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section id="fleet" class="py-24 md:py-32 bg-primary-bg overflow-hidden relative border-b border-white/5">
+      <!-- Background Atmosphere -->
+      <div class="absolute inset-0 pointer-events-none z-0">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-white/[0.01]"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 w-full relative z-10">
+        
+        <!-- Section Header -->
+        <div class="mb-12 lg:mb-20">
+          <div class="flex flex-col items-start text-left">
+            <!-- Badge -->
+            <div class="motion-fade-in-up inline-flex items-center gap-3 mb-8 pl-1.5 pr-4 py-1.5 rounded-full border-2 border-white/30 bg-transparent shadow-inner w-fit backdrop-blur-sm">
+              <span class="flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
+                <i data-lucide="car-front" class="w-3.5 h-3.5 text-white"></i>
+              </span>
+              <span id="fleet-badge" class="text-white text-[9px] font-bold uppercase tracking-[0.15em]">
+                Notre Flotte
+              </span>
+            </div>
+
+            <!-- Main Heading Title -->
+            <h2 id="fleet-heading" class="motion-fade-in-up font-display text-white text-3xl sm:text-3xl lg:text-5xl font-bold leading-[1.1] tracking-tight">
+              Confort & Fiabilité,<br><span class="text-white/40">Élégance Parisienne</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
+          
+          <!-- Selector -->
+          <div class="w-full lg:w-1/4 flex lg:flex-col gap-2 lg:gap-0 border-b lg:border-b-0 lg:border-l border-white/10 pb-4 lg:pb-0 lg:pl-6 order-2 lg:order-1 overflow-x-auto lg:overflow-x-visible hide-scrollbar whitespace-nowrap lg:whitespace-normal">
+            
+            <!-- Vehicle Selector Item 0 -->
+            <button
+              onclick="setVehicle(0)"
+              id="fleet-btn-0"
+              class="group relative flex-shrink-0 lg:flex-shrink py-3 px-4 lg:px-0 lg:py-4 text-left transition-all duration-500 text-white"
+            >
+              <!-- Indicator Line -->
+              <div id="fleet-indicator-0" class="absolute left-0 bottom-0 lg:bottom-auto lg:top-0 w-full lg:w-[2px] h-[2px] lg:h-full bg-white"></div>
+              
+              <div class="flex flex-row lg:items-baseline gap-1 lg:gap-3 lg:pl-6">
+                <span id="fleet-num-0" class="text-[9px] font-mono opacity-40">01</span>
+                <h4 id="fleet-selector-name-0" class="text-xs sm:text-sm lg:text-lg font-display font-medium uppercase tracking-wider whitespace-nowrap">
+                  Berline
+                </h4>
+              </div>
+            </button>
+
+            <!-- Vehicle Selector Item 1 -->
+            <button
+              onclick="setVehicle(1)"
+              id="fleet-btn-1"
+              class="group relative flex-shrink-0 lg:flex-shrink py-3 px-4 lg:px-0 lg:py-4 text-left transition-all duration-500 text-white/25 hover:text-white/50"
+            >
+              <!-- Indicator Line -->
+              <div id="fleet-indicator-1" class="absolute left-0 bottom-0 lg:bottom-auto lg:top-0 w-full lg:w-[2px] h-[2px] lg:h-full bg-white hidden"></div>
+              
+              <div class="flex flex-row lg:items-baseline gap-1 lg:gap-3 lg:pl-6">
+                <span id="fleet-num-1" class="text-[9px] font-mono opacity-40">02</span>
+                <h4 id="fleet-selector-name-1" class="text-xs sm:text-sm lg:text-lg font-display font-medium uppercase tracking-wider whitespace-nowrap">
+                  Business
+                </h4>
+              </div>
+            </button>
+
+            <!-- Vehicle Selector Item 2 -->
+            <button
+              onclick="setVehicle(2)"
+              id="fleet-btn-2"
+              class="group relative flex-shrink-0 lg:flex-shrink py-3 px-4 lg:px-0 lg:py-4 text-left transition-all duration-500 text-white/25 hover:text-white/50"
+            >
+              <!-- Indicator Line -->
+              <div id="fleet-indicator-2" class="absolute left-0 bottom-0 lg:bottom-auto lg:top-0 w-full lg:w-[2px] h-[2px] lg:h-full bg-white hidden"></div>
+              
+              <div class="flex flex-row lg:items-baseline gap-1 lg:gap-3 lg:pl-6">
+                <span id="fleet-num-2" class="text-[9px] font-mono opacity-40">03</span>
+                <h4 id="fleet-selector-name-2" class="text-xs sm:text-sm lg:text-lg font-display font-medium uppercase tracking-wider whitespace-nowrap">
+                  Van
+                </h4>
+              </div>
+            </button>
+
+          </div>
+
+          <!-- Immersive Showcase Stage -->
+          <div class="w-full lg:w-3/4 relative flex-1 lg:flex-none min-h-0 order-1 lg:order-2">
+            
+            <div id="fleet-stage" class="w-full h-full flex flex-col">
+              <!-- The "White Stage" -->
+              <div class="relative w-full aspect-[16/9] lg:aspect-[21/9] bg-white rounded-[1.5rem] lg:rounded-[3rem] overflow-hidden flex items-center justify-center p-6 lg:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
+                <!-- Subtle Gradient Shadow within white area -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-zinc-200/50 to-transparent pointer-events-none"></div>
+                
+                <img
+                  id="fleet-img"
+                  src="https://mcslimo.fr/wp-content/uploads/2023/04/eclass.png"
+                  class="w-full max-w-[90%] h-auto object-contain relative z-10 transition-all duration-700 ease-out transform scale-100 opacity-100"
+                  referrerPolicy="no-referrer"
+                  alt="Berline"
+                />
+
+                <!-- Floating Class Tag (Over White) -->
+                <div class="absolute top-4 right-6 lg:top-8 lg:right-10">
+                  <span id="fleet-item-class" class="text-[8px] lg:text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">
+                    Berline Confort Classe Standard
+                  </span>
+                </div>
+
+                <!-- Ghost Label in background of white area -->
+                <div class="absolute left-6 bottom-4 lg:left-10 lg:bottom-10 pointer-events-none select-none opacity-[0.03]">
+                  <span id="fleet-ghost-label" class="text-[10vw] font-display font-black text-black leading-none">
+                    berline
+                  </span>
+                </div>
+              </div>
+
+              <!-- Sub-stage info - Compact Row -->
+              <div class="mt-4 lg:mt-8 flex flex-wrap lg:flex-nowrap items-center justify-between gap-4 text-left">
+                <!-- Stats Row -->
+                <div class="flex gap-6 items-center">
+                  
+                  <div class="flex items-center gap-3">
+                    <div class="p-2 lg:p-3 rounded-full bg-white/5 border border-white/10">
+                      <i data-lucide="user" class="w-3.5 h-3.5 text-white/60"></i>
+                    </div>
+                    <div class="flex flex-col">
+                      <span id="fleet-pax" class="text-white text-xs lg:text-sm font-bold">3 passagers</span>
+                      <span class="text-[8px] text-white/30 uppercase tracking-widest font-bold">PAX</span>
+                    </div>
+                  </div>
+
+                  <div class="w-px h-6 bg-white/10"></div>
+
+                  <div class="flex items-center gap-3">
+                    <div class="p-2 lg:p-3 rounded-full bg-white/5 border border-white/10">
+                      <i data-lucide="briefcase" class="w-3.5 h-3.5 text-white/60"></i>
+                    </div>
+                    <div class="flex flex-col">
+                      <span id="fleet-bag" class="text-white text-xs lg:text-sm font-bold">2 bagages</span>
+                      <span class="text-[8px] text-white/30 uppercase tracking-widest font-bold">LUGGAGE</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Action Button -->
+                <a
+                  href="tel:+33662284837"
+                  class="flex items-center gap-4 bg-white text-black px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold uppercase text-[8px] lg:text-[10px] tracking-[0.2em] hover:scale-105 transition-all duration-300 shadow-xl"
+                >
+                  <span id="fleet-select-btn-text">Sélectionner</span>
+                  <i data-lucide="navigation" class="w-3.5 h-3.5 fill-black"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="reviews" class="py-24 md:py-32 bg-secondary-bg overflow-hidden border-t border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-3 sm:px-5 md:px-6">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col items-center text-center mb-16 md:mb-24">
+          <!-- Badge -->
+          <div class="motion-fade-in-up inline-flex items-center gap-3 mb-8 pl-1.5 pr-4 py-1.5 rounded-full border-2 border-white/30 bg-transparent shadow-inner w-fit backdrop-blur-sm">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-white"></i>
+            </span>
+            <span id="reviews-badge" class="text-white text-[9px] font-bold uppercase tracking-[0.15em]">
+              Témoignages
+            </span>
+          </div>
+
+          <!-- Main Heading Title -->
+          <h2 id="reviews-heading" class="motion-fade-in-up font-display text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight">
+            Ce que Disent Nos Clients
+          </h2>
+        </div>
+
+        <!-- Reviews Grid -->
+        <div class="grid md:grid-cols-3 gap-10 md:gap-14">
+          <!-- Review 1 -->
+          <div class="motion-fade-in-up bg-card-bg p-10 md:p-14 rounded-[3rem] border border-white/5 flex flex-col group hover:border-white/20 transition-all duration-700 shadow-xl text-left">
+            <div class="flex items-center gap-1 mb-10 transition-transform duration-500 group-hover:scale-105">
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+            </div>
+            <p id="rev-quote-0" class="text-white text-lg md:text-xl leading-relaxed mb-12 font-light italic flex-grow">
+              "Prestation de qualité. Sérieux, ponctuel et agréable. Je recommande fortement."
+            </p>
+            <div class="flex items-center gap-6 mt-auto">
+              <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-white transition-all duration-700 group-hover:bg-white group-hover:text-black shadow-lg">
+                CN
+              </div>
+              <div class="flex flex-col">
+                <span class="text-white text-base font-bold block tracking-tight">C N-S</span>
+                <span id="rev-month-0" class="text-text-subtle text-[10px] uppercase font-bold tracking-[0.1em] mt-1">Novembre 2025</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="motion-fade-in-up bg-card-bg p-10 md:p-14 rounded-[3rem] border border-white/5 flex flex-col group hover:border-white/20 transition-all duration-700 shadow-xl text-left">
+            <div class="flex items-center gap-1 mb-10 transition-transform duration-500 group-hover:scale-105">
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+            </div>
+            <p id="rev-quote-1" class="text-white text-lg md:text-xl leading-relaxed mb-12 font-light italic flex-grow">
+              "Elie est une personne de confiance. Très fiable et extrêmement ponctuel."
+            </p>
+            <div class="flex items-center gap-6 mt-auto">
+              <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-white transition-all duration-700 group-hover:bg-white group-hover:text-black shadow-lg">
+                GS
+              </div>
+              <div class="flex flex-col">
+                <span class="text-white text-base font-bold block tracking-tight">Gabriele Schindeler</span>
+                <span id="rev-month-1" class="text-text-subtle text-[10px] uppercase font-bold tracking-[0.1em] mt-1">Novembre 2025</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="motion-fade-in-up bg-card-bg p-10 md:p-14 rounded-[3rem] border border-white/5 flex flex-col group hover:border-white/20 transition-all duration-700 shadow-xl text-left">
+            <div class="flex items-center gap-1 mb-10 transition-transform duration-500 group-hover:scale-105">
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+              <i data-lucide="star" class="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]"></i>
+            </div>
+            <p id="rev-quote-2" class="text-white text-lg md:text-xl leading-relaxed mb-12 font-light italic flex-grow">
+              "Service excellent et très serviable et sérieux."
+            </p>
+            <div class="flex items-center gap-6 mt-auto">
+              <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-white transition-all duration-700 group-hover:bg-white group-hover:text-black shadow-lg">
+                MA
+              </div>
+              <div class="flex flex-col">
+                <span class="text-white text-base font-bold block tracking-tight">Mohamed Ali Bedoui</span>
+                <span id="rev-month-2" class="text-text-subtle text-[10px] uppercase font-bold tracking-[0.1em] mt-1">Novembre 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="fleet-faq" class="py-24 md:py-32 relative overflow-hidden bg-tertiary-bg border-y border-white/5">
+      <div class="max-w-4xl mx-auto px-3 sm:px-4 md:px-5 relative z-10 flex flex-col items-center">
+        <!-- Section Header -->
+        <div class="flex flex-col items-center text-center mb-16 md:mb-24">
+          <!-- Badge -->
+          <div class="motion-fade-in-up inline-flex items-center gap-3 mb-8 pl-1.5 pr-4 py-1.5 rounded-full border-2 border-white/30 bg-transparent shadow-inner w-fit backdrop-blur-sm">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
+              <i data-lucide="car-front" class="w-3.5 h-3.5 text-white"></i>
+            </span>
+            <span class="text-white text-[9px] font-bold uppercase tracking-[0.15em]">
+              FAQ
+            </span>
+          </div>
+
+          <!-- Main Heading Title -->
+          <h2 id="faq-heading" class="motion-fade-in-up font-display text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight">
+            Questions Fréquentes
+          </h2>
+        </div>
+
+        <div class="w-full text-left mt-8 md:mt-12 border-t border-white/10">
+          
+          <!-- FAQ Item 1 -->
+          <div class="group border-b border-white/10">
+            <button
+              onclick="toggleFaqAccordion(0)"
+              class="w-full py-6 md:py-8 flex items-start justify-between text-left transition-colors duration-500 rounded-xl"
+            >
+              <div class="flex flex-col pr-4">
+                <h3 id="faq-q-0" class="text-lg md:text-xl tracking-tight transition-all duration-500 text-white/55 font-medium">
+                  Jusqu'où pouvez-vous effectuer des transferts ?
+                </h3>
+              </div>
+              
+              <div id="faq-plus-pod-0" class="mt-1 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-500 bg-white/5 border-white/10 text-white flex-shrink-0">
+                <i data-lucide="plus" class="w-3.5 h-3.5" stroke-width="1.5"></i>
+              </div>
+            </button>
+
+            <div id="faq-content-0" class="accordion-content">
+              <div class="pr-12 pb-8">
+                <p id="faq-a-0" class="text-text-subtle text-sm md:text-base font-light leading-relaxed max-w-2xl">
+                  Nous desservons toute l'Île-de-France (CDG, Orly, Disneyland, Versailles) et pouvons également assurer des trajets plus longs vers la Normandie, les Châteaux de la Loire ou d'autres villes sur demande.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="group border-b border-white/10">
+            <button
+              onclick="toggleFaqAccordion(1)"
+              class="w-full py-6 md:py-8 flex items-start justify-between text-left transition-colors duration-500 rounded-xl"
+            >
+              <div class="flex flex-col pr-4">
+                <h3 id="faq-q-1" class="text-lg md:text-xl tracking-tight transition-all duration-500 text-white/55 font-medium">
+                  Comment se passe l'accueil à l'aéroport ou à la gare ?
+                </h3>
+              </div>
+              
+              <div id="faq-plus-pod-1" class="mt-1 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-500 bg-white/5 border-white/10 text-white flex-shrink-0">
+                <i data-lucide="plus" class="w-3.5 h-3.5" stroke-width="1.5"></i>
+              </div>
+            </button>
+
+            <div id="faq-content-1" class="accordion-content">
+              <div class="pr-12 pb-8">
+                <p id="faq-a-1" class="text-text-subtle text-sm md:text-base font-light leading-relaxed max-w-2xl">
+                  Votre chauffeur vous attend à la sortie des bagages avec une pancarte à votre nom. Il vous aide pour vos valises et vous guide jusqu'au véhicule.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="group border-b border-white/10">
+            <button
+              onclick="toggleFaqAccordion(2)"
+              class="w-full py-6 md:py-8 flex items-start justify-between text-left transition-colors duration-500 rounded-xl"
+            >
+              <div class="flex flex-col pr-4">
+                <h3 id="faq-q-2" class="text-lg md:text-xl tracking-tight transition-all duration-500 text-white/55 font-medium">
+                  Les tarifs sont-ils fixes ?
+                </h3>
+              </div>
+              
+              <div id="faq-plus-pod-2" class="mt-1 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-500 bg-white/5 border-white/10 text-white flex-shrink-0">
+                <i data-lucide="plus" class="w-3.5 h-3.5" stroke-width="1.5"></i>
+              </div>
+            </button>
+
+            <div id="faq-content-2" class="accordion-content">
+              <div class="pr-12 pb-8">
+                <p id="faq-a-2" class="text-text-subtle text-sm md:text-base font-light leading-relaxed max-w-2xl">
+                  Oui, tous nos prix sont fixes et annoncés à l'avance. Aucun supplément n'est appliqué pour le trafic ou les bagages.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="group border-b border-white/10">
+            <button
+              onclick="toggleFaqAccordion(3)"
+              class="w-full py-6 md:py-8 flex items-start justify-between text-left transition-colors duration-500 rounded-xl"
+            >
+              <div class="flex flex-col pr-4">
+                <h3 id="faq-q-3" class="text-lg md:text-xl tracking-tight transition-all duration-500 text-white/55 font-medium">
+                  Que se passe-t-il si mon vol ou mon train est en retard ?
+                </h3>
+              </div>
+              
+              <div id="faq-plus-pod-3" class="mt-1 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-500 bg-white/5 border-white/10 text-white flex-shrink-0">
+                <i data-lucide="plus" class="w-3.5 h-3.5" stroke-width="1.5"></i>
+              </div>
+            </button>
+
+            <div id="faq-content-3" class="accordion-content">
+              <div class="pr-12 pb-8">
+                <p id="faq-a-3" class="text-text-subtle text-sm md:text-base font-light leading-relaxed max-w-2xl">
+                  Nous suivons votre trajet en temps réel. En cas de retard, votre chauffeur ajuste son arrivée gratuitement pour vous attendre sans supplément de prix.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Inject service card icons
+    const cardIconsSVG = {
+      'icon-card-0': '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4c-2 0-4 1-4 1L8.8 6.2C7 6 5 7 4 9l-1 3c0 1 .3 2 1 2l3 1 1 3c0 .7 1 1 2 1l3-1c2-1 3-3 2.8-5l6.8-1.8c1 0 1.2-1 0-2.2z"/></svg>',
+      'icon-card-1': '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+      'icon-card-2': '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>',
+      'icon-card-3': '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    };
+    Object.entries(cardIconsSVG).forEach(([id, svg]) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = svg;
+    });
+
+    // Multilingual Translations Dictionary
+    const translations = {
+      fr: {
+        hero_title1: "VOTRE CHAUFFEUR PRIVÉ",
+        hero_title2: "À PARIS ET EN FRANCE",
+        scroll: "Scroll",
+        about_label: "Expertise",
+        about_title: "Une Expérience de Transport Exceptionnelle",
+        about_desc: "Elie Chauffeur propose des services de chauffeur privé sur mesure : <span class='text-white font-bold'>location de véhicule avec chauffeur</span>, transferts aéroports et gares, visites touristiques et déplacements professionnels à Paris et en Ile-de-France.",
+        about_feat1_title: "Service Attentionné",
+        about_feat1_desc: "Nos chauffeurs allient courtoisie et professionnalisme, veillant à votre confort du début à la fin.",
+        about_feat2_title: "Ponctualité Absolue",
+        about_feat2_desc: "Nous surveillons le trafic en temps réel et ajustons nos itinéraires pour que vous arriviez toujours à l’heure.",
+        about_callout: "Optez pour Elie Chauffeur, votre allié de confiance pour tous vos déplacements à Paris. Que vous soyez un particulier ou un professionnel, nous adaptons nos services à vos exigences afin de vous proposer une expérience premium.",
+        hero_cta1: "Réserver un Chauffeur",
+        
+        // Onboard Experience
+        feat_label: "Expérience à Bord",
+        feat_title1: "Confort Inégalé",
+        feat_title2: "dans Chaque Détail",
+        feat_desc: "Plongez dans un univers de sérénité où chaque détail est pensé pour votre bien-être. Nos véhicules sont équipés des dernières technologies pour transformer chaque trajet en une parenthèse de détente absolue.",
+        feat_spec1: "Wi-Fi Haute Vitesse & Chargeurs",
+        feat_spec2: "Rafraîchissements & Presse à Bord",
+        feat1_title: "Divertissement",
+        feat1_desc: "Système audio premium, connectivité complète : transformez vos trajets en moments de détente.",
+        feat2_title: "Espace & Confort",
+        feat2_desc: "Sièges en cuir, éclairage d'ambiance et grand coffre : voyagez sans contraintes.",
+        feat3_title: "Premium Services",
+        feat3_desc: "Chargeurs sans fil, eau et rafraîchissements : profitez d'un service 5 étoiles à bord.",
+        
+        // Services
+        svc_label: "Services",
+        svc_title: "Nos solutions de transport sur mesure conçues pour chaque occasion.",
+        svc_sub: "Nos solutions de transport sur mesure conçues pour chaque occasion.",
+        svc_explore: "Découvrir le Service",
+        svc1_title: "Transferts Gares & Aéroports",
+        svc1_desc: "CDG, Orly, Gare du Nord, Gare de Lyon : prise en charge ponctuelle à toute heure.",
+        svc2_title: "Paris Centre / Périphérie",
+        svc2_desc: "Déplacements intra-muros ou en banlieue : votre chauffeur privé à la demande.",
+        svc3_title: "Visite Touristique",
+        svc3_desc: "Tour Eiffel, Versailles, Louvre : découvrez Paris et ses environs à votre rythme avec un chauffeur dédié.",
+        svc4_title: "Business",
+        svc4_desc: "Solutions de transport dédiées pour cadres, réunions d'affaires et déplacements professionnels.",
+        
+        // Fleet
+        fleet_label: "Notre Flotte",
+        fleet_title1: "Confort & Fiabilité,",
+        fleet_title2: "Élégance Parisienne",
+        v1_name: "Berline",
+        v1_class: "Berline Confort Classe Standard",
+        v1_pax: "3 passagers",
+        v1_bag: "2 bagages",
+        fleet_select: "Sélectionner",
+        v2_name: "Business",
+        v2_class: "Berline Premium Classe Affaires",
+        v2_pax: "3 passagers",
+        v2_bag: "3 bagages",
+        v3_name: "Van",
+        v3_class: "Grand Espace Groupe & Bagages",
+        v3_pax: "7 passagers",
+        v3_bag: "6 bagages",
+        
+        // Navbar trans
+        nav_services: "Services",
+        nav_experience: "Expérience à Bord",
+        nav_fleet: "Flotte",
+        nav_faq: "FAQ",
+        nav_corporate: "Transferts",
+        nav_contact: "Contact",
+        nav_cta: "Réservation",
+        
+        // Sub-menus
+        nav_sub_airports: "Gares & Aéroports",
+        nav_sub_paris: "Paris Centre / Périphérie",
+        nav_sub_tours: "Visite Touristique",
+        nav_sub_business: "Business",
+        nav_sub_berline: "Berline",
+        nav_sub_business_vehicle: "Business",
+        nav_sub_van: "Van",
+        nav_sub_paris_cdg: "Transfert Paris → CDG",
+        nav_sub_cdg_paris: "Transfert CDG → Paris",
+        nav_sub_orly_paris: "Transfert Orly → Paris",
+        nav_sub_paris_disney: "Transfert Paris → Disneyland",
+        
+        // Fleet FAQ
+        fleet_faq_title: "Questions Fréquentes",
+        fleet_faq_q1: "Jusqu'où pouvez-vous effectuer des transferts ?",
+        fleet_faq_a1: "Nous desservons toute l'Île-de-France (CDG, Orly, Disneyland, Versailles) et pouvons également assurer des trajets plus longs vers la Normandie, les Châteaux de la Loire ou d'autres villes sur demande.",
+        fleet_faq_q2: "Comment se passe l'accueil à l'aéroport ou à la gare ?",
+        fleet_faq_a2: "Votre chauffeur vous attend à la sortie des bagages avec une pancarte à votre nom. Il vous aide pour vos valises et vous guide jusqu'au véhicule.",
+        fleet_faq_q3: "Les tarifs sont-ils fixes ?",
+        fleet_faq_a3: "Oui, tous nos prix sont fixes et annoncés à l'avance. Aucun supplément n'est appliqué pour le trafic ou les bagages.",
+        fleet_faq_q4: "Que se passe-t-il si mon vol ou mon train est en retard ?",
+        fleet_faq_a4: "Nous suivons votre trajet en temps réel. En cas de retard, votre chauffeur ajuste son arrivée gratuitement pour vous attendre sans supplément de prix.",
+
+        // Testimonials
+        rev_label: "Témoignages",
+        rev_title: "Ce que Disent Nos Clients",
+        rev1_quote: "\"Prestation de qualité. Sérieux, ponctuel et agréable. Je recommande fortement.\"",
+        rev2_quote: "\"Elie est une personne de confiance. Très fiable et extrêmement ponctuel. Nous avons fait plusieurs courses avec lui pour nous rendre à l'aéroport avec nos enfants en bas âge. En plus d'être à l'heure il est également très sympathique et disponible. Je le recommande sans hésitation.\"",
+        rev3_quote: "\"Service excellent et très serviable et sérieux.\"",
+        rev_month: "Novembre 2025"
+      },
+      en: {
+        hero_title1: "YOUR PRIVATE CHAUFFEUR",
+        hero_title2: "IN PARIS AND IN FRANCE",
+        scroll: "Scroll",
+        about_label: "Expertise",
+        about_title: "An Exceptional Transport Experience",
+        about_desc: "Elie Chauffeur offers bespoke private chauffeur services: <span class='text-white font-bold'>chauffeur-driven vehicle hire</span>, airport and station transfers, sightseeing tours and business travel in Paris and the Ile-de-France region.",
+        about_feat1_title: "Attentive Service",
+        about_feat1_desc: "Our chauffeurs combine courtesy and professionalism, ensuring your comfort from start to finish.",
+        about_feat2_title: "Absolute Punctuality",
+        about_feat2_desc: "We monitor traffic in real time and adjust routes accordingly, so you always arrive on time.",
+        about_callout: "Choose Elie Chauffeur, your trusted partner for all your journeys in Paris. Whether you are an individual or a professional, we tailor our services to your needs to offer you a premium experience.",
+        hero_cta1: "Book a Chauffeur",
+        
+        // Onboard Experience
+        feat_label: "Onboard Experience",
+        feat_title1: "Unmatched Comfort",
+        feat_title2: "in Every Detail",
+        feat_desc: "Immerse yourself in a world of serenity where every detail is designed for your well-being. Our vehicles are equipped with the latest technologies to transform every journey into a moment of absolute relaxation.",
+        feat_spec1: "High-Speed Wi-Fi & Charging",
+        feat_spec2: "Refreshments & Press Onboard",
+        feat1_title: "Entertainment",
+        feat1_desc: "Premium audio system and full connectivity: turn your journey into a moment of relaxation.",
+        feat2_title: "Space & Comfort",
+        feat2_desc: "Leather seats, ambient lighting and a spacious trunk: travel without constraints.",
+        feat3_title: "Premium Services",
+        feat3_desc: "Wireless chargers, water and refreshments: enjoy a five-star onboard service.",
+        
+        // Services
+        svc_label: "Services",
+        svc_title: "Our tailor-made transport solutions designed for every occasion.",
+        svc_sub: "Our tailor-made transport solutions designed for every occasion.",
+        svc_explore: "Explore Service",
+        svc1_title: "Station & Airport Transfers",
+        svc1_desc: "CDG, Orly, Gare du Nord, Gare de Lyon: punctual pickup at any time.",
+        svc2_title: "Central Paris / Suburbs",
+        svc2_desc: "Inner-city or suburban travel: your private chauffeur on demand.",
+        svc3_title: "Sightseeing Tours",
+        svc3_desc: "Eiffel Tower, Versailles, Louvre: discover Paris and its surroundings at your own pace with a dedicated chauffeur.",
+        svc4_title: "Business",
+        svc4_desc: "Dedicated transport solutions for executives, business meetings and professional travel.",
+        
+        // Fleet
+        fleet_label: "Our Fleet",
+        fleet_title1: "Comfort & Reliability,",
+        fleet_title2: "Parisian Elegance",
+        v1_name: "Sedan",
+        v1_class: "Comfort Sedan Standard Class",
+        v1_pax: "3 passengers",
+        v1_bag: "2 bags",
+        fleet_select: "Select",
+        v2_name: "Business",
+        v2_class: "Premium Sedan Business Class",
+        v2_pax: "3 passengers",
+        v2_bag: "3 bags",
+        v3_name: "Van",
+        v3_class: "Spacious for Groups & Luggage",
+        v3_pax: "7 passengers",
+        v3_bag: "6 bags",
+        
+        // Navbar trans
+        nav_services: "Services",
+        nav_experience: "Onboard Experience",
+        nav_fleet: "Fleet",
+        nav_faq: "FAQ",
+        nav_corporate: "Transfers",
+        nav_contact: "Contact",
+        nav_cta: "Booking",
+        
+        // Sub-menus
+        nav_sub_airports: "Gares & Aéroports",
+        nav_sub_paris: "Central Paris / Suburbs",
+        nav_sub_tours: "Sightseeing Tours",
+        nav_sub_business: "Business",
+        nav_sub_berline: "Sedan",
+        nav_sub_business_vehicle: "Business",
+        nav_sub_van: "Van",
+        nav_sub_paris_cdg: "Transfer Paris → CDG",
+        nav_sub_cdg_paris: "Transfer CDG → Paris",
+        nav_sub_orly_paris: "Transfer Orly → Paris",
+        nav_sub_paris_disney: "Transfer Paris → Disneyland",
+        
+        // Fleet FAQ
+        fleet_faq_title: "Frequently Asked Questions",
+        fleet_faq_q1: "How far can you perform transfers?",
+        fleet_faq_a1: "We serve all of Île-de-France (CDG, Orly, Disneyland, Versailles) and can also provide longer trips to Normandy, the Loire Valley castles, or other cities upon request.",
+        fleet_faq_q2: "How does the pickup at the airport or station work?",
+        fleet_faq_a2: "Your chauffeur waits for you at the baggage claim exit with a sign with your name. They help with your suitcases and guide you to the vehicle.",
+        fleet_faq_q3: "Are the rates fixed?",
+        fleet_faq_a3: "Yes, all our prices are fixed and quoted in advance. No surcharges are applied for traffic or luggage.",
+        fleet_faq_q4: "What happens if my flight or train is delayed?",
+        fleet_faq_a4: "We track your journey in real-time. In case of delay, your chauffeur adjusts their arrival for free to wait for you with no extra charge.",
+
+        // Testimonials
+        rev_label: "Testimonials",
+        rev_title: "What Our Clients Say",
+        rev1_quote: "\"High-quality service. Professional, punctual and pleasant. I highly recommend it.\"",
+        rev2_quote: "\"Elie is someone you can trust. Very reliable and extremely punctual. We used his service several times to get to the airport with our young children. In addition to being on time, he is also very friendly and available. I recommend him without hesitation.\"",
+        rev3_quote: "\"Excellent service, very helpful and serious.\"",
+        rev_month: "November 2025"
+      }
+    };
+
+    let currentLang = 'fr';
+
+    // Fleet Vehicles Data
+    const vehicles = [
+      {
+        id: 'vehicle-berline',
+        img: "https://mcslimo.fr/wp-content/uploads/2023/04/eclass.png",
+        ghost: "berline"
+      },
+      {
+        id: 'vehicle-business',
+        img: "https://mcslimo.fr/wp-content/uploads/2023/04/sclass.png",
+        ghost: "business"
+      },
+      {
+        id: 'vehicle-van',
+        img: "https://mcslimo.fr/wp-content/uploads/2023/04/vclass.png",
+        ghost: "van"
+      }
+    ];
+
+    let activeVehicleIndex = 0;
+
+    function setVehicle(index) {
+      activeVehicleIndex = index;
+      
+      const imgEl = document.getElementById('fleet-img');
+      const ghostEl = document.getElementById('fleet-ghost-label');
+      
+      // Smooth scale-down fade-out and fade-in transition
+      if (imgEl) {
+        imgEl.style.transform = 'scale(0.95)';
+        imgEl.style.opacity = 'x'; // Trigger hardware acceleration
+        imgEl.classList.remove('scale-100', 'opacity-100');
+        imgEl.classList.add('scale-95', 'opacity-0');
+      }
+      
+      setTimeout(() => {
+        const vehicle = vehicles[index];
+        const t = translations[currentLang];
+        
+        if (imgEl) {
+          imgEl.src = vehicle.img;
+          imgEl.classList.remove('scale-95', 'opacity-0');
+          imgEl.classList.add('scale-100', 'opacity-100');
+          imgEl.style.transform = 'scale(1)';
+        }
+        
+        if (ghostEl) {
+          ghostEl.innerText = vehicle.ghost;
+        }
+        
+        // Update texts from translation dictionary
+        const classEl = document.getElementById('fleet-item-class');
+        const paxEl = document.getElementById('fleet-pax');
+        const bagEl = document.getElementById('fleet-bag');
+        
+        if (classEl) classEl.innerText = t[`v${index+1}_class`];
+        if (paxEl) paxEl.innerText = t[`v${index+1}_pax`];
+        if (bagEl) bagEl.innerText = t[`v${index+1}_bag`];
+      }, 300);
+
+      // Handle selector button styling and bottom lines
+      const isLight = document.documentElement.classList.contains('light');
+      for (let i = 0; i < 3; i++) {
+        const btn = document.getElementById(`fleet-btn-${i}`);
+        const indicator = document.getElementById(`fleet-indicator-${i}`);
+        
+        if (i === index) {
+          if (btn) btn.className = `group relative flex-shrink-0 lg:flex-shrink py-3 px-4 lg:px-0 lg:py-4 text-left transition-all duration-500 ${isLight ? 'text-black font-extrabold' : 'text-white'}`;
+          if (indicator) {
+            indicator.className = `absolute left-0 bottom-0 lg:bottom-auto lg:top-0 w-full lg:w-[2px] h-[2px] lg:h-full ${isLight ? 'bg-black' : 'bg-white'}`;
+            indicator.classList.remove('hidden');
+          }
+        } else {
+          if (btn) btn.className = `group relative flex-shrink-0 lg:flex-shrink py-3 px-4 lg:px-0 lg:py-4 text-left transition-all duration-500 ${isLight ? 'text-black/30 hover:text-black/60' : 'text-white/25 hover:text-white/50'}`;
+          if (indicator) indicator.classList.add('hidden');
+        }
+      }
+    }
+
+    // Slide images (Single main image configuration)
+    const images = [
+      "https://www.haimourinternational.com/wp-content/uploads/2025/09/transport-delegation.webp"
+    ];
+    let currentSlide = 0;
+
+    function setSlide(index) {
+      currentSlide = index;
+      const imgEl = document.getElementById('carousel-image');
+      if (!imgEl) return;
+      
+      // Smooth fade-out and fade-in transition
+      imgEl.style.opacity = '0';
+      setTimeout(() => {
+        imgEl.src = images[index] || images[0];
+        imgEl.style.opacity = '1';
+      }, 500);
+
+      // Bullet focus management (safe guard helper)
+      for (let i = 0; i < images.length; i++) {
+        const bullet = document.getElementById(`bullet-${i}`);
+        if (bullet) {
+          if (i === index) {
+            bullet.className = "w-2.5 h-2.5 rounded-full transition-all duration-500 bg-white scale-125";
+          } else {
+            bullet.className = "w-2.5 h-2.5 rounded-full transition-all duration-500 bg-white/20";
+          }
+        }
+      }
+    }
+
+    // Scroll auxiliary function
+    function scrollToAbout() {
+      document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Collapsible features logic
+    let expandedIndex = null;
+    function toggleAccordion(index) {
+      // Disabled: Features are permanently expanded.
+    }
+
+    function updateAccordionUI() {
+      const isLight = document.documentElement.classList.contains('light');
+      for (let i = 0; i < 2; i++) {
+        const iconPod = document.getElementById(`icon-pod-${i}`);
+        const titleText = document.getElementById(`feat-title-${i}`);
+        const contentContainer = document.getElementById(`accordion-content-${i}`);
+
+        if (iconPod) {
+          iconPod.className = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-full transition-all duration-700 shadow-xl bg-green-600 text-white";
+        }
+        if (titleText) {
+          titleText.className = `text-lg md:text-base font-extrabold tracking-tighter transition-all duration-500 ${isLight ? 'text-black' : 'text-white'} translate-x-1`;
+        }
+        if (contentContainer) {
+          contentContainer.classList.add('expanded');
+        }
+      }
+    }
+
+    // Collapsible Services Section Logic
+    let expandedServiceIndex = 0;
+    function toggleServiceAccordion(index) {
+      if (expandedServiceIndex === index) {
+        expandedServiceIndex = null;
+      } else {
+        expandedServiceIndex = index;
+      }
+      updateServiceAccordionUI();
+    }
+
+    function updateServiceAccordionUI() {
+      const isLight = document.documentElement.classList.contains('light');
+      for (let i = 0; i < 4; i++) {
+        const iconPod = document.getElementById(`svc-icon-pod-${i}`);
+        const titleText = document.getElementById(`svc-title-${i}`);
+        const contentContainer = document.getElementById(`svc-accordion-content-${i}`);
+        const plusPod = document.getElementById(`svc-plus-pod-${i}`);
+        const plusIcon = document.getElementById(`svc-plus-icon-${i}`);
+        const imgEl = document.getElementById(`svc-img-${i}`);
+
+        if (expandedServiceIndex === i) {
+          if (iconPod) iconPod.className = `w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl transition-all duration-700 shadow-xl ${isLight ? 'bg-black text-white' : 'bg-white text-black'} -rotate-6`;
+          if (titleText) titleText.className = `text-xl md:text-lg font-extrabold tracking-tighter transition-all duration-500 flex-1 ${isLight ? 'text-black' : 'text-white'} translate-x-1`;
+          if (contentContainer) contentContainer.classList.add('expanded');
+          if (plusPod) plusPod.className = `w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${isLight ? 'bg-black text-white' : 'bg-white text-black'} rotate-45 scale-110`;
+          if (plusIcon) plusIcon.className = "w-[18px] h-[18px] transition-transform duration-500 rotate-45";
+          if (imgEl) {
+            imgEl.className = "absolute inset-0 w-full h-full object-cover transition-all duration-1000 opacity-100 scale-100";
+          }
+        } else {
+          if (iconPod) iconPod.className = `w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl transition-all duration-700 shadow-xl ${isLight ? 'bg-black/5 text-black' : 'bg-white/5 text-white'}`;
+          if (titleText) titleText.className = `text-xl md:text-lg font-extrabold tracking-tighter transition-all duration-500 flex-1 ${isLight ? 'text-black/40 hover:text-black/70' : 'text-white/40 group-hover:text-white/70'}`;
+          if (contentContainer) contentContainer.classList.remove('expanded');
+          if (plusPod) plusPod.className = `w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${isLight ? 'bg-black/5 text-black' : 'bg-white/10 text-white'} group-hover:scale-105`;
+          if (plusIcon) plusIcon.className = "w-[18px] h-[18px] transition-transform duration-500";
+          if (imgEl) {
+            imgEl.className = "absolute inset-0 w-full h-full object-cover transition-all duration-1000 opacity-0 scale-95";
+          }
+        }
+      }
+    }
+
+    // Collapsible FAQ Section Logic
+    let expandedFaqIndex = null;
+    function toggleFaqAccordion(index) {
+      if (expandedFaqIndex === index) {
+        expandedFaqIndex = null;
+      } else {
+        expandedFaqIndex = index;
+      }
+      updateFaqAccordionUI();
+    }
+
+    function updateFaqAccordionUI() {
+      const isLight = document.documentElement.classList.contains('light');
+      for (let i = 0; i < 4; i++) {
+        const titleText = document.getElementById(`faq-q-${i}`);
+        const plusPod = document.getElementById(`faq-plus-pod-${i}`);
+        const contentContainer = document.getElementById(`faq-content-${i}`);
+
+        if (expandedFaqIndex === i) {
+          if (titleText) titleText.className = `text-lg md:text-xl tracking-tight transition-all duration-500 ${isLight ? 'text-black font-extrabold' : 'text-white font-bold'}`;
+          if (plusPod) plusPod.className = `mt-1 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-500 ${isLight ? 'bg-black border-black text-white' : 'bg-white border-white text-black'} rotate-45 flex-shrink-0`;
+          if (contentContainer) contentContainer.classList.add('expanded');
+        } else {
+          if (titleText) titleText.className = `text-lg md:text-xl tracking-tight transition-all duration-500 ${isLight ? 'text-black/60 font-semibold' : 'text-white/55 font-medium'}`;
+          if (plusPod) plusPod.className = `mt-1 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-500 ${isLight ? 'bg-black/5 border-black/10 text-black' : 'bg-white/5 border-white/10 text-white'} flex-shrink-0`;
+          if (contentContainer) contentContainer.classList.remove('expanded');
+        }
+      }
+    }
+
+    // Toggle Mobile Menu Drawer
+    function toggleMobileMenu(isOpen) {
+      const mobMenu = document.getElementById('mobile-menu');
+      if (isOpen) {
+        mobMenu.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+        mobMenu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+      } else {
+        mobMenu.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+        mobMenu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+      }
+    }
+
+    // Multilingual Switching Interface
+    function switchLanguage(lang) {
+      currentLang = lang;
+      
+      const t = translations[lang];
+      
+      // Update Texts
+      document.getElementById('hero-title-1').innerText = t.hero_title1;
+      document.getElementById('hero-title-2').innerText = t.hero_title2;
+      document.getElementById('scroll-text').innerText = t.scroll;
+      document.getElementById('about-badge').innerText = t.about_label;
+      document.getElementById('about-heading').innerText = t.about_title;
+      document.getElementById('about-description').innerHTML = t.about_desc;
+      document.getElementById('feat-title-0').innerText = t.about_feat1_title;
+      document.getElementById('feat-desc-0').innerText = t.about_feat1_desc;
+      document.getElementById('feat-title-1').innerText = t.about_feat2_title;
+      document.getElementById('feat-desc-1').innerText = t.about_feat2_desc;
+      document.getElementById('about-callout-text').innerHTML = t.about_callout;
+      document.getElementById('hero-cta-text').innerText = t.hero_cta1;
+
+      // Update Services Section
+      const svgBadge = document.getElementById('services-badge');
+      if (svgBadge) svgBadge.innerText = t.svc_label;
+      const svgHeading = document.getElementById('services-heading');
+      if (svgHeading) svgHeading.innerText = t.svc_title;
+      const svgTitle0 = document.getElementById('svc-title-0');
+      if (svgTitle0) svgTitle0.innerText = t.svc1_title;
+      const svgDesc0 = document.getElementById('svc-desc-0');
+      if (svgDesc0) svgDesc0.innerText = t.svc1_desc;
+      const svgTitle1 = document.getElementById('svc-title-1');
+      if (svgTitle1) svgTitle1.innerText = t.svc2_title;
+      const svgDesc1 = document.getElementById('svc-desc-1');
+      if (svgDesc1) svgDesc1.innerText = t.svc2_desc;
+      const svgTitle2 = document.getElementById('svc-title-2');
+      if (svgTitle2) svgTitle2.innerText = t.svc3_title;
+      const svgDesc2 = document.getElementById('svc-desc-2');
+      if (svgDesc2) svgDesc2.innerText = t.svc3_desc;
+      const svgTitle3 = document.getElementById('svc-title-3');
+      if (svgTitle3) svgTitle3.innerText = t.svc4_title;
+      const svgDesc3 = document.getElementById('svc-desc-3');
+      if (svgDesc3) svgDesc3.innerText = t.svc4_desc;
+
+      // Update Services Carousel Section
+      const svgCarouselBadge = document.getElementById('services-carousel-badge');
+      if (svgCarouselBadge) svgCarouselBadge.innerText = t.svc_label;
+      const svgCarouselHeading = document.getElementById('services-carousel-heading');
+      if (svgCarouselHeading) svgCarouselHeading.innerText = t.svc_title;
+      const svgCarouselSub = document.getElementById('services-carousel-sub');
+      if (svgCarouselSub) svgCarouselSub.innerText = t.svc_sub;
+      for (let i = 0; i < 4; i++) {
+        const titleEl = document.getElementById(`carousel-svc-title-${i}`);
+        const descEl = document.getElementById(`carousel-svc-desc-${i}`);
+        const exploreEl = document.getElementById(`carousel-svc-explore-${i}`);
+        if (titleEl) titleEl.innerText = t[`svc${i+1}_title`];
+        if (descEl) descEl.innerText = t[`svc${i+1}_desc`];
+        if (exploreEl) exploreEl.innerText = t.svc_explore;
+      }
+
+      // Update Onboard Experience Section
+      document.getElementById('experience-badge').innerText = t.feat_label;
+      document.getElementById('experience-heading').innerHTML = t.feat_title1 + '<br><span class="text-white/40">' + t.feat_title2 + '</span>';
+      document.getElementById('experience-description').innerText = t.feat_desc;
+      document.getElementById('experience-spec-1').innerText = t.feat_spec1;
+      document.getElementById('experience-spec-2').innerText = t.feat_spec2;
+
+      // Update Fleet Section
+      const fBadge = document.getElementById('fleet-badge');
+      if (fBadge) fBadge.innerText = t.fleet_label;
+      const fHeading = document.getElementById('fleet-heading');
+      if (fHeading) fHeading.innerHTML = t.fleet_title1 + '<br><span class="text-white/40">' + t.fleet_title2 + '</span>';
+      
+      const fSel0 = document.getElementById('fleet-selector-name-0');
+      if (fSel0) fSel0.innerText = t.v1_name;
+      const fSel1 = document.getElementById('fleet-selector-name-1');
+      if (fSel1) fSel1.innerText = t.v2_name;
+      const fSel2 = document.getElementById('fleet-selector-name-2');
+      if (fSel2) fSel2.innerText = t.v3_name;
+
+      const fClass = document.getElementById('fleet-item-class');
+      if (fClass) fClass.innerText = t[`v${activeVehicleIndex + 1}_class`];
+      const fPax = document.getElementById('fleet-pax');
+      if (fPax) fPax.innerText = t[`v${activeVehicleIndex + 1}_pax`];
+      const fBag = document.getElementById('fleet-bag');
+      if (fBag) fBag.innerText = t[`v${activeVehicleIndex + 1}_bag`];
+      
+      const fSelText = document.getElementById('fleet-select-btn-text');
+      if (fSelText) fSelText.innerText = t.fleet_select;
+
+      // Update FAQ Section
+      const faqHeading = document.getElementById('faq-heading');
+      if (faqHeading) faqHeading.innerText = t.fleet_faq_title;
+      for (let i = 0; i < 4; i++) {
+        const qEl = document.getElementById(`faq-q-${i}`);
+        const aEl = document.getElementById(`faq-a-${i}`);
+        if (qEl) qEl.innerText = t[`fleet_faq_q${i+1}`];
+        if (aEl) aEl.innerText = t[`fleet_faq_a${i+1}`];
+      }
+
+      // Update Testimonials Section
+      const revBadge = document.getElementById('reviews-badge');
+      if (revBadge) revBadge.innerText = t.rev_label;
+      const revHeading = document.getElementById('reviews-heading');
+      if (revHeading) revHeading.innerText = t.rev_title;
+      for (let i = 0; i < 3; i++) {
+        const quoteEl = document.getElementById(`rev-quote-${i}`);
+        const monthEl = document.getElementById(`rev-month-${i}`);
+        if (quoteEl) quoteEl.innerText = t[`rev${i+1}_quote`].replace(/^"|"$/g, '');
+        if (monthEl) monthEl.innerText = t.rev_month;
+      }
+
+      // Update Top Nav Items
+      document.getElementById('nav-link-services').innerText = t.nav_services;
+      document.getElementById('nav-link-fleet').innerText = t.nav_fleet;
+      document.getElementById('nav-link-faq').innerText = t.nav_faq;
+      document.getElementById('nav-link-transfers').innerText = t.nav_corporate;
+      document.getElementById('nav-link-contact').innerText = t.nav_contact;
+      document.getElementById('nav-cta').innerText = t.nav_cta;
+
+      // Update Service dropdown
+      document.getElementById('nav-sub-airports').innerText = t.nav_sub_airports;
+      document.getElementById('nav-sub-paris').innerText = t.nav_sub_paris;
+      document.getElementById('nav-sub-tours').innerText = t.nav_sub_tours;
+      document.getElementById('nav-sub-business').innerText = t.nav_sub_business;
+
+      // Update Fleet dropdown
+      document.getElementById('nav-sub-berline').innerText = t.nav_sub_berline;
+      document.getElementById('nav-sub-business-vehicle').innerText = t.nav_sub_business_vehicle;
+      document.getElementById('nav-sub-van').innerText = t.nav_sub_van;
+
+      // Update Transfers dropdown
+      document.getElementById('nav-sub-paris-cdg').innerText = t.nav_sub_paris_cdg;
+      document.getElementById('nav-sub-cdg-paris').innerText = t.nav_sub_cdg_paris;
+      document.getElementById('nav-sub-orly-paris').innerText = t.nav_sub_orly_paris;
+      document.getElementById('nav-sub-paris-disney').innerText = t.nav_sub_paris_disney;
+
+      // Update Mobile nav links
+      document.getElementById('mobile-link-services').innerText = t.nav_services;
+      document.getElementById('mobile-link-fleet').innerText = t.nav_fleet;
+      document.getElementById('mobile-link-faq').innerText = t.nav_faq;
+      document.getElementById('mobile-link-transfers').innerText = t.nav_corporate;
+      document.getElementById('mobile-link-contact').innerText = t.nav_contact;
+
+      // Update indicator code strings
+      document.getElementById('current-lang-text').innerText = lang.toUpperCase();
+      document.getElementById('current-lang-mob-text').innerText = lang.toUpperCase();
+
+      // Update button visual weights in language select
+      const frDesk = document.getElementById('lang-fr-desk-btn');
+      const enDesk = document.getElementById('lang-en-desk-btn');
+      
+      if (lang === 'fr') {
+        frDesk.className = "w-full text-left px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] transition-colors rounded-lg bg-white/10 text-white";
+        enDesk.className = "w-full text-left px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] transition-colors rounded-lg text-text-muted hover:text-white hover:bg-white/5";
+        document.documentElement.lang = "fr";
+      } else {
+        enDesk.className = "w-full text-left px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] transition-colors rounded-lg bg-white/10 text-white";
+        frDesk.className = "w-full text-left px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] transition-colors rounded-lg text-text-muted hover:text-white hover:bg-white/5";
+        document.documentElement.lang = "en";
+      }
+    }
+
+    // Scroll Entrance Animations Observer (InView equivalents)
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const actionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    // Apply animation tracking to layout targets
+    document.querySelectorAll('.motion-fade-in-up, .motion-fade-in-left, .motion-fade-in').forEach(element => {
+      actionObserver.observe(element);
+    });
+
+    // Scroll parallax animation on the Experience photos (replicates React's Features component)
+    const experienceSec = document.getElementById('experience');
+    const photo1 = document.getElementById('experience-photo-1');
+    const photo2 = document.getElementById('experience-photo-2');
+    const photo3 = document.getElementById('experience-photo-3');
+
+    // Only configure passive scroll listener for high performance scrolling
+    window.addEventListener('scroll', () => {
+      if (!experienceSec) return;
+      const rect = experienceSec.getBoundingClientRect();
+      const viewHeight = window.innerHeight;
+      
+      // Calculate scroll progress [0, 1] as the section travels through the viewport
+      let progress = (viewHeight - rect.top) / (viewHeight + rect.height);
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Map to the translation offsets: target y1: -60px, y2: -20px, y3: 20px
+      const y1 = progress * -60;
+      const y2 = progress * -20;
+      const y3 = progress * 20;
+
+      if (photo1) photo1.style.transform = `translateY(${y1}px)`;
+      if (photo2) photo2.style.transform = `translateY(${y2}px)`;
+      if (photo3) photo3.style.transform = `translateY(${y3}px)`;
+    }, { passive: true });
+
+    // Dynamic Theme Logic Functions
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isLight = html.classList.contains('light');
+      if (isLight) {
+        html.classList.remove('light');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+      }
+      applyThemeStyles();
+    }
+
+    function applyThemeStyles() {
+      const isLight = document.documentElement.classList.contains('light');
+      
+      const sunDesk = document.getElementById('theme-icon-sun');
+      const moonDesk = document.getElementById('theme-icon-moon');
+      const sunMob = document.getElementById('theme-icon-sun-mob');
+      const moonMob = document.getElementById('theme-icon-moon-mob');
+      const toggleBtn = document.getElementById('theme-toggle-btn');
+      
+      if (isLight) {
+        if (sunDesk) sunDesk.classList.remove('hidden');
+        if (moonDesk) moonDesk.classList.add('hidden');
+        if (sunMob) sunMob.classList.remove('hidden');
+        if (moonMob) moonMob.classList.add('hidden');
+        
+        if (toggleBtn) {
+          toggleBtn.className = "hidden md:flex bg-transparent border border-black/40 rounded-full p-2 text-black hover:bg-black hover:text-white transition-all items-center justify-center backdrop-blur-sm";
+        }
+      } else {
+        if (sunDesk) sunDesk.classList.add('hidden');
+        if (moonDesk) moonDesk.classList.remove('hidden');
+        if (sunMob) sunMob.classList.add('hidden');
+        if (moonMob) moonMob.classList.remove('hidden');
+        
+        if (toggleBtn) {
+          toggleBtn.className = "hidden md:flex bg-transparent border border-white/40 rounded-full p-2 text-white hover:bg-white hover:text-black transition-all items-center justify-center backdrop-blur-sm";
+        }
+      }
+      
+      // Keep state of accordions and vehicles up-to-date with active theme selection
+      updateAccordionUI();
+      updateServiceAccordionUI();
+      updateFaqAccordionUI();
+      setVehicle(activeVehicleIndex);
+    }
+
+    // Call on load to correctly align states
+    applyThemeStyles();
+  </script>
+</body>
+</html>

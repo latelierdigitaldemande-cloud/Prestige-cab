@@ -135,13 +135,13 @@ const About = ({ t }: AboutProps) => {
 
           <div className="max-w-3xl">
             <p 
-              className="text-text-muted text-lg md:text-2xl font-light leading-relaxed mb-12"
+              className="text-text-muted text-lg md:text-2xl font-light leading-relaxed mb-16"
               dangerouslySetInnerHTML={{ __html: t.about_callout }} 
             />
 
             <a
               href="tel:+33662284837"
-              className="inline-flex items-center gap-4 px-12 py-6 bg-white text-black rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white/90 transition-all duration-500 shadow-2xl"
+              className="inline-flex items-center gap-4 px-12 py-6 bg-white text-black hover:bg-white/90 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl"
             >
               <Navigation size={18} className="rotate-45" />
               <span>{t.hero_cta1}</span>

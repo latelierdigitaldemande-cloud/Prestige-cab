@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { LayoutGrid, ArrowUpRight } from 'lucide-react';
+import { LayoutGrid, ArrowUpRight, Plane, MapPin, Camera, Briefcase } from 'lucide-react';
 import { Translation } from '../types';
 import SectionHeader from './SectionHeader';
 
@@ -12,22 +12,26 @@ const ServicesCarousel = ({ t }: ServicesCarouselProps) => {
     {
       img: "https://www.haimourinternational.com/wp-content/uploads/2025/09/s2.jpg.webp",
       title: t.svc1_title,
-      desc: t.svc1_desc
+      desc: t.svc1_desc,
+      icon: Plane
     },
     {
       img: "https://www.haimourinternational.com/wp-content/uploads/2025/09/s3.jpg.webp",
       title: t.svc2_title,
-      desc: t.svc2_desc
+      desc: t.svc2_desc,
+      icon: MapPin
     },
     {
       img: "https://www.haimourinternational.com/wp-content/uploads/2025/09/luxury-vehicle-provided-for-a-private-airport-tran-2025-03-10-01-51-18-utc.jpg.webp",
       title: t.svc3_title,
-      desc: t.svc3_desc
+      desc: t.svc3_desc,
+      icon: Camera
     },
     {
       img: "https://www.haimourinternational.com/wp-content/uploads/2025/09/s1.jpg.webp",
       title: t.svc4_title,
-      desc: t.svc4_desc
+      desc: t.svc4_desc,
+      icon: Briefcase
     }
   ];
 
@@ -72,16 +76,19 @@ const ServicesCarousel = ({ t }: ServicesCarouselProps) => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-tertiary-bg via-transparent to-transparent opacity-60" />
               </div>
-              <div className="p-10 md:p-14 flex flex-col h-[300px]">
-                <h3 className="text-white text-3xl font-bold mb-6 tracking-tight leading-tight">
+              <div className="p-6 md:p-8 flex flex-col h-[230px] md:h-[280px]">
+                <div className="mb-3 w-8 h-8 text-white bg-white/5 border border-white/10 rounded-lg flex items-center justify-center p-1.5 transition-all group-hover:bg-white/10 group-hover:border-white/20 shrink-0">
+                  <service.icon size={14} className="text-white" />
+                </div>
+                <h3 className="text-white text-lg md:text-xl font-bold mb-2 tracking-tight leading-tight">
                   {service.title}
                 </h3>
-                <p className="text-text-subtle text-base leading-relaxed mb-10 font-light flex-grow">
+                <p className="text-text-subtle text-xs sm:text-sm leading-relaxed mb-4 font-light flex-grow">
                   {service.desc}
                 </p>
-                <button className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-white group-hover:text-text-muted transition-colors w-full border-t border-white/10 pt-8 mt-auto group/btn">
+                <button className="flex items-center justify-between text-[13px] md:text-sm font-semibold text-white group-hover:text-text-muted transition-colors w-full mt-auto group/btn">
                   <span>{t.svc_explore}</span>
-                  <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                  <ArrowUpRight size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                 </button>
               </div>
             </motion.article>

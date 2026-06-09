@@ -56,7 +56,7 @@ export default function App() {
         <Contact t={t} />
       </main>
       <Footer t={t} lang={lang} />
-      <WhatsAppCTA t={t} />
+      <WhatsAppCTA t={t} lang={lang} setLang={handleSetLang} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ export type Language = 'fr' | 'en';
 
 export interface Translation {
   meta_title: string;
+  nav_home: string;
   nav_services: string;
   nav_airports: string;
   nav_paris: string;

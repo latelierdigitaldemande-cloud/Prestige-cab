@@ -98,7 +98,7 @@ const Features = ({ t }: FeaturesProps) => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15, duration: 1, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true, margin: "-100px" }}
-              className="group flex flex-col"
+              className={`group flex flex-col ${index === 2 ? 'hidden md:flex' : ''}`}
             >
               <motion.div 
                 style={{ y: card.y }}

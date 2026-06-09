@@ -19,7 +19,7 @@ const Footer = ({ t, lang }: FooterProps) => {
           <div className="flex flex-col gap-8">
             <div className="flex items-center group">
               <div className="flex flex-col">
-                <span className="text-white font-luxury font-light text-2xl leading-none tracking-[0.12em]">ABDI</span>
+                <span className="text-white font-luxury font-light text-2xl leading-none tracking-[0.12em]">LUXURA</span>
                 <span className="text-white/60 font-sans font-light text-[9px] tracking-[0.25em] uppercase leading-none mt-1.5">CHAUFFEUR</span>
               </div>
             </div>
@@ -93,7 +93,7 @@ const Footer = ({ t, lang }: FooterProps) => {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-text-muted text-[10px] font-light uppercase tracking-widest">
-            © {currentYear} ABDI CHAUFFEUR. TOUS DROITS RÉSERVÉS.
+            © {currentYear} LUXURA CHAUFFEUR. TOUS DROITS RÉSERVÉS.
           </p>
           <div className="flex items-center gap-8">
             <a href="#" className="text-text-muted hover:text-white text-[10px] font-light uppercase tracking-widest transition-colors">Mentions Légales</a>

@@ -29,13 +29,11 @@ const SectionHeader = ({
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         className={`inline-flex items-center gap-3 mb-8 pl-1.5 pr-4 py-1.5 rounded-full border-2 ${
-          inverted ? 'border-black/50 bg-transparent' : 'border-white/50 bg-transparent'
+          inverted ? 'border-black/30 bg-transparent' : 'border-white/30 bg-transparent'
         } shadow-inner w-fit backdrop-blur-sm`}
       >
-        <span className={`flex items-center justify-center w-7 h-7 rounded-full ${
-          inverted ? 'bg-black text-white' : 'bg-white text-black'
-        }`}>
-          <BadgeIcon size={14} />
+        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
+          <BadgeIcon size={14} className="text-white" />
         </span>
         <span className={`${inverted ? 'text-black' : 'text-white'} text-[9px] font-bold uppercase tracking-[0.15em]`}>
           {badgeText}
