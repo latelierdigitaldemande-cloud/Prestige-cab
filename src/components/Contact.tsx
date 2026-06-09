@@ -8,16 +8,16 @@ interface ContactProps {
 
 const Contact = ({ t }: ContactProps) => {
   return (
-    <section id="contact" className="py-32 md:py-36 bg-tertiary-bg overflow-hidden border-t border-white/5 relative">
+    <section id="contact" className="py-40 md:py-36 bg-tertiary-bg overflow-hidden border-t border-white/5 relative">
       {/* Background Image with Blended Dark Overlay */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <img
           src="https://i.ibb.co/NgcX39fW/Bolt-Chauffeur-Media-9-c001644222.webp"
           alt="Premium Chauffeur background"
-          className="w-full h-full object-cover object-center opacity-60 grayscale-[10%]"
+          className="w-full h-full object-cover object-center opacity-75"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/45 via-transparent to-[#0a0a0a]/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/25 via-transparent to-[#0a0a0a]/25" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10 flex justify-center">
@@ -33,7 +33,7 @@ const Contact = ({ t }: ContactProps) => {
             className="!mb-4"
             titleClassName="text-3xl sm:text-3xl lg:text-4xl"
           />
-          <p className="text-text-subtle text-sm md:text-base leading-relaxed mb-8 font-light max-w-md text-center">
+          <p className="text-zinc-100 text-sm md:text-base leading-relaxed mb-8 font-normal max-w-md text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)]">
             {t.contact_desc}
           </p>
           <a

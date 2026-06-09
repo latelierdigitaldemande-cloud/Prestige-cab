@@ -33,8 +33,10 @@ const SectionHeader = ({
             inverted ? 'border-black/30 bg-transparent' : 'border-white/30 bg-transparent'
           } shadow-inner w-fit backdrop-blur-sm`}
         >
-          <span className="flex items-center justify-center w-7 h-7 rounded-full bg-black text-white">
-            <BadgeIcon size={14} className="text-white" />
+          <span className={`flex items-center justify-center w-7 h-7 rounded-full ${
+            inverted ? 'bg-black text-white' : 'bg-white text-black'
+          }`}>
+            <BadgeIcon size={14} className={inverted ? 'text-white' : 'text-black'} />
           </span>
           <span className={`${inverted ? 'text-black' : 'text-white'} text-[9px] font-bold uppercase tracking-[0.15em]`}>
             {badgeText}

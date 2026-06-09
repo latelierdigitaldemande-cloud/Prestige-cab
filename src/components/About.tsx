@@ -47,7 +47,7 @@ const About = ({ t }: AboutProps) => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="relative aspect-[4/3.6] md:aspect-[3/4.8] lg:aspect-[4/3.6] overflow-hidden rounded-3xl bg-tertiary-bg border border-white/10 group shadow-2xl"
+            className="relative aspect-[4/4.32] md:aspect-[3/4.8] lg:aspect-[4/3.6] overflow-hidden rounded-3xl bg-tertiary-bg border border-white/10 group shadow-2xl"
           >
             <img
               src={aboutImage}

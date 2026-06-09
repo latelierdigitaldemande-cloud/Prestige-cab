@@ -99,6 +99,10 @@ export interface Translation {
   fleet_faq_a3: string;
   fleet_faq_q4: string;
   fleet_faq_a4: string;
+  fleet_faq_q5: string;
+  fleet_faq_a5: string;
+  fleet_faq_q6: string;
+  fleet_faq_a6: string;
   contact_title: string;
   contact_desc: string;
   contact_cta: string;

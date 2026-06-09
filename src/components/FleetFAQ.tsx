@@ -16,6 +16,8 @@ const FleetFAQ = ({ t }: FleetFAQProps) => {
     { q: t.fleet_faq_q2, a: t.fleet_faq_a2 },
     { q: t.fleet_faq_q3, a: t.fleet_faq_a3 },
     { q: t.fleet_faq_q4, a: t.fleet_faq_a4 },
+    { q: t.fleet_faq_q5, a: t.fleet_faq_a5 },
+    { q: t.fleet_faq_q6, a: t.fleet_faq_a6 },
   ];
 
   return (
