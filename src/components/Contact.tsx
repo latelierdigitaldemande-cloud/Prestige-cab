@@ -8,16 +8,16 @@ interface ContactProps {
 
 const Contact = ({ t }: ContactProps) => {
   return (
-    <section id="contact" className="py-24 md:py-36 bg-tertiary-bg overflow-hidden border-t border-white/5 relative">
+    <section id="contact" className="py-32 md:py-36 bg-tertiary-bg overflow-hidden border-t border-white/5 relative">
       {/* Background Image with Blended Dark Overlay */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <img
           src="https://i.ibb.co/NgcX39fW/Bolt-Chauffeur-Media-9-c001644222.webp"
           alt="Premium Chauffeur background"
-          className="w-full h-full object-cover object-center opacity-45 grayscale-[10%]"
+          className="w-full h-full object-cover object-center opacity-60 grayscale-[10%]"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-[#0a0a0a]/20 to-[#0a0a0a]/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/45 via-transparent to-[#0a0a0a]/45" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10 flex justify-center">

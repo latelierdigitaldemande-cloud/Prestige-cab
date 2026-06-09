@@ -7,7 +7,7 @@ interface AboutProps {
   t: Translation;
 }
 
-const aboutImage = "https://www.haimourinternational.com/wp-content/uploads/2025/09/transport-delegation.webp";
+const aboutImage = "https://i.ibb.co/jZVCPQRm/Bolt-Chauffeur-Media-5-cd0f32217c.webp";
 
 const About = ({ t }: AboutProps) => {
   return (

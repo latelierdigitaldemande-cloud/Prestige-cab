@@ -11,7 +11,7 @@ const Hero = ({ t }: HeroProps) => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
          <img
-          src="https://i.ibb.co/DDm4vNqB/22e22e3d-35d2-4e2e-b306-bef866e5d1de.png"
+          src="https://i.ibb.co/20NHrTRz/Image-13-04-2026-00-37.jpg"
           className="w-full h-full object-cover object-[50%_50%] sm:object-[20%_50%] opacity-100"
           referrerPolicy="no-referrer"
           alt="Hero background"
@@ -32,7 +32,7 @@ const Hero = ({ t }: HeroProps) => {
           </span>
 
           {/* Title */}
-          <h1 className="text-[28px] min-[375px]:text-[34px] sm:text-[40px] md:text-[48px] lg:text-[58px] font-display font-bold tracking-tight leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-5 md:mb-6 text-white max-w-4xl px-0 text-left">
+          <h1 className="text-[28px] min-[375px]:text-[34px] sm:text-[42px] md:text-[50px] lg:text-[62px] font-luxury font-bold tracking-normal leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-5 md:mb-6 text-white max-w-4xl px-0 text-left">
             <span className="block sm:inline">{t.hero_title1}</span>{' '}
             <span className="block sm:inline">{t.hero_title2}</span>
           </h1>
