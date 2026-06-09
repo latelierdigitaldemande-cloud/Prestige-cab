@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { Calendar } from 'lucide-react';
 import { Translation } from '../types';
 
 interface HeroProps {
@@ -41,9 +42,10 @@ const Hero = ({ t }: HeroProps) => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start items-start sm:items-center mt-6 sm:mt-5 md:mt-6 w-full sm:w-auto">
             <a
               href="#contact"
-              className="inline-flex items-center justify-center sm:min-w-[200px] min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-[18px] bg-[#d88f13] text-white hover:bg-[#c17f10] rounded-full text-[14px] sm:text-[15px] font-black tracking-normal uppercase transition-all duration-300 shadow-lg"
+              className="inline-flex items-center justify-center gap-2 sm:min-w-[200px] min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-[18px] bg-[#d88f13] text-white hover:bg-[#c17f10] rounded-full text-[14px] sm:text-[15px] font-black tracking-normal uppercase transition-all duration-300 shadow-lg"
             >
-              BOOK NOW
+              <Calendar size={18} />
+              <span>BOOK NOW</span>
             </a>
             <a
               href="#contact"

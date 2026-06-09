@@ -31,7 +31,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
               <a href="#" className="flex items-center group">
                 <div className="flex flex-col">
                   <span className="text-white/60 font-sans font-light text-[11px] tracking-[0.25em] uppercase leading-none mb-1">CHAUFFEUR</span>
-                  <span className="text-white font-luxury font-semibold text-[27px] leading-none tracking-[0.14em]">LUXURA</span>
+                  <span className="text-white font-luxury font-bold text-[26px] leading-none tracking-[0.14em]">LUXURA</span>
                 </div>
               </a>
             </div>
@@ -41,7 +41,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
               {/* CTA Book Now */}
               <a
                 href="tel:+33662284837"
-                className="px-4 py-2 bg-white text-black hover:bg-white/90 rounded-full text-[11px] font-black transition-all duration-500 tracking-normal uppercase shadow-md"
+                className="px-7 py-2 bg-white text-black hover:bg-white/90 rounded-full text-[11px] font-black transition-all duration-500 tracking-normal uppercase shadow-md"
               >
                 {t.nav_cta}
               </a>
