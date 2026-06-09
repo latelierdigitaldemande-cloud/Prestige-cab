@@ -19,7 +19,7 @@ const Hero = ({ t }: HeroProps) => {
         <div className="absolute bottom-0 left-0 right-0 h-[45%] bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/65 to-transparent"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full flex flex-col items-start pt-[310px] sm:pt-[280px] md:pt-[300px] pb-16 sm:pb-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full flex flex-col items-start pt-[380px] min-[375px]:pt-[400px] sm:pt-[320px] md:pt-[300px] pb-16 sm:pb-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
