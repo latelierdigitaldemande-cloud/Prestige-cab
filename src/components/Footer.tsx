@@ -13,7 +13,7 @@ const Footer = ({ t, lang }: FooterProps) => {
   return (
     <footer className="bg-primary-bg pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mb-24">
 
           {/* Navigation */}
           <div className="flex flex-col gap-6">
@@ -34,16 +34,6 @@ const Footer = ({ t, lang }: FooterProps) => {
               <li><a href="#transfer-cdg-paris" className="text-text-muted hover:text-white text-xs font-light transition-colors">CDG → Paris</a></li>
               <li><a href="#transfer-orly-paris" className="text-text-muted hover:text-white text-xs font-light transition-colors">Orly → Paris</a></li>
               <li><a href="#transfer-paris-disney" className="text-text-muted hover:text-white text-xs font-light transition-colors">Disneyland Paris</a></li>
-            </ul>
-          </div>
-
-          {/* Legal Column */}
-          <div className="flex flex-col gap-6">
-            <h4 className="text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Légal</h4>
-            <ul className="flex flex-col gap-4">
-              <li><a href="#cgu" className="text-text-muted hover:text-white text-xs font-light transition-colors uppercase tracking-widest">CGU</a></li>
-              <li><a href="#privacy" className="text-text-muted hover:text-white text-xs font-light transition-colors uppercase tracking-widest">Confidentialité</a></li>
-              <li><a href="#cookies" className="text-text-muted hover:text-white text-xs font-light transition-colors uppercase tracking-widest">Cookies</a></li>
             </ul>
           </div>
 
