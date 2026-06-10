@@ -33,7 +33,7 @@ const Hero = ({ t }: HeroProps) => {
           </span>
 
           {/* Title */}
-          <h1 className="text-[36px] min-[375px]:text-[42px] sm:text-[42px] md:text-[50px] lg:text-[62px] font-luxury font-bold tracking-normal leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-5 md:mb-6 text-white max-w-4xl px-0 text-left">
+          <h1 className="text-[38px] min-[375px]:text-[44px] sm:text-[42px] md:text-[50px] lg:text-[62px] font-luxury font-bold tracking-normal leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-5 md:mb-6 text-white max-w-4xl px-0 text-left">
             <span className="block sm:inline">{t.hero_title1}</span>{' '}
             <span className="block sm:inline">{t.hero_title2}</span>
           </h1>

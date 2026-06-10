@@ -54,22 +54,33 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
           </div>
         </nav>
 
-        {/* Menu Overlay - Elegant absolute glassmorphic dropdown sibling to avoid nested backdrop-filter clash */}
+        {/* Menu Overlay - Elegant absolute glassmorphic overlay displayed directly over the navbar */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -15, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -15, scale: 0.98 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="absolute top-[115%] left-0 right-0 border border-white/15 rounded-3xl py-12 px-6 sm:py-16 sm:px-8 flex flex-col gap-10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] pointer-events-auto z-50"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="absolute top-0 left-0 right-0 border border-white/15 rounded-3xl py-5 px-6 sm:py-6 sm:px-8 flex flex-col gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto z-50"
               style={{
-                backgroundColor: 'rgba(8, 8, 8, 0.8)',
+                backgroundColor: '#0a0a0a',
                 backdropFilter: 'blur(32px)',
                 WebkitBackdropFilter: 'blur(32px)',
               }}
             >
-              <div className="flex flex-col gap-7">
+              {/* Menu Header covering the underlying Navbar */}
+              <div className="flex items-center justify-between w-full">
+                <div className="flex flex-col">
+                  <span className="text-white/60 font-sans font-light text-[11px] tracking-[0.25em] uppercase leading-none mb-1">CHAUFFEUR</span>
+                  <span className="text-white font-luxury font-bold text-[26px] leading-none tracking-[0.14em]">LUXURA</span>
+                </div>
+                <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1 hover:text-white/80 transition-colors">
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-6 pt-2">
                 {navLinks.map((link, index) => {
                   const isLast = index === navLinks.length - 1;
                   return (
@@ -77,7 +88,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
                       key={link.title}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`text-white/90 text-[28px] sm:text-[32px] font-luxury font-semibold tracking-[0.01em] hover:text-white hover:scale-[1.02] active:scale-95 transition-all block text-center ${
+                      className={`text-white/90 text-[24px] sm:text-[28px] font-luxury font-semibold tracking-[0.01em] hover:text-white hover:scale-[1.01] active:scale-95 transition-all block text-center pb-2 ${
                         isLast ? 'border-b border-white/5 pb-4' : ''
                       }`}
                     >
@@ -87,36 +98,36 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
                 })}
               </div>
 
-              <div className="pt-6 flex justify-center items-center gap-6">
+              <div className="pt-2 flex justify-center items-center gap-6">
                 <a
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/85 hover:text-white rounded-full transition-all duration-350 border border-white/10 hover:border-white/25 active:scale-95"
+                  className="w-11 h-11 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/85 hover:text-white rounded-full transition-all duration-350 border border-white/10 hover:border-white/25 active:scale-95"
                   aria-label="Instagram"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Instagram size={20} />
+                  <Instagram size={18} />
                 </a>
                 <a
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/85 hover:text-white rounded-full transition-all duration-350 border border-white/10 hover:border-white/25 active:scale-95"
+                  className="w-11 h-11 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/85 hover:text-white rounded-full transition-all duration-350 border border-white/10 hover:border-white/25 active:scale-95"
                   aria-label="Facebook"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Facebook size={20} />
+                  <Facebook size={18} />
                 </a>
                 <a
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/85 hover:text-white rounded-full transition-all duration-350 border border-white/10 hover:border-white/25 active:scale-95"
+                  className="w-11 h-11 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/85 hover:text-white rounded-full transition-all duration-350 border border-white/10 hover:border-white/25 active:scale-95"
                   aria-label="LinkedIn"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Linkedin size={20} />
+                  <Linkedin size={18} />
                 </a>
               </div>
             </motion.div>
