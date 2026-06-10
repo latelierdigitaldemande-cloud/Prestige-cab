@@ -73,7 +73,7 @@ const Footer = ({ t, lang }: FooterProps) => {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-text-muted text-[10px] font-light uppercase tracking-widest">
-            © {currentYear} LUXURA CHAUFFEUR. TOUS DROITS RÉSERVÉS.
+            © {currentYear} ELIE CHAUFFEUR. TOUS DROITS RÉSERVÉS.
           </p>
         </div>
       </div>

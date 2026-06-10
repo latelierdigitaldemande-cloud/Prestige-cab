@@ -74,7 +74,7 @@ const FleetFAQ = ({ t }: FleetFAQProps) => {
                           initial={{ y: 15, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ duration: 0.5, delay: 0.1 }}
-                          className="text-text-subtle text-xs md:text-base font-light leading-relaxed max-w-2xl"
+                          className="text-text-subtle text-[15px] md:text-[17px] font-light leading-relaxed max-w-2xl"
                         >
                           {faq.a}
                         </motion.p>

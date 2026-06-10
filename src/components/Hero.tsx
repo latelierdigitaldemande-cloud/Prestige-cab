@@ -28,30 +28,35 @@ const Hero = ({ t }: HeroProps) => {
           className="flex flex-col items-start text-left w-full"
         >
           {/* Upper Label */}
-          <span className="text-[10px] min-[375px]:text-[12px] sm:text-[14px] font-sans font-medium tracking-[0.22em] sm:tracking-[0.25em] text-white/70 uppercase mb-3 sm:mb-4">
-            GLOBAL CHAUFFEUR NETWORK
+          <span className="text-[26px] min-[375px]:text-[28px] sm:text-[30px] font-luxury font-bold tracking-normal text-white/70 mb-3 sm:mb-4">
+            Global Chauffeur Network
           </span>
 
           {/* Title */}
-          <h1 className="text-[38px] min-[375px]:text-[44px] sm:text-[42px] md:text-[50px] lg:text-[62px] font-luxury font-bold tracking-normal leading-[1.15] sm:leading-[1.2] mb-6 sm:mb-5 md:mb-6 text-white max-w-4xl px-0 text-left">
+          <h1 className="text-[38px] min-[375px]:text-[44px] sm:text-[42px] md:text-[50px] lg:text-[62px] font-display font-bold tracking-tight leading-[1.12] sm:leading-[1.15] mb-6 text-white max-w-4xl px-0 text-left">
             <span className="block sm:inline">{t.hero_title1}</span>{' '}
             <span className="block sm:inline">{t.hero_title2}</span>
           </h1>
 
+          {/* Subtitle - Displayed with identical premium typography as Features description */}
+          <p className="text-text-subtle text-[15px] sm:text-[17px] md:text-[19px] font-light leading-relaxed mb-10 max-w-2xl text-left">
+            {t.hero_sub}
+          </p>
+
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start items-start sm:items-center mt-6 sm:mt-5 md:mt-6 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-start items-stretch sm:items-center w-full sm:w-auto">
             <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 sm:min-w-[200px] min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-[18px] bg-[#d88f13] text-white hover:bg-[#c17f10] rounded-full text-[14px] sm:text-[15px] font-black tracking-normal uppercase transition-all duration-300 shadow-lg"
+              href="#reservation"
+              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#d88f13] text-white hover:bg-[#c17f10] rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-2xl text-center"
             >
-              <Calendar size={18} />
-              <span>BOOK NOW</span>
+              <Calendar size={14} />
+              <span>{t.hero_cta1}</span>
             </a>
             <a
-              href="#contact"
-              className="hidden sm:inline-flex items-center justify-center sm:min-w-[200px] min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-[18px] bg-white text-black hover:bg-white/90 rounded-full text-[14px] sm:text-[15px] font-black tracking-normal uppercase transition-all duration-300 shadow-lg"
+              href="#fleet"
+              className="inline-flex items-center justify-center px-10 py-5 bg-black/10 hover:bg-white/10 text-white border border-white/15 hover:border-white/35 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 backdrop-blur-sm text-center"
             >
-              INSTANT QUOTE
+              <span>{t.hero_cta2}</span>
             </a>
           </div>
 

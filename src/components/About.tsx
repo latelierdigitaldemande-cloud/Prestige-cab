@@ -11,7 +11,7 @@ const aboutImage = "https://i.ibb.co/jZVCPQRm/Bolt-Chauffeur-Media-5-cd0f32217c.
 
 const About = ({ t }: AboutProps) => {
   return (
-    <section id="about" className="relative min-h-screen flex items-center bg-primary-bg overflow-hidden py-12 md:py-20">
+    <section id="about" className="relative py-24 md:py-32 bg-primary-bg border-b border-white/5 overflow-hidden flex items-center min-h-[80vh] md:min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full h-full flex flex-col justify-center">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Text Content - More Compact Interactive Mechanic */}
@@ -21,14 +21,15 @@ const About = ({ t }: AboutProps) => {
               badgeText={t.about_label}
               title={t.about_title}
               titleClassName="text-[44px] lg:text-[56px]"
+              className="!mb-6 md:!mb-8"
             />
 
-            <p className="text-text-muted text-[16px] md:text-[20px] leading-relaxed mb-6 md:mb-8 font-normal mt-[-2.5rem] md:mt-[-3.5rem]" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
+            <p className="text-text-subtle text-[15px] md:text-[17px] font-light leading-relaxed mb-6 md:mb-8" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
 
             {/* Mobile/Tablet Callout - Positioned above the image in stacked grid */}
             <div className="lg:hidden mt-4 mb-10 flex flex-col items-center text-center">
               <p 
-                className="text-text-muted text-[16px] md:text-[20px] font-normal leading-relaxed mb-8"
+                className="text-text-subtle text-[15px] md:text-[17px] font-light leading-relaxed mb-8"
                 dangerouslySetInnerHTML={{ __html: t.about_callout }} 
               />
               <a
@@ -51,7 +52,7 @@ const About = ({ t }: AboutProps) => {
           >
             <img
               src={aboutImage}
-              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-1000"
+              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
               referrerPolicy="no-referrer"
               alt="Chauffeur service"
             />
@@ -73,7 +74,7 @@ const About = ({ t }: AboutProps) => {
 
           <div className="max-w-3xl">
             <p 
-              className="text-text-muted text-[16px] md:text-[20px] font-normal leading-relaxed mb-16"
+              className="text-text-subtle text-[15px] md:text-[17px] font-light leading-relaxed mb-16"
               dangerouslySetInnerHTML={{ __html: t.about_callout }} 
             />
 

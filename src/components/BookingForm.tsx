@@ -12,9 +12,11 @@ import {
   Car, 
   MessageSquare,
   ShieldCheck,
-  Clock3
+  Clock3,
+  Check
 } from 'lucide-react';
 import { Language } from '../types';
+import SectionHeader from './SectionHeader';
 
 interface BookingFormProps {
   lang: Language;
@@ -65,6 +67,10 @@ const formTranslations = {
     van_class: "Grand Espace",
     pax_unit: "pers.",
     bag_unit: "bagages",
+    options_label: "Options supplémentaires",
+    option_baby_seat: "Siège bébé",
+    option_booster_seat: "Réhausseur",
+    option_meet_greet: "Gare / Aéroport (Accueil pancarte)",
   },
   en: {
     badge: "BOOKING",
@@ -107,6 +113,10 @@ const formTranslations = {
     van_class: "Large Capacity",
     pax_unit: "pax",
     bag_unit: "bags",
+    options_label: "Extra Options",
+    option_baby_seat: "Baby seat",
+    option_booster_seat: "Booster seat",
+    option_meet_greet: "Station / Airport (Meet & Greet)",
   }
 };
 
@@ -125,13 +135,12 @@ const BookingForm = ({ lang }: BookingFormProps) => {
   const [pax, setPax] = useState('2');
   const [baggage, setBaggage] = useState('2');
 
-  const isStep1Valid = useMemo(() => {
-    const commonFields = pickup && date && time;
-    if (serviceType === 'transfer') {
-      return !!(commonFields && dropoff);
-    }
-    return !!commonFields;
-  }, [serviceType, pickup, dropoff, date, time]);
+  // Option States
+  const [babySeat, setBabySeat] = useState(false);
+  const [boosterSeat, setBoosterSeat] = useState(false);
+  const [meetGreet, setMeetGreet] = useState(false);
+
+  const isStep1Valid = true;
   
   // Contact State
   const [name, setName] = useState('');
@@ -146,23 +155,17 @@ const BookingForm = ({ lang }: BookingFormProps) => {
 
   // Check if form has mandatory fields
   const isFormValid = useMemo(() => {
-    const commonFields = pickup && date && time && name && phone;
-    if (serviceType === 'transfer') {
-      return commonFields && dropoff;
-    }
-    return commonFields;
-  }, [serviceType, pickup, dropoff, date, time, name, phone]);
+    return !!(name && phone);
+  }, [name, phone]);
 
   // Construct structured messages
   const messageText = useMemo(() => {
-    if (!pickup || !date || !time) return '';
-
     const typeStr = serviceType === 'transfer' 
       ? (lang === 'fr' ? 'Transfert Simple (Aller simple)' : 'One-Way Transfer')
       : (lang === 'fr' ? `Mise à Disposition (${duration} heures)` : `Hourly Service (${duration} hours)`);
 
     const destStr = serviceType === 'transfer' 
-      ? `📍 *Arrivée* : ${dropoff}`
+      ? `📍 *Arrivée* : ${dropoff || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}`
       : `⏱️ *Durée* : ${duration} ${lang === 'fr' ? 'heures' : 'hours'}`;
 
     const vehicleName = vehicle === 'luxury' 
@@ -171,23 +174,32 @@ const BookingForm = ({ lang }: BookingFormProps) => {
       ? (lang === 'fr' ? 'Berline Affaires Classe E' : 'Business Sedan E-Class')
       : (lang === 'fr' ? 'Mercedes Classe V (Van)' : 'Mercedes V-Class (Van)');
 
-    return `*LUXURA CHAUFFEUR - NOUVELLE DEMANDE DE BOOKING*
+    const selectedBonus: string[] = [];
+    if (babySeat) selectedBonus.push(lang === 'fr' ? 'Siège bébé' : 'Baby seat');
+    if (boosterSeat) selectedBonus.push(lang === 'fr' ? 'Réhausseur' : 'Booster seat');
+    if (meetGreet) selectedBonus.push(lang === 'fr' ? 'Accueil pancarte' : 'Meet & Greet');
+
+    const bonusStr = selectedBonus.length > 0
+      ? `\n🛠️ *Options* : ${selectedBonus.join(', ')}`
+      : '';
+
+    return `*ELIE CHAUFFEUR - NOUVELLE DEMANDE DE BOOKING*
 
 📌 *Service* : ${typeStr}
-🛫 *Prise en charge* : ${pickup}
+🛫 *Prise en charge* : ${pickup || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
 ${destStr}
-📅 *Date* : ${date}
-⏰ *Heure* : ${time}
+📅 *Date* : ${date || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
+⏰ *Heure* : ${time || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
 
 🚗 *Véhicule* : ${vehicleName}
 👥 *Passagers* : ${pax} ${lang === 'fr' ? 'personne(s)' : 'pax'}
-💼 *Bagages* : ${baggage} ${lang === 'fr' ? 'valise(s)' : 'bag(s)'}
+💼 *Bagages* : ${baggage} ${lang === 'fr' ? 'valise(s)' : 'bag(s)'}${bonusStr}
 
-👤 *Client* : ${name}
-📞 *Téléphone* : ${phone}
-✉️ *E-mail* : ${email || 'Non renseigné'}
-📝 *Notes / Vol* : ${notes || 'Aucune'}`;
-  }, [lang, serviceType, pickup, dropoff, duration, date, time, vehicle, pax, baggage, name, phone, email, notes]);
+👤 *Client* : ${name || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
+📞 *Téléphone* : ${phone || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
+✉️ *E-mail* : ${email || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
+📝 *Notes / Vol* : ${notes || (lang === 'fr' ? 'Aucune' : 'None')}`;
+  }, [lang, serviceType, pickup, dropoff, duration, date, time, vehicle, pax, baggage, babySeat, boosterSeat, meetGreet, name, phone, email, notes]);
 
   // Generate URL links
   const whatsappUrl = useMemo(() => {
@@ -208,7 +220,6 @@ ${destStr}
       <div className="absolute bottom-0 right-1/4 w-[30rem] h-[20rem] bg-white/[0.01] rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
-
 
         {/* Real Dynamic Booking Card */}
         <div className="max-w-3xl mx-auto relative z-10">
@@ -269,47 +280,51 @@ ${destStr}
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Pick up location */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                          <MapPin size={13} className="text-zinc-500" />
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.pickup_label} <span className="text-red-500">*</span>
                         </label>
-                        <input
-                          type="text"
-                          required
-                          value={pickup}
-                          onChange={(e) => setPickup(e.target.value)}
-                          placeholder={s.pickup_placeholder}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white placeholder-zinc-500 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                        />
+                        <div className="relative">
+                          <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="text"
+                            required
+                            value={pickup}
+                            onChange={(e) => setPickup(e.target.value)}
+                            placeholder={s.pickup_placeholder}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-300 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                          />
+                        </div>
                       </div>
 
                       {/* Drop off OR Hours Duration */}
                       {serviceType === 'transfer' ? (
                         <div className="flex flex-col gap-2">
-                          <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                            <MapPin size={13} className="text-zinc-500" />
+                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                             {s.dropoff_label} <span className="text-red-500">*</span>
                           </label>
-                          <input
-                            type="text"
-                            required
-                            value={dropoff}
-                            onChange={(e) => setDropoff(e.target.value)}
-                            placeholder={s.dropoff_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white placeholder-zinc-500 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                          />
+                          <div className="relative">
+                            <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                            <input
+                              type="text"
+                              required
+                              value={dropoff}
+                              onChange={(e) => setDropoff(e.target.value)}
+                              placeholder={s.dropoff_placeholder}
+                              className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-300 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                            />
+                          </div>
                         </div>
                       ) : (
                         <div className="flex flex-col gap-2">
-                          <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                            <Clock3 size={13} className="text-zinc-500" />
+                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                             {s.duration_label} <span className="text-red-500">*</span>
                           </label>
                           <div className="relative">
+                            <Clock3 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
                             <select
                               value={duration}
                               onChange={(e) => setDuration(e.target.value)}
-                              className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                              className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
                             >
                               {durationOptions.map((hour) => (
                                 <option key={hour} value={hour} className="bg-zinc-900 text-white py-2">
@@ -327,48 +342,18 @@ ${destStr}
                       )}
                     </div>
 
-                    <div className="grid md:grid-cols-4 gap-6">
-                      {/* Date selection */}
-                      <div className="md:col-span-2 flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                          <Calendar size={13} className="text-zinc-500" />
-                          {s.date_label} <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="date"
-                          required
-                          value={date}
-                          onChange={(e) => setDate(e.target.value)}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark]"
-                        />
-                      </div>
-
-                      {/* Time selection */}
+                    {/* Passengers selection */}
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                          <Clock size={13} className="text-zinc-500" />
-                          {s.time_label} <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="time"
-                          required
-                          value={time}
-                          onChange={(e) => setTime(e.target.value)}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark]"
-                        />
-                      </div>
-
-                      {/* Pax count drop down */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                          <Users size={13} className="text-zinc-500" />
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.pax_label}
                         </label>
                         <div className="relative">
+                          <Users size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
                           <select
                             value={pax}
                             onChange={(e) => setPax(e.target.value)}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
                           >
                             {paxOptions.map((n) => (
                               <option key={n} value={n} className="bg-zinc-900 text-white">
@@ -384,126 +369,46 @@ ${destStr}
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Vehicle selection */}
-                  <div className="space-y-4 pt-4 border-t border-zinc-800">
-                    <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                      <Car size={13} className="text-zinc-500" />
-                      {s.vehicle_label}
-                    </label>
+                    {/* Date & Time Group Layout (side-by-side on mobile) */}
+                    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6">
+                      {/* Date selection */}
+                      <div className="col-span-1 md:col-span-2 flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.date_label} <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <Calendar size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="date"
+                            required
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark]"
+                          />
+                        </div>
+                      </div>
 
-                    <div className="grid md:grid-cols-3 gap-4">
-                      {/* Vehicle 1 */}
-                      <button
-                        type="button"
-                        onClick={() => setVehicle('luxury')}
-                        className={`text-left p-5 rounded-2xl border transition-all duration-500 relative flex flex-col justify-between h-36 ${
-                          vehicle === 'luxury' 
-                            ? 'border-white bg-zinc-950 shadow-md ring-1 ring-white' 
-                            : 'border-zinc-800 bg-zinc-950/40 hover:border-zinc-700 hover:bg-zinc-950/80'
-                        }`}
-                      >
-                        <div>
-                          <div className="flex justify-between items-center">
-                            <h4 className="text-white font-bold text-sm tracking-wide">{s.berline_name}</h4>
-                            {vehicle === 'luxury' && (
-                              <div className="w-4 h-4 rounded-full bg-white flex items-center justify-center text-black">
-                                <span className="text-[9px] font-bold">✓</span>
-                              </div>
-                            )}
-                          </div>
-                          <p className="text-zinc-400 text-[10px] font-medium mt-1 tracking-wider uppercase">{s.berline_class}</p>
-                        </div>
-                        <div className="flex items-center gap-4 text-xs text-zinc-400 font-medium mt-4">
-                          <span className="flex items-center gap-1"><Users size={12} /> 3</span>
-                          <span className="flex items-center gap-1"><Briefcase size={12} /> 2</span>
-                        </div>
-                      </button>
-
-                      {/* Vehicle 2 */}
-                      <button
-                        type="button"
-                        onClick={() => setVehicle('business')}
-                        className={`text-left p-5 rounded-2xl border transition-all duration-500 relative flex flex-col justify-between h-36 ${
-                          vehicle === 'business' 
-                            ? 'border-white bg-zinc-950 shadow-md ring-1 ring-white' 
-                            : 'border-zinc-800 bg-zinc-950/40 hover:border-zinc-700 hover:bg-zinc-950/80'
-                        }`}
-                      >
-                        <div>
-                          <div className="flex justify-between items-center">
-                            <h4 className="text-white font-bold text-sm tracking-wide">{s.business_name}</h4>
-                            {vehicle === 'business' && (
-                              <div className="w-4 h-4 rounded-full bg-white flex items-center justify-center text-black">
-                                <span className="text-[9px] font-bold">✓</span>
-                              </div>
-                            )}
-                          </div>
-                          <p className="text-zinc-400 text-[10px] font-medium mt-1 tracking-wider uppercase">{s.business_class}</p>
-                        </div>
-                        <div className="flex items-center gap-4 text-xs text-zinc-400 font-medium mt-4">
-                          <span className="flex items-center gap-1"><Users size={12} /> 3</span>
-                          <span className="flex items-center gap-1"><Briefcase size={12} /> 3</span>
-                        </div>
-                      </button>
-
-                      {/* Vehicle 3 */}
-                      <button
-                        type="button"
-                        onClick={() => setVehicle('van')}
-                        className={`text-left p-5 rounded-2xl border transition-all duration-500 relative flex flex-col justify-between h-36 ${
-                          vehicle === 'van' 
-                            ? 'border-white bg-zinc-950 shadow-md ring-1 ring-white' 
-                            : 'border-zinc-800 bg-zinc-950/40 hover:border-zinc-700 hover:bg-zinc-950/80'
-                        }`}
-                      >
-                        <div>
-                          <div className="flex justify-between items-center">
-                            <h4 className="text-white font-bold text-sm tracking-wide">{s.van_name}</h4>
-                            {vehicle === 'van' && (
-                              <div className="w-4 h-4 rounded-full bg-white flex items-center justify-center text-black">
-                                <span className="text-[9px] font-bold">✓</span>
-                              </div>
-                            )}
-                          </div>
-                          <p className="text-zinc-400 text-[10px] font-medium mt-1 tracking-wider uppercase">{s.van_class}</p>
-                        </div>
-                        <div className="flex items-center gap-4 text-xs text-zinc-400 font-medium mt-4">
-                          <span className="flex items-center gap-1"><Users size={12} /> 7</span>
-                          <span className="flex items-center gap-1"><Briefcase size={12} /> 6</span>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Luggage count */}
-                  <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-zinc-800">
-                    <div className="flex flex-col gap-2">
-                      <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                        <Briefcase size={13} className="text-zinc-500" />
-                        {s.luggage_label}
-                      </label>
-                      <div className="relative">
-                        <select
-                          value={baggage}
-                          onChange={(e) => setBaggage(e.target.value)}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
-                        >
-                          {bagOptions.map((n) => (
-                            <option key={n} value={n} className="bg-zinc-900 text-white">
-                              {n}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
-                          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                          </svg>
+                      {/* Time selection */}
+                      <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.time_label} <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <Clock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="time"
+                            required
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark]"
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
+
+
 
                   {/* Step 1 CTA button to proceed */}
                   <div className="flex justify-end pt-6 border-t border-zinc-800 mt-8">
@@ -537,8 +442,142 @@ ${destStr}
                   transition={{ duration: 0.35 }}
                   className="space-y-8"
                 >
-                  {/* Step 2: Contact details */}
+                  {/* Step 2: Vehicle & Options */}
                   <div className="space-y-6">
+                    <h3 className="text-zinc-100 font-extrabold text-[13px] tracking-wider border-b border-zinc-800 pb-3">
+                      {lang === 'fr' ? 'VÉHICULE & OPTIONS' : 'VEHICLE & OPTIONS'}
+                    </h3>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                      {/* Vehicle selection */}
+                      <div className="md:col-span-2 flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.vehicle_label}
+                        </label>
+                        <div className="relative font-bold">
+                          <Car size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <select
+                            value={vehicle}
+                            onChange={(e) => setVehicle(e.target.value as VehicleType)}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                          >
+                            <option value="luxury" className="bg-zinc-900 text-white">
+                              {s.berline_name} ({s.berline_class}) — Max 3 {s.pax_unit} / 2 {s.bag_unit}
+                            </option>
+                            <option value="business" className="bg-zinc-900 text-white">
+                              {s.business_name} ({s.business_class}) — Max 3 {s.pax_unit} / 3 {s.bag_unit}
+                            </option>
+                            <option value="van" className="bg-zinc-900 text-white">
+                              {s.van_name} ({s.van_class}) — Max 7 {s.pax_unit} / 6 {s.bag_unit}
+                            </option>
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Luggage selection */}
+                      <div className="md:col-span-1 flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.luggage_label}
+                        </label>
+                        <div className="relative">
+                          <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <select
+                            value={baggage}
+                            onChange={(e) => setBaggage(e.target.value)}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                          >
+                            {bagOptions.map((n) => (
+                              <option key={n} value={n} className="bg-zinc-900 text-white">
+                                {n}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Additional Options */}
+                    <div className="space-y-4">
+                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        {s.options_label}
+                      </label>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        {/* Option Baby Seat */}
+                        <button
+                          type="button"
+                          onClick={() => setBabySeat(!babySeat)}
+                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-300 ${
+                            babySeat 
+                              ? 'bg-white text-zinc-950 border-white font-bold' 
+                              : 'bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 hover:border-zinc-400 text-zinc-300 transition-all font-normal focus:outline-none'
+                          }`}
+                        >
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
+                            babySeat 
+                              ? 'border-zinc-950 bg-zinc-950 text-white' 
+                              : 'border-zinc-500'
+                          }`}>
+                            {babySeat && <Check size={11} strokeWidth={3} />}
+                          </div>
+                          <span className="text-[13.5px]">{s.option_baby_seat}</span>
+                        </button>
+
+                        {/* Option Booster Seat */}
+                        <button
+                          type="button"
+                          onClick={() => setBoosterSeat(!boosterSeat)}
+                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-300 ${
+                            boosterSeat 
+                              ? 'bg-white text-zinc-950 border-white font-bold' 
+                              : 'bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 hover:border-zinc-400 text-zinc-300 transition-all font-normal focus:outline-none'
+                          }`}
+                        >
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
+                            boosterSeat 
+                              ? 'border-zinc-950 bg-zinc-950 text-white' 
+                              : 'border-zinc-500'
+                          }`}>
+                            {boosterSeat && <Check size={11} strokeWidth={3} />}
+                          </div>
+                          <span className="text-[13.5px]">{s.option_booster_seat}</span>
+                        </button>
+
+                        {/* Option Meet & Greet */}
+                        <button
+                          type="button"
+                          onClick={() => setMeetGreet(!meetGreet)}
+                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-300 ${
+                            meetGreet 
+                              ? 'bg-white text-zinc-950 border-white font-bold' 
+                              : 'bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-white hover:border-white text-zinc-300 transition-all font-normal focus:outline-none'
+                          }`}
+                        >
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
+                            meetGreet 
+                              ? 'border-zinc-950 bg-zinc-950 text-white' 
+                              : 'border-zinc-500'
+                          }`}>
+                            {meetGreet && <Check size={11} strokeWidth={3} />}
+                          </div>
+                          <span className="text-[12.5px] leading-tight font-medium">{s.option_meet_greet}</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 2: Contact details */}
+                  <div className="space-y-6 pt-6 border-t border-zinc-800">
                     <h3 className="text-zinc-100 font-extrabold text-[13px] tracking-wider border-b border-zinc-800 pb-3">
                       {s.contact_section}
                     </h3>
@@ -546,67 +585,75 @@ ${destStr}
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Name field */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                          <User size={13} className="text-zinc-500" />
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           <span>{s.name_label} <span className="text-red-500">*</span></span>
                         </label>
-                        <input
-                          type="text"
-                          required
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder={s.name_placeholder}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white placeholder-zinc-500 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                        />
+                        <div className="relative">
+                          <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="text"
+                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder={s.name_placeholder}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-300 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                          />
+                        </div>
                       </div>
 
                       {/* Phone field */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                          <PhoneIcon size={13} className="text-zinc-500" />
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           <span>{s.phone_label} <span className="text-red-500">*</span></span>
                         </label>
-                        <input
-                          type="tel"
-                          required
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder={s.phone_placeholder}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white placeholder-zinc-500 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                        />
+                        <div className="relative">
+                          <PhoneIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="tel"
+                            required
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder={s.phone_placeholder}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-300 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                          />
+                        </div>
                       </div>
                     </div>
 
                     <div className="grid md:grid-cols-1 gap-6">
                       {/* Email field */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                          <Mail size={13} className="text-zinc-500" />
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           <span>{s.email_label}</span>
                         </label>
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder={s.email_placeholder}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl px-5 py-3 text-base text-white placeholder-zinc-500 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                        />
+                        <div className="relative">
+                          <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder={s.email_placeholder}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-300 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                          />
+                        </div>
                       </div>
                     </div>
 
                     {/* Notes textarea */}
                     <div className="flex flex-col gap-2">
-                      <label className="text-zinc-400 text-[10.5px] font-bold tracking-normal flex items-center gap-2">
-                        <MessageSquare size={13} className="text-zinc-500" />
+                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                         <span>{s.notes_label}</span>
                       </label>
-                      <textarea
-                        rows={3}
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                        placeholder={s.notes_placeholder}
-                        className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-700 focus:border-white rounded-xl p-4 text-base text-white placeholder-zinc-500 transition-all font-normal focus:outline-none resize-none focus:ring-1 focus:ring-white"
-                      />
+                      <div className="relative">
+                        <MessageSquare size={16} className="absolute left-4 top-4 text-zinc-400 pointer-events-none" />
+                        <textarea
+                          rows={3}
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          placeholder={s.notes_placeholder}
+                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-4 pt-3 pb-3 text-base text-white placeholder-zinc-300 transition-all font-normal focus:outline-none resize-none focus:ring-1 focus:ring-white"
+                        />
+                      </div>
                     </div>
                   </div>
 

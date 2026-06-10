@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { Navigation } from 'lucide-react';
 import { Translation } from '../types';
 import SectionHeader from './SectionHeader';
 
@@ -33,14 +34,15 @@ const Contact = ({ t }: ContactProps) => {
             className="!mb-4"
             titleClassName="text-3xl sm:text-3xl lg:text-4xl"
           />
-          <p className="text-zinc-100 text-sm md:text-base leading-relaxed mb-8 font-normal max-w-md text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)]">
+          <p className="text-zinc-200 text-[15px] md:text-[17px] font-light leading-relaxed mb-8 max-w-md text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)]">
             {t.contact_desc}
           </p>
           <a
             href="tel:+33662284837"
-            className="px-8 py-4 bg-white text-black rounded-xl text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-text-muted transition-all duration-500 inline-block shadow-xl"
+            className="inline-flex items-center gap-4 px-12 py-6 bg-white text-black hover:bg-white/90 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl"
           >
-            {t.contact_cta}
+            <Navigation size={18} className="rotate-45" />
+            <span>{t.contact_cta}</span>
           </a>
         </motion.div>
       </div>

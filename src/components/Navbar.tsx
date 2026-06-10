@@ -31,7 +31,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
               <a href="#" className="flex items-center group">
                 <div className="flex flex-col">
                   <span className="text-white/60 font-sans font-light text-[11px] tracking-[0.25em] uppercase leading-none mb-1">CHAUFFEUR</span>
-                  <span className="text-white font-luxury font-bold text-[26px] leading-none tracking-[0.14em]">LUXURA</span>
+                  <span className="text-white font-luxury font-bold text-[26px] leading-none tracking-[0.14em]">ELIE</span>
                 </div>
               </a>
             </div>
@@ -73,7 +73,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
               <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col">
                   <span className="text-white/60 font-sans font-light text-[11px] tracking-[0.25em] uppercase leading-none mb-1">CHAUFFEUR</span>
-                  <span className="text-white font-luxury font-bold text-[26px] leading-none tracking-[0.14em]">LUXURA</span>
+                  <span className="text-white font-luxury font-bold text-[26px] leading-none tracking-[0.14em]">ELIE</span>
                 </div>
                 <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1 hover:text-white/80 transition-colors">
                   <X size={24} />
