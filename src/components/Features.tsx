@@ -63,14 +63,14 @@ const Features = ({ t }: FeaturesProps) => {
             viewport={{ once: true }}
             className="flex flex-col gap-6 lg:pl-10 border-l-0 lg:border-l border-white/10"
           >
-            <p className="text-text-subtle text-sm md:text-base font-light leading-relaxed">
+            <p className="text-text-subtle text-[15px] md:text-[17px] font-light leading-relaxed">
               {t.feat_desc}
             </p>
             <div className="flex flex-wrap gap-4 md:gap-8">
               {[t.feat_spec1, t.feat_spec2].map((spec, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                  <span className="text-[10px] md:text-xs text-white/60 uppercase tracking-[0.2em] font-medium">
+                  <span className="text-[11px] md:text-[13px] text-white/60 uppercase tracking-[0.2em] font-medium">
                     {spec}
                   </span>
                 </div>

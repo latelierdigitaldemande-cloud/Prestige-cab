@@ -15,7 +15,7 @@ const About = ({ t }: AboutProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full h-full flex flex-col justify-center">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Text Content - More Compact Interactive Mechanic */}
-          <div className="flex flex-col">
+          <div className="flex flex-col order-2 lg:order-1">
             <SectionHeader
               badgeIcon={ShieldCheck}
               badgeText={t.about_label}
@@ -26,7 +26,7 @@ const About = ({ t }: AboutProps) => {
             <p className="text-text-muted text-[16px] md:text-[20px] leading-relaxed mb-6 md:mb-8 font-normal mt-[-2.5rem] md:mt-[-3.5rem]" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
 
             {/* Mobile/Tablet Callout - Positioned above the image in stacked grid */}
-            <div className="lg:hidden mt-4 mb-10 flex flex-col items-start text-left">
+            <div className="lg:hidden mt-4 mb-10 flex flex-col items-center text-center">
               <p 
                 className="text-text-muted text-[16px] md:text-[20px] font-normal leading-relaxed mb-8"
                 dangerouslySetInnerHTML={{ __html: t.about_callout }} 
@@ -47,7 +47,7 @@ const About = ({ t }: AboutProps) => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="relative aspect-[4/4.32] md:aspect-[3/4.8] lg:aspect-[4/3.6] overflow-hidden rounded-3xl bg-tertiary-bg border border-white/10 group shadow-2xl"
+            className="relative aspect-[4/4.32] md:aspect-[3/4.8] lg:aspect-[4/3.6] overflow-hidden rounded-3xl bg-tertiary-bg border border-white/10 group shadow-2xl order-1 lg:order-2"
           >
             <img
               src={aboutImage}

@@ -47,14 +47,14 @@ const Services = ({ t }: ServicesProps) => {
   ];
 
   return (
-    <section id="services" className="relative min-h-[60vh] flex items-center bg-primary-bg py-12 md:py-20 overflow-hidden">
+    <section id="services" className="relative min-h-[60vh] flex items-center bg-[#111111] py-12 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full relative z-10">
         <div className="flex flex-col h-full justify-center max-w-3xl">
           <SectionHeader
             badgeIcon={Briefcase}
             badgeText={t.svc_label}
             title={t.svc_title}
-            className="!mb-8 md:!mb-10"
+            className="!mb-14 md:!mb-20"
             titleClassName="text-[44px] lg:text-[56px]"
           />
 
