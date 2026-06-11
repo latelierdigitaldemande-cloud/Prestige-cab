@@ -242,7 +242,7 @@ ${destStr}
                 >
                   {/* Title "Réserver en ligne" in elegant size */}
                   <div className="text-left mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+                    <h2 className="text-2xl sm:text-2xl font-semibold tracking-tight text-white">
                       {lang === 'fr' ? 'Réserver en ligne' : 'Book Online'}
                     </h2>
                     <div className="h-[2px] w-12 bg-white/20 mt-2 rounded" />
@@ -297,7 +297,7 @@ ${destStr}
                             value={pickup}
                             onChange={(e) => setPickup(e.target.value)}
                             placeholder={s.pickup_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white flex items-center"
                           />
                         </div>
                       </div>
@@ -316,7 +316,7 @@ ${destStr}
                               value={dropoff}
                               onChange={(e) => setDropoff(e.target.value)}
                               placeholder={s.dropoff_placeholder}
-                              className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white flex items-center"
                             />
                           </div>
                         </div>
@@ -330,7 +330,7 @@ ${destStr}
                             <select
                               value={duration}
                               onChange={(e) => setDuration(e.target.value)}
-                              className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
                             >
                               {durationOptions.map((hour) => (
                                 <option key={hour} value={hour} className="bg-zinc-900 text-white py-2">
@@ -360,7 +360,7 @@ ${destStr}
                           <select
                             value={vehicle}
                             onChange={(e) => setVehicle(e.target.value as VehicleType)}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
                           >
                             <option value="luxury" className="bg-zinc-900 text-white">
                               {s.berline_name} ({s.berline_class}) — Max 3 {s.pax_unit} / 2 {s.bag_unit}
@@ -391,7 +391,7 @@ ${destStr}
                             value={pax}
                             onChange={(e) => setPax(e.target.value)}
                             required
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
                           >
                             <option value="" disabled className="bg-zinc-900 text-zinc-500">
                               {lang === 'fr' ? 'Sélectionner...' : 'Select...'}
@@ -412,37 +412,37 @@ ${destStr}
                     </div>
 
                     {/* Date & Time Group Layout */}
-                    <div className="grid grid-cols-2 gap-3 md:gap-6">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-6">
                       {/* Date selection */}
-                      <div className="col-span-1 flex flex-col gap-2">
+                      <div className="flex flex-col gap-2">
                         <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.date_label} <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
-                          <Calendar size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <Calendar size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
                           <input
                             type="date"
                             required
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark]"
+                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
                           />
                         </div>
                       </div>
 
                       {/* Time selection */}
-                      <div className="col-span-1 flex flex-col gap-2">
+                      <div className="flex flex-col gap-2">
                         <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.time_label} <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
-                          <Clock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <Clock size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
                           <input
                             type="time"
                             required
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark]"
+                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
                           />
                         </div>
                       </div>
@@ -467,7 +467,7 @@ ${destStr}
                           : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
                       }`}
                     >
-                      <span>{lang === 'fr' ? 'estime mon trajet' : 'estimate my ride'}</span>
+                      <span>{lang === 'fr' ? 'confirmer mon trajet' : 'confirm my ride'}</span>
                       <svg className="w-4 h-4 fill-current animate-pulse" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
@@ -483,8 +483,87 @@ ${destStr}
                   transition={{ duration: 0.35 }}
                   className="space-y-8"
                 >
-                  {/* Step 2: Vehicle & Options */}
+                  {/* Step 2: Contact details */}
                   <div className="space-y-6">
+                    <h3 className="text-zinc-100 font-extrabold text-[13px] tracking-wider border-b border-zinc-800 pb-3">
+                      {s.contact_section}
+                    </h3>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {/* Name field */}
+                      <div className="flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          <span>{s.name_label} <span className="text-red-500">*</span></span>
+                        </label>
+                        <div className="relative">
+                          <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="text"
+                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder={s.name_placeholder}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Phone field */}
+                      <div className="flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          <span>{s.phone_label} <span className="text-red-500">*</span></span>
+                        </label>
+                        <div className="relative">
+                          <PhoneIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="tel"
+                            required
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder={s.phone_placeholder}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Email field */}
+                      <div className="flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          <span>{s.email_label}</span>
+                        </label>
+                        <div className="relative">
+                          <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder={s.email_placeholder}
+                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Notes textarea */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <span>{s.notes_label}</span>
+                      </label>
+                      <div className="relative">
+                        <MessageSquare size={16} className="absolute left-4 top-4 text-zinc-400 pointer-events-none" />
+                        <textarea
+                          rows={3}
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          placeholder={s.notes_placeholder}
+                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-4 pt-3 pb-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none resize-none focus:ring-1 focus:ring-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 2: Vehicle & Options */}
+                  <div className="space-y-6 pt-6 border-t border-zinc-800">
                     <h3 className="text-zinc-100 font-extrabold text-[13px] tracking-wider border-b border-zinc-800 pb-3">
                       {lang === 'fr' ? 'VÉHICULE & OPTIONS' : 'VEHICLE & OPTIONS'}
                     </h3>
@@ -583,85 +662,6 @@ ${destStr}
                           </div>
                           <span className="text-[12.5px] leading-tight font-medium">{s.option_meet_greet}</span>
                         </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Step 2: Contact details */}
-                  <div className="space-y-6 pt-6 border-t border-zinc-800">
-                    <h3 className="text-zinc-100 font-extrabold text-[13px] tracking-wider border-b border-zinc-800 pb-3">
-                      {s.contact_section}
-                    </h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {/* Name field */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                          <span>{s.name_label} <span className="text-red-500">*</span></span>
-                        </label>
-                        <div className="relative">
-                          <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-                          <input
-                            type="text"
-                            required
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder={s.name_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Phone field */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                          <span>{s.phone_label} <span className="text-red-500">*</span></span>
-                        </label>
-                        <div className="relative">
-                          <PhoneIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-                          <input
-                            type="tel"
-                            required
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder={s.phone_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Email field */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                          <span>{s.email_label}</span>
-                        </label>
-                        <div className="relative">
-                          <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-                          <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder={s.email_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Notes textarea */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                        <span>{s.notes_label}</span>
-                      </label>
-                      <div className="relative">
-                        <MessageSquare size={16} className="absolute left-4 top-4 text-zinc-400 pointer-events-none" />
-                        <textarea
-                          rows={3}
-                          value={notes}
-                          onChange={(e) => setNotes(e.target.value)}
-                          placeholder={s.notes_placeholder}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-4 pt-3 pb-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none resize-none focus:ring-1 focus:ring-white"
-                        />
                       </div>
                     </div>
                   </div>

@@ -65,3 +65,27 @@
 .scroll-line-anim {
   animation: scroll-line 2s infinite ease-in-out;
 }
+
+/* Fix iOS Safari date and time input alignment, padding, and uniform height */
+input[type="date"],
+input[type="time"] {
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+}
+
+/* Ensure the date and time values align nicely and have standard line heights inside iOS Safari */
+input[type="date"]::-webkit-date-and-time-value,
+input[type="time"]::-webkit-date-and-time-value {
+  min-height: 1.5em;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
