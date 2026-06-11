@@ -13,7 +13,9 @@ import {
   MessageSquare,
   ShieldCheck,
   Clock3,
-  Check
+  Check,
+  Plus,
+  Minus
 } from 'lucide-react';
 import { Language } from '../types';
 import SectionHeader from './SectionHeader';
@@ -139,6 +141,7 @@ const BookingForm = ({ lang }: BookingFormProps) => {
   const [babySeat, setBabySeat] = useState(false);
   const [boosterSeat, setBoosterSeat] = useState(false);
   const [meetGreet, setMeetGreet] = useState(false);
+  const [showExtraOptions, setShowExtraOptions] = useState(false);
 
   const isStep1Valid = true;
   
@@ -348,65 +351,32 @@ ${destStr}
                       )}
                     </div>
 
-                    {/* Vehicle & Passengers selection */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Vehicle selection */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                          {s.vehicle_label}
-                        </label>
-                        <div className="relative font-bold">
-                          <Car size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-                          <select
-                            value={vehicle}
-                            onChange={(e) => setVehicle(e.target.value as VehicleType)}
-                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
-                          >
-                            <option value="luxury" className="bg-zinc-900 text-white">
-                              {s.berline_name} ({s.berline_class}) — Max 3 {s.pax_unit} / 2 {s.bag_unit}
-                            </option>
-                            <option value="business" className="bg-zinc-900 text-white">
-                              {s.business_name} ({s.business_class}) — Max 3 {s.pax_unit} / 3 {s.bag_unit}
-                            </option>
-                            <option value="van" className="bg-zinc-900 text-white">
-                              {s.van_name} ({s.van_class}) — Max 7 {s.pax_unit} / 6 {s.bag_unit}
-                            </option>
-                          </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
-                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Passengers selection */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                          {s.pax_label}
-                        </label>
-                        <div className="relative">
-                          <Users size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-                          <select
-                            value={pax}
-                            onChange={(e) => setPax(e.target.value)}
-                            required
-                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
-                          >
-                            <option value="" disabled className="bg-zinc-900 text-zinc-500">
-                              {lang === 'fr' ? 'Sélectionner...' : 'Select...'}
-                            </option>
-                            {paxOptions.map((n) => (
-                              <option key={n} value={n} className="bg-zinc-900 text-white">
-                                {n}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
-                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                          </div>
+                    {/* Vehicle selection */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        {s.vehicle_label}
+                      </label>
+                      <div className="relative font-bold">
+                        <Car size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                        <select
+                          value={vehicle}
+                          onChange={(e) => setVehicle(e.target.value as VehicleType)}
+                          className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
+                        >
+                          <option value="luxury" className="bg-zinc-900 text-white">
+                            {s.berline_name} ({s.berline_class}) — Max 3 {s.pax_unit} / 2 {s.bag_unit}
+                          </option>
+                          <option value="business" className="bg-zinc-900 text-white">
+                            {s.business_name} ({s.business_class}) — Max 3 {s.pax_unit} / 3 {s.bag_unit}
+                          </option>
+                          <option value="van" className="bg-zinc-900 text-white">
+                            {s.van_name} ({s.van_class}) — Max 7 {s.pax_unit} / 6 {s.bag_unit}
+                          </option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                          </svg>
                         </div>
                       </div>
                     </div>
@@ -446,6 +416,90 @@ ${destStr}
                           />
                         </div>
                       </div>
+                    </div>
+
+                    {/* Collapsible Additional Options Trigger */}
+                    <div className="pt-2 border-t border-zinc-800/40">
+                      <button
+                        type="button"
+                        onClick={() => setShowExtraOptions(!showExtraOptions)}
+                        className="flex items-center gap-2.5 text-zinc-400 hover:text-white transition-all text-[12px] sm:text-[13px] font-bold uppercase tracking-wider focus:outline-none select-none group"
+                      >
+                        <div className="w-6 h-6 rounded-lg border border-zinc-700 group-hover:border-zinc-500 flex items-center justify-center bg-zinc-950/80 transition-all text-zinc-400 group-hover:text-white">
+                          {showExtraOptions ? (
+                            <Minus size={13} strokeWidth={3} />
+                          ) : (
+                            <Plus size={13} strokeWidth={3} />
+                          )}
+                        </div>
+                        <span>
+                          {lang === 'fr' ? 'Options supplémentaires (Siège bébé, Réhausseur...)' : 'Extra Options (Baby seat, Booster...)'}
+                        </span>
+                      </button>
+
+                      {showExtraOptions && (
+                        <div className="mt-4 pl-4 space-y-3.5 border-l-2 border-zinc-800">
+                          {/* Option Baby Seat */}
+                          <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
+                            <input
+                              type="checkbox"
+                              checked={babySeat}
+                              onChange={() => setBabySeat(!babySeat)}
+                              className="sr-only"
+                            />
+                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+                              babySeat 
+                                ? 'border-white bg-white text-zinc-950' 
+                                : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                            }`}>
+                              {babySeat && <Check size={12} strokeWidth={3} />}
+                            </div>
+                            <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                              {s.option_baby_seat}
+                            </span>
+                          </label>
+
+                          {/* Option Booster Seat */}
+                          <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
+                            <input
+                              type="checkbox"
+                              checked={boosterSeat}
+                              onChange={() => setBoosterSeat(!boosterSeat)}
+                              className="sr-only"
+                            />
+                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+                              boosterSeat 
+                                ? 'border-white bg-white text-zinc-950' 
+                                : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                            }`}>
+                              {boosterSeat && <Check size={12} strokeWidth={3} />}
+                            </div>
+                            <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                              {s.option_booster_seat}
+                            </span>
+                          </label>
+
+                          {/* Option Meet & Greet */}
+                          <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
+                            <input
+                              type="checkbox"
+                              checked={meetGreet}
+                              onChange={() => setMeetGreet(!meetGreet)}
+                              className="sr-only"
+                            />
+                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+                              meetGreet 
+                                ? 'border-white bg-white text-zinc-950' 
+                                : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                            }`}>
+                              {meetGreet && <Check size={12} strokeWidth={3} />}
+                            </div>
+                            <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                              {s.option_meet_greet}
+                            </span>
+                          </label>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -569,6 +623,36 @@ ${destStr}
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Passengers selection */}
+                      <div className="flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.pax_label}
+                        </label>
+                        <div className="relative">
+                          <Users size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <select
+                            value={pax}
+                            onChange={(e) => setPax(e.target.value)}
+                            required
+                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
+                          >
+                            <option value="" disabled className="bg-zinc-900 text-zinc-500">
+                              {lang === 'fr' ? 'Sélectionner...' : 'Select...'}
+                            </option>
+                            {paxOptions.map((n) => (
+                              <option key={n} value={n} className="bg-zinc-900 text-white">
+                                {n}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
                       {/* Luggage selection */}
                       <div className="flex flex-col gap-2">
                         <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
@@ -593,75 +677,6 @@ ${destStr}
                             </svg>
                           </div>
                         </div>
-                      </div>
-                    </div>
-
-                    {/* Additional Options */}
-                    <div className="space-y-4">
-                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                        {s.options_label}
-                      </label>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        {/* Option Baby Seat */}
-                        <button
-                          type="button"
-                          onClick={() => setBabySeat(!babySeat)}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-300 ${
-                            babySeat 
-                              ? 'bg-white text-zinc-950 border-white font-bold' 
-                              : 'bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 hover:border-zinc-400 text-zinc-300 transition-all font-normal focus:outline-none'
-                          }`}
-                        >
-                          <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
-                            babySeat 
-                              ? 'border-zinc-950 bg-zinc-950 text-white' 
-                              : 'border-zinc-500'
-                          }`}>
-                            {babySeat && <Check size={11} strokeWidth={3} />}
-                          </div>
-                          <span className="text-[13.5px]">{s.option_baby_seat}</span>
-                        </button>
-
-                        {/* Option Booster Seat */}
-                        <button
-                          type="button"
-                          onClick={() => setBoosterSeat(!boosterSeat)}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-300 ${
-                            boosterSeat 
-                              ? 'bg-white text-zinc-950 border-white font-bold' 
-                              : 'bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 hover:border-zinc-400 text-zinc-300 transition-all font-normal focus:outline-none'
-                          }`}
-                        >
-                          <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
-                            boosterSeat 
-                              ? 'border-zinc-950 bg-zinc-950 text-white' 
-                              : 'border-zinc-500'
-                          }`}>
-                            {boosterSeat && <Check size={11} strokeWidth={3} />}
-                          </div>
-                          <span className="text-[13.5px]">{s.option_booster_seat}</span>
-                        </button>
-
-                        {/* Option Meet & Greet */}
-                        <button
-                          type="button"
-                          onClick={() => setMeetGreet(!meetGreet)}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all duration-300 ${
-                            meetGreet 
-                              ? 'bg-white text-zinc-950 border-white font-bold' 
-                              : 'bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-white hover:border-white text-zinc-300 transition-all font-normal focus:outline-none'
-                          }`}
-                        >
-                          <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
-                            meetGreet 
-                              ? 'border-zinc-950 bg-zinc-950 text-white' 
-                              : 'border-zinc-500'
-                          }`}>
-                            {meetGreet && <Check size={11} strokeWidth={3} />}
-                          </div>
-                          <span className="text-[12.5px] leading-tight font-medium">{s.option_meet_greet}</span>
-                        </button>
                       </div>
                     </div>
                   </div>
