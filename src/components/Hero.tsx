@@ -28,7 +28,7 @@ const Hero = ({ t }: HeroProps) => {
           className="flex flex-col items-start text-left w-full"
         >
           {/* Upper Label */}
-          <span className="text-[26px] min-[375px]:text-[28px] sm:text-[30px] font-luxury font-bold tracking-normal text-white/70 mb-3 sm:mb-4">
+          <span className="text-[26px] min-[375px]:text-[28px] sm:text-[30px] font-luxury font-bold tracking-normal text-white mb-3 sm:mb-4">
             Global Chauffeur Network
           </span>
 
@@ -39,7 +39,7 @@ const Hero = ({ t }: HeroProps) => {
           </h1>
 
           {/* Subtitle - Displayed with identical premium typography as Features description */}
-          <p className="text-text-subtle text-[15px] sm:text-[17px] md:text-[19px] font-light leading-relaxed mb-10 max-w-2xl text-left">
+          <p className="text-zinc-200 text-[15px] sm:text-[17px] md:text-[19px] font-light leading-relaxed mb-10 max-w-2xl text-left">
             {t.hero_sub}
           </p>
 
