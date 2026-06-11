@@ -132,7 +132,7 @@ const BookingForm = ({ lang }: BookingFormProps) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [vehicle, setVehicle] = useState<VehicleType>('business');
-  const [pax, setPax] = useState('2');
+  const [pax, setPax] = useState('');
   const [baggage, setBaggage] = useState('2');
 
   // Option States
@@ -192,7 +192,7 @@ ${destStr}
 ⏰ *Heure* : ${time || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
 
 🚗 *Véhicule* : ${vehicleName}
-👥 *Passagers* : ${pax} ${lang === 'fr' ? 'personne(s)' : 'pax'}
+👥 *Passagers* : ${pax ? `${pax} ${lang === 'fr' ? 'personne(s)' : 'pax'}` : (lang === 'fr' ? 'Non spécifié' : 'Not specified')}
 💼 *Bagages* : ${baggage} ${lang === 'fr' ? 'valise(s)' : 'bag(s)'}${bonusStr}
 
 👤 *Client* : ${name || (lang === 'fr' ? 'Non renseigné' : 'Not provided')}
@@ -219,7 +219,7 @@ ${destStr}
       <div className="absolute top-0 left-1/4 w-[40rem] h-[25rem] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[30rem] h-[20rem] bg-white/[0.01] rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-2 sm:px-3 md:px-4 lg:px-8 relative z-10">
         
         {/* Centered layout on desktop (PC) */}
         <div className="max-w-3xl mx-auto relative z-10">
@@ -230,7 +230,7 @@ ${destStr}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="bg-[#111113] border border-zinc-800/60 rounded-3xl p-6 sm:p-10 md:p-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative text-white"
+            className="bg-[#111113] border border-zinc-800/60 rounded-3xl px-3 sm:px-5 md:px-6 lg:px-12 py-6 sm:py-10 lg:py-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative text-white"
           >
             <div className="space-y-8">
               {step === 1 && (
@@ -240,6 +240,14 @@ ${destStr}
                   transition={{ duration: 0.35 }}
                   className="space-y-8"
                 >
+                  {/* Title "Réserver en ligne" in elegant size */}
+                  <div className="text-center sm:text-left mb-6">
+                    <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">
+                      {lang === 'fr' ? 'Réserver en ligne' : 'Book Online'}
+                    </h2>
+                    <div className="h-[2px] w-12 bg-white/20 mt-2 rounded mx-auto sm:mx-0" />
+                  </div>
+
                   {/* Elegant Tab Segment Controls */}
                   <div className="relative flex p-1 bg-zinc-950 border border-zinc-800 rounded-2xl mb-10 max-w-md mx-auto sm:mx-0">
                     <button
@@ -382,8 +390,12 @@ ${destStr}
                           <select
                             value={pax}
                             onChange={(e) => setPax(e.target.value)}
+                            required
                             className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
                           >
+                            <option value="" disabled className="bg-zinc-900 text-zinc-500">
+                              {lang === 'fr' ? 'Sélectionner...' : 'Select...'}
+                            </option>
                             {paxOptions.map((n) => (
                               <option key={n} value={n} className="bg-zinc-900 text-white">
                                 {n}
