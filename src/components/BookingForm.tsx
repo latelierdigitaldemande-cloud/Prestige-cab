@@ -22,6 +22,7 @@ import SectionHeader from './SectionHeader';
 
 interface BookingFormProps {
   lang: Language;
+  isEmbed?: boolean;
 }
 
 type ServiceType = 'transfer' | 'hourly';
@@ -122,7 +123,7 @@ const formTranslations = {
   }
 };
 
-const BookingForm = ({ lang }: BookingFormProps) => {
+const BookingForm = ({ lang, isEmbed = false }: BookingFormProps) => {
   const s = useMemo(() => formTranslations[lang], [lang]);
 
   // Form State
@@ -216,25 +217,14 @@ ${destStr}
     return `sms:${formattedPhone}?&body=${encodeURIComponent(messageText)}`;
   }, [messageText]);
 
-  return (
-    <section id="reservation" className="py-20 md:py-32 bg-primary-bg relative border-t border-b border-white/5 overflow-hidden">
-      {/* Decorative luxury gradient background glow */}
-      <div className="absolute top-0 left-1/4 w-[40rem] h-[25rem] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[30rem] h-[20rem] bg-white/[0.01] rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
-        
-        {/* Centered layout on desktop (PC) */}
-        <div className="max-w-5xl mx-auto relative z-10 w-full">
-          
-          {/* Main Input Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="bg-[#111113] border border-zinc-800/60 rounded-3xl px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-10 lg:py-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative text-white"
-          >
+  const formElement = (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1 }}
+      className="bg-white border border-zinc-200 rounded-xl px-6 sm:px-8 md:px-8 lg:px-8 py-5 sm:py-6 lg:py-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.08)] overflow-hidden relative text-zinc-900 w-full"
+    >
             <div className="space-y-8">
               {step === 1 && (
                 <motion.div
@@ -245,52 +235,21 @@ ${destStr}
                 >
                   {/* Title "Réserver en ligne" in elegant size */}
                   <div className="text-left mb-6">
-                    <h2 className="text-2xl sm:text-2xl font-semibold tracking-tight text-white">
+                    <h2 className="text-2xl sm:text-2xl font-semibold tracking-tight text-zinc-950">
                       {lang === 'fr' ? 'Réserver en ligne' : 'Book Online'}
                     </h2>
-                    <div className="h-[2px] w-12 bg-white/20 mt-2 rounded" />
+                    <div className="h-[2px] w-12 bg-zinc-200 mt-2 rounded" />
                   </div>
 
-                  {/* Elegant Tab Segment Controls */}
-                  <div className="relative flex p-1 bg-zinc-950 border border-zinc-800 rounded-2xl mb-10 max-w-md mx-auto sm:mx-0">
-                    <button
-                      type="button"
-                      onClick={() => setServiceType('transfer')}
-                      className={`relative z-10 flex-1 py-3 text-[10px] font-bold uppercase tracking-[0.15em] transition-all rounded-xl duration-500 ${
-                        serviceType === 'transfer' ? 'text-zinc-950 font-extrabold' : 'text-zinc-400 hover:text-white'
-                      }`}
-                    >
-                      {s.tab_transfer}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setServiceType('hourly')}
-                      className={`relative z-10 flex-1 py-3 text-[10px] font-bold uppercase tracking-[0.15em] transition-all rounded-xl duration-500 ${
-                        serviceType === 'hourly' ? 'text-zinc-950 font-extrabold' : 'text-zinc-400 hover:text-white'
-                      }`}
-                    >
-                      {s.tab_hourly}
-                    </button>
 
-                    {/* Slider highlight */}
-                    <motion.div
-                      layoutId="activeTabSelection"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      className="absolute inset-y-1 rounded-xl bg-white"
-                      style={{
-                        width: 'calc(50% - 4px)',
-                        left: serviceType === 'transfer' ? '4px' : 'calc(50%)',
-                      }}
-                    />
-                  </div>
 
                   {/* Step 1: Core Ride Details */}
                   <div className="space-y-6">
-                    {/* First Horizontal Row: Departure, Destination / Duration, Vehicle */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Stacked Fields sequentially */}
+                    <div className="grid grid-cols-1 gap-6">
                       {/* Pick up location */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.pickup_label} <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
@@ -301,7 +260,7 @@ ${destStr}
                             value={pickup}
                             onChange={(e) => setPickup(e.target.value)}
                             placeholder={s.pickup_placeholder}
-                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white flex items-center"
+                            className="w-full h-12 bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-5 text-base text-zinc-900 placeholder-zinc-400 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-zinc-950 flex items-center"
                           />
                         </div>
                       </div>
@@ -309,7 +268,7 @@ ${destStr}
                       {/* Drop off OR Hours Duration */}
                       {serviceType === 'transfer' ? (
                         <div className="flex flex-col gap-2">
-                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                             {s.dropoff_label} <span className="text-red-500">*</span>
                           </label>
                           <div className="relative">
@@ -320,13 +279,13 @@ ${destStr}
                               value={dropoff}
                               onChange={(e) => setDropoff(e.target.value)}
                               placeholder={s.dropoff_placeholder}
-                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white flex items-center"
+                              className="w-full h-12 bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-5 text-base text-zinc-900 placeholder-zinc-400 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-zinc-950 flex items-center"
                             />
                           </div>
                         </div>
                       ) : (
                         <div className="flex flex-col gap-2">
-                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                             {s.duration_label} <span className="text-red-500">*</span>
                           </label>
                           <div className="relative">
@@ -334,15 +293,15 @@ ${destStr}
                             <select
                               value={duration}
                               onChange={(e) => setDuration(e.target.value)}
-                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
+                              className="w-full h-12 bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-10 text-base text-zinc-900 transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-zinc-950 flex items-center"
                             >
                               {durationOptions.map((hour) => (
-                                <option key={hour} value={hour} className="bg-zinc-900 text-white py-2">
+                                <option key={hour} value={hour} className="bg-white text-zinc-900 py-2">
                                   {hour} {parseInt(hour) === 1 ? s.duration_hour : s.duration_hours}
                                 </option>
                               ))}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                            <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-400">
                               <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                               </svg>
@@ -353,7 +312,7 @@ ${destStr}
 
                       {/* Vehicle selection */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.vehicle_label}
                         </label>
                         <div className="relative font-bold">
@@ -361,19 +320,19 @@ ${destStr}
                           <select
                             value={vehicle}
                             onChange={(e) => setVehicle(e.target.value as VehicleType)}
-                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
+                            className="w-full h-12 bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-10 text-base text-zinc-900 transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-zinc-950 flex items-center"
                           >
-                            <option value="luxury" className="bg-zinc-900 text-white">
+                            <option value="luxury" className="bg-white text-zinc-900">
                               {s.berline_name} ({s.berline_class}) — Max 3 {s.pax_unit} / 2 {s.bag_unit}
                             </option>
-                            <option value="business" className="bg-zinc-900 text-white">
+                            <option value="business" className="bg-white text-zinc-900">
                               {s.business_name} ({s.business_class}) — Max 3 {s.pax_unit} / 3 {s.bag_unit}
                             </option>
-                            <option value="van" className="bg-zinc-900 text-white">
+                            <option value="van" className="bg-white text-zinc-900">
                               {s.van_name} ({s.van_class}) — Max 7 {s.pax_unit} / 6 {s.bag_unit}
                             </option>
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-400">
                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                             </svg>
@@ -382,73 +341,65 @@ ${destStr}
                       </div>
                     </div>
 
-                    {/* Second Horizontal Row: Date & Time, and Collapsible Options Trigger */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                      
-                      {/* Sub-grid of Date & Time spanning 2 columns of 3 */}
-                      <div className="grid grid-cols-2 gap-4 lg:col-span-2">
-                        {/* Date selection */}
-                        <div className="flex flex-col gap-2">
-                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                            {s.date_label} <span className="text-red-500">*</span>
-                          </label>
-                          <div className="relative">
-                            <Calendar size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
-                            <input
-                              type="date"
-                              required
-                              value={date}
-                              onChange={(e) => setDate(e.target.value)}
-                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Time selection */}
-                        <div className="flex flex-col gap-2">
-                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                            {s.time_label} <span className="text-red-500">*</span>
-                          </label>
-                          <div className="relative">
-                            <Clock size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
-                            <input
-                              type="time"
-                              required
-                              value={time}
-                              onChange={(e) => setTime(e.target.value)}
-                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Collapsible Additional Options Trigger styled as select-like button */}
-                      <div className="flex flex-col gap-2 h-full justify-end">
-                        <label className="text-zinc-400 text-[12.5px] font-bold invisible lg:block">
-                          Options
+                    {/* Date and Time side-by-side on all screens */}
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Date selection */}
+                      <div className="flex flex-col gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.date_label} <span className="text-red-500">*</span>
                         </label>
-                        <button
-                          type="button"
-                          onClick={() => setShowExtraOptions(!showExtraOptions)}
-                          className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 border border-zinc-700 hover:border-zinc-500 rounded-xl px-4 sm:px-5 text-[12.5px] font-bold uppercase tracking-wider transition-all flex items-center justify-between text-zinc-300 hover:text-white"
-                        >
-                          <span className="flex items-center gap-2.5">
-                            <div className="w-5 h-5 rounded-md border border-zinc-700 flex items-center justify-center bg-zinc-900 text-white">
-                              {showExtraOptions ? <Minus size={11} strokeWidth={3} /> : <Plus size={11} strokeWidth={3} />}
-                            </div>
-                            <span className="text-[12px] sm:text-[13px] tracking-tight">{lang === 'fr' ? 'Options supplémentaires' : 'Extra Options'}</span>
-                          </span>
-                          <svg className={`w-4 h-4 text-zinc-500 transition-transform duration-300 ${showExtraOptions ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
+                        <div className="relative">
+                          <Calendar size={14} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
+                          <input
+                            type="date"
+                            required
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            className="w-full h-12 bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-7 sm:pl-11 pr-1.5 sm:pr-4 text-[13px] sm:text-base text-zinc-900 transition-all font-normal focus:outline-none [color-scheme:light] focus:ring-1 focus:ring-zinc-950 flex items-center"
+                          />
+                        </div>
                       </div>
 
+                      {/* Time selection */}
+                      <div className="flex flex-col gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.time_label} <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <Clock size={14} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
+                          <input
+                            type="time"
+                            required
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            className="w-full h-12 bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-7 sm:pl-11 pr-1.5 sm:pr-4 text-[13px] sm:text-base text-zinc-900 transition-all font-normal focus:outline-none [color-scheme:light] focus:ring-1 focus:ring-zinc-950 flex items-center"
+                          />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Extra options list (rendered horizontally on lg) */}
+                    {/* Collapsible Additional Options Trigger styled as select-like button */}
+                    <div className="flex flex-col gap-2 mt-4">
+                      <button
+                        type="button"
+                        onClick={() => setShowExtraOptions(!showExtraOptions)}
+                        className="w-full h-12 bg-zinc-50 hover:bg-zinc-100 border border-zinc-300 hover:border-zinc-400 rounded-xl px-4 sm:px-5 text-[12.5px] font-bold uppercase tracking-wider transition-all flex items-center justify-between text-zinc-700 hover:text-zinc-900"
+                      >
+                        <span className="flex items-center gap-2.5">
+                          <div className="w-5 h-5 rounded-md border border-zinc-300 flex items-center justify-center bg-zinc-100 text-zinc-700">
+                            {showExtraOptions ? <Minus size={11} strokeWidth={3} /> : <Plus size={11} strokeWidth={3} />}
+                          </div>
+                          <span className="text-[12px] sm:text-[13px] tracking-tight">{lang === 'fr' ? 'Options supplémentaires' : 'Extra Options'}</span>
+                        </span>
+                        <svg className={`w-4 h-4 text-zinc-400 transition-transform duration-300 ${showExtraOptions ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Extra options list (rendered vertically/stacked on all devices) */}
                     {showExtraOptions && (
-                      <div className="mt-4 pl-4 py-2 space-y-3.5 lg:space-y-0 lg:flex lg:flex-row lg:items-center lg:gap-8 border-l-2 border-zinc-800">
+                      <div className="mt-4 pl-4 py-2 space-y-3.5 flex flex-col border-l-2 border-zinc-200">
                         {/* Option Baby Seat */}
                         <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
                           <input
@@ -459,12 +410,12 @@ ${destStr}
                           />
                           <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
                             babySeat 
-                              ? 'border-white bg-white text-zinc-950' 
-                              : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                              ? 'border-zinc-900 bg-zinc-900 text-white' 
+                              : 'border-zinc-300 bg-transparent group-hover:border-zinc-400'
                           }`}>
                             {babySeat && <Check size={12} strokeWidth={3} />}
                           </div>
-                          <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                          <span className="text-[13.5px] font-medium text-zinc-700 group-hover:text-zinc-900 transition-colors">
                             {s.option_baby_seat}
                           </span>
                         </label>
@@ -479,12 +430,12 @@ ${destStr}
                           />
                           <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
                             boosterSeat 
-                              ? 'border-white bg-white text-zinc-950' 
-                              : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                              ? 'border-zinc-900 bg-zinc-900 text-white' 
+                              : 'border-zinc-300 bg-transparent group-hover:border-zinc-400'
                           }`}>
                             {boosterSeat && <Check size={12} strokeWidth={3} />}
                           </div>
-                          <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                          <span className="text-[13.5px] font-medium text-zinc-700 group-hover:text-zinc-900 transition-colors">
                             {s.option_booster_seat}
                           </span>
                         </label>
@@ -499,12 +450,12 @@ ${destStr}
                           />
                           <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
                             meetGreet 
-                              ? 'border-white bg-white text-zinc-950' 
-                              : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                              ? 'border-zinc-900 bg-zinc-900 text-white' 
+                              : 'border-zinc-300 bg-transparent group-hover:border-zinc-400'
                           }`}>
                             {meetGreet && <Check size={12} strokeWidth={3} />}
                           </div>
-                          <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                          <span className="text-[13.5px] font-medium text-zinc-700 group-hover:text-zinc-900 transition-colors">
                             {s.option_meet_greet}
                           </span>
                         </label>
@@ -515,7 +466,7 @@ ${destStr}
 
 
                   {/* Step 1 CTA button to proceed */}
-                  <div className="flex justify-end pt-6 border-t border-zinc-800 mt-8">
+                  <div className="flex justify-end pt-5 border-t border-zinc-200 mt-6">
                     <button
                       type="button"
                       onClick={() => {
@@ -524,10 +475,10 @@ ${destStr}
                         }
                       }}
                       disabled={!isStep1Valid}
-                      className={`w-full sm:w-auto justify-center px-8 py-4 rounded-xl font-extrabold uppercase text-[11px] tracking-widest flex items-center gap-3 transition-all duration-300 ${
+                      className={`w-full sm:w-auto md:px-16 md:py-4 justify-center px-8 py-4 rounded-xl font-extrabold uppercase text-[11px] md:text-xs tracking-widest flex items-center gap-3 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] ${
                         isStep1Valid 
-                          ? 'bg-white hover:bg-zinc-200 text-black shadow-lg shadow-black/25' 
-                          : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
+                          ? 'bg-zinc-900 hover:bg-zinc-800 text-white shadow-lg shadow-zinc-950/10' 
+                          : 'bg-zinc-100 text-zinc-400 cursor-not-allowed'
                       }`}
                     >
                       <span>{lang === 'fr' ? 'confirmer mon trajet' : 'confirm my ride'}</span>
@@ -548,14 +499,14 @@ ${destStr}
                 >
                   {/* Step 2: Contact details */}
                   <div className="space-y-6">
-                    <h3 className="text-zinc-100 font-extrabold text-[13px] tracking-wider border-b border-zinc-800 pb-3">
+                    <h3 className="text-zinc-900 font-extrabold text-[13px] tracking-wider border-b border-zinc-200 pb-3">
                       {s.contact_section}
                     </h3>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 gap-6">
                       {/* Name field */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           <span>{s.name_label} <span className="text-red-500">*</span></span>
                         </label>
                         <div className="relative">
@@ -566,14 +517,14 @@ ${destStr}
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder={s.name_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                            className="w-full bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-5 py-3 text-base text-zinc-900 placeholder-zinc-400 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-zinc-950"
                           />
                         </div>
                       </div>
 
                       {/* Phone field */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           <span>{s.phone_label} <span className="text-red-500">*</span></span>
                         </label>
                         <div className="relative">
@@ -584,14 +535,14 @@ ${destStr}
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder={s.phone_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                            className="w-full bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-5 py-3 text-base text-zinc-900 placeholder-zinc-400 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-zinc-950"
                           />
                         </div>
                       </div>
 
                       {/* Email field */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           <span>{s.email_label}</span>
                         </label>
                         <div className="relative">
@@ -601,7 +552,7 @@ ${destStr}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder={s.email_placeholder}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-5 py-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-white"
+                            className="w-full bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-5 py-3 text-base text-zinc-900 placeholder-zinc-400 transition-all font-normal focus:outline-none focus:ring-1 focus:ring-zinc-950"
                           />
                         </div>
                       </div>
@@ -609,7 +560,7 @@ ${destStr}
 
                     {/* Notes textarea */}
                     <div className="flex flex-col gap-2">
-                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                      <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                         <span>{s.notes_label}</span>
                       </label>
                       <div className="relative">
@@ -619,22 +570,22 @@ ${destStr}
                           value={notes}
                           onChange={(e) => setNotes(e.target.value)}
                           placeholder={s.notes_placeholder}
-                          className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-4 pt-3 pb-3 text-base text-white placeholder-zinc-100 transition-all font-normal focus:outline-none resize-none focus:ring-1 focus:ring-white"
+                          className="w-full bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-4 pt-3 pb-3 text-base text-zinc-900 placeholder-zinc-400 transition-all font-normal focus:outline-none resize-none focus:ring-1 focus:ring-zinc-950"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Step 2: Vehicle & Options */}
-                  <div className="space-y-6 pt-6 border-t border-zinc-800">
-                    <h3 className="text-zinc-100 font-extrabold text-[13px] tracking-wider border-b border-zinc-800 pb-3">
+                  <div className="space-y-6 pt-6 border-t border-zinc-200">
+                    <h3 className="text-zinc-900 font-extrabold text-[13px] tracking-wider border-b border-zinc-200 pb-3">
                       {lang === 'fr' ? 'VÉHICULE & OPTIONS' : 'VEHICLE & OPTIONS'}
                     </h3>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-6">
                       {/* Passengers selection */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.pax_label}
                         </label>
                         <div className="relative">
@@ -643,18 +594,18 @@ ${destStr}
                             value={pax}
                             onChange={(e) => setPax(e.target.value)}
                             required
-                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
+                            className="w-full h-12 bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-10 text-base text-zinc-900 transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-zinc-950 flex items-center"
                           >
-                            <option value="" disabled className="bg-zinc-900 text-zinc-500">
+                            <option value="" disabled className="bg-white text-zinc-400">
                               {lang === 'fr' ? 'Sélectionner...' : 'Select...'}
                             </option>
                             {paxOptions.map((n) => (
-                              <option key={n} value={n} className="bg-zinc-900 text-white">
+                              <option key={n} value={n} className="bg-white text-zinc-900">
                                 {n}
                               </option>
                             ))}
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-400">
                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                             </svg>
@@ -664,7 +615,7 @@ ${destStr}
 
                       {/* Luggage selection */}
                       <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                        <label className="text-zinc-600 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
                           {s.luggage_label}
                         </label>
                         <div className="relative">
@@ -672,15 +623,15 @@ ${destStr}
                           <select
                             value={baggage}
                             onChange={(e) => setBaggage(e.target.value)}
-                            className="w-full bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 py-3 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white"
+                            className="w-full bg-zinc-50 hover:bg-zinc-100/50 focus:bg-white border border-zinc-300 hover:border-zinc-400/80 focus:border-zinc-950 rounded-xl pl-11 pr-10 py-3 text-base text-zinc-900 transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-zinc-950"
                           >
                             {bagOptions.map((n) => (
-                              <option key={n} value={n} className="bg-zinc-900 text-white">
+                              <option key={n} value={n} className="bg-white text-zinc-900">
                                 {n}
                               </option>
                             ))}
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-400">
                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                             </svg>
@@ -691,11 +642,11 @@ ${destStr}
                   </div>
 
                   {/* Step 2 Footer: Navigation links */}
-                  <div className="flex flex-col sm:flex-row justify-between gap-4 pt-6 border-t border-zinc-800 mt-8">
+                  <div className="flex flex-col sm:flex-row justify-between gap-4 pt-5 border-t border-zinc-200 mt-6">
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="px-6 py-4 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-xl font-bold uppercase text-[11px] tracking-widest transition-all text-center flex items-center justify-center gap-2"
+                      className="px-6 py-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 rounded-xl font-bold uppercase text-[11px] tracking-widest transition-all text-center flex items-center justify-center gap-2"
                     >
                       <svg className="w-4 h-4 fill-current rotate-180" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -709,14 +660,14 @@ ${destStr}
                           href={whatsappUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white border border-[#25D366] font-bold uppercase text-[11px] tracking-widest rounded-xl hover:bg-[#20ba59] hover:border-[#20ba59] transition-all duration-300 shadow-xl text-center"
+                          className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white border border-[#25D366] font-bold uppercase text-[11px] tracking-widest rounded-xl hover:bg-[#20ba59] hover:border-[#20ba59] transition-all duration-300 shadow-xl shadow-[#25D366]/10 text-center"
                         >
                           <MessageSquare size={16} />
                           <span>{s.button_whatsapp}</span>
                         </a>
                       </div>
                     ) : (
-                      <div className="flex items-center text-rose-400 font-bold text-[10.5px] uppercase tracking-wide gap-1.5 p-3 px-5 bg-rose-500/10 border border-rose-500/20 rounded-xl">
+                      <div className="flex items-center text-rose-600 font-bold text-[10.5px] uppercase tracking-wide gap-1.5 p-3 px-5 bg-rose-50 border border-rose-100 rounded-xl">
                         <span>⚠️ {lang === 'fr' ? 'Informations requises manquantes (*)' : 'Missing required information (*)'}</span>
                       </div>
                     )}
@@ -725,11 +676,29 @@ ${destStr}
               )}
             </div>
           </motion.div>
+        );
 
-        </div>
-      </div>
-    </section>
-  );
-};
+        if (isEmbed) {
+          return (
+            <div id="reservation" className="w-full">
+              {formElement}
+            </div>
+          );
+        }
+
+        return (
+          <section id="reservation" className="py-20 md:py-32 bg-primary-bg relative border-t border-b border-white/5 overflow-hidden">
+            {/* Decorative luxury gradient background glow */}
+            <div className="absolute top-0 left-1/4 w-[40rem] h-[25rem] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-[30rem] h-[20rem] bg-white/[0.01] rounded-full blur-[100px] pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
+              <div className="max-w-5xl mx-auto relative z-10 w-full">
+                {formElement}
+              </div>
+            </div>
+          </section>
+        );
+      };
 
 export default BookingForm;

@@ -8,15 +8,11 @@ import { translations } from './translations';
 import { Language } from './types';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import BookingForm from './components/BookingForm';
 import Services from './components/Services';
-import About from './components/About';
 import Features from './components/Features';
 import Fleet from './components/Fleet';
 import FleetFAQ from './components/FleetFAQ';
-import Contact from './components/Contact';
 import WhatsAppCTA from './components/WhatsAppCTA';
-import Footer from './components/Footer';
 
 export default function App() {
   const [lang, setLang] = useState<Language>(() => {
@@ -41,15 +37,11 @@ export default function App() {
       <Navbar lang={lang} setLang={handleSetLang} t={t} />
       <main>
         <Hero t={t} />
-        <BookingForm lang={lang} />
-        <About t={t} lang={lang} />
-        <Services t={t} />
+        <Services t={t} lang={lang} />
         <Features t={t} />
         <Fleet t={t} />
         <FleetFAQ t={t} />
-        <Contact t={t} />
       </main>
-      <Footer t={t} lang={lang} />
       <WhatsAppCTA t={t} lang={lang} setLang={handleSetLang} />
     </div>
   );

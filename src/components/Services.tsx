@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Briefcase, Plane, MapPin, Camera, Navigation, ArrowUpRight, Plus } from 'lucide-react';
-import { Translation } from '../types';
+import { Briefcase, Plane, MapPin, Camera, Navigation, ArrowUpRight, Plus, Clock } from 'lucide-react';
+import { Translation, Language } from '../types';
 import SectionHeader from './SectionHeader';
+import BookingForm from './BookingForm';
 
 interface ServicesProps {
   t: Translation;
+  lang: Language;
 }
 
-const Services = ({ t }: ServicesProps) => {
+const Services = ({ t, lang }: ServicesProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   const services = [
@@ -32,95 +34,101 @@ const Services = ({ t }: ServicesProps) => {
       id: "03",
       title: t.svc3_title,
       desc: t.svc3_desc,
-      icon: Camera,
+      icon: Clock,
       image: "https://www.haimourinternational.com/wp-content/uploads/2025/09/s3.jpg.webp",
-      tag: "SIGHTSEEING"
+      tag: "HOURLY"
     },
     {
       id: "04",
       title: t.svc4_title,
       desc: t.svc4_desc,
-      icon: Briefcase,
+      icon: Navigation,
       image: "https://www.haimourinternational.com/wp-content/uploads/2025/09/luxury-vehicle-provided-for-a-private-airport-tran-2025-03-10-01-51-18-utc.jpg.webp",
-      tag: "BUSINESS"
+      tag: "LONG DISTANCE"
     }
   ];
 
   return (
-    <section id="services" className="relative py-24 md:py-32 bg-[#111111] border-b border-white/5 overflow-hidden flex items-center min-h-[70vh]">
+    <section id="services" className="relative py-24 md:py-32 bg-black border-b border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full relative z-10">
-        <div className="flex flex-col h-full justify-center max-w-3xl">
-          <SectionHeader
-            badgeIcon={Briefcase}
-            badgeText={t.svc_label}
-            title={t.svc_title}
-            className="!mb-14 md:!mb-20"
-            titleClassName="text-[44px] lg:text-[56px]"
-          />
+        
+        {/* Modern 2-column grid layout for desktop, single stacked layout for mobile/tablet */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Left Column: Services Header and Services Stack */}
+          <div className="lg:col-span-5 xl:col-span-6 flex flex-col justify-center">
+            <SectionHeader
+              badgeIcon={Briefcase}
+              badgeText={t.svc_label}
+              title={t.svc_title}
+              className="!mb-10 md:!mb-14 text-left"
+              titleClassName="text-[36px] sm:text-[44px] lg:text-[48px] leading-[1.15]"
+            />
 
-          {/* Collapsible Service Stack */}
-          <div className="flex flex-col text-left">
-            {services.map((service, index) => (
-              <div
-                key={service.id}
-                className={`group flex flex-col ${
-                  index !== services.length - 1 ? 'border-b border-white/5' : ''
-                }`}
-              >
-                <button
-                   onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                  className="flex items-center gap-5 w-full text-left focus:outline-none py-6"
+            {/* Collapsible Service Stack */}
+            <div className="flex flex-col text-left">
+              {services.map((service, index) => (
+                <div
+                  key={service.id}
+                  className={`group flex flex-col ${
+                    index !== services.length - 1 ? 'border-b border-white/5' : ''
+                  }`}
                 >
-                  {/* High-Contrast Icon Pod */}
-                  <div className={`w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-2xl transition-all duration-700 shadow-xl ${
-                    activeIndex === index ? 'bg-white text-black -rotate-6' : 'bg-white/5 text-white border border-white/10'
-                  }`}>
-                    <service.icon size={20} strokeWidth={1.5} />
-                  </div>
-
-                  <h3 className={`text-xl md:text-2xl font-display font-medium tracking-tight transition-all duration-500 flex-1 text-white ${
-                    activeIndex === index ? 'translate-x-2' : 'group-hover:translate-x-1'
-                  }`}>
-                    {service.title}
-                  </h3>
-
-                  {/* Interaction Indicator */}
-                  <div className="relative flex items-center justify-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
-                      activeIndex === index 
-                        ? 'bg-white text-black rotate-180 scale-110' 
-                        : 'bg-white/5 text-white border border-white/10 group-hover:bg-white/10 group-hover:scale-105'
+                  <button
+                     onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                    className="flex items-center justify-between w-full text-left focus:outline-none py-6"
+                  >
+                    <h3 className={`text-[18px] md:text-xl font-display font-semibold tracking-tight transition-all duration-500 flex-1 text-white ${
+                      activeIndex === index ? 'translate-x-1' : 'group-hover:translate-x-1'
                     }`}>
-                      <Plus 
-                        size={18} 
-                        strokeWidth={2} 
-                        className={`transition-transform duration-500 ${activeIndex === index ? 'rotate-45' : ''}`}
-                      />
-                    </div>
-                  </div>
-                </button>
-                
-                <AnimatePresence initial={false}>
-                  {activeIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pl-[68px] pb-8 pr-4 flex flex-col gap-5">
-                        <p className="text-text-subtle text-[15px] md:text-[17px] font-light leading-relaxed max-w-2xl">
-                          {service.desc}
-                        </p>
+                      {service.title}
+                    </h3>
+
+                    {/* Interaction Indicator */}
+                    <div className="relative flex items-center justify-center">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
+                        activeIndex === index 
+                          ? 'bg-white text-black rotate-180 scale-110' 
+                          : 'bg-white/5 text-white border border-white/10 group-hover:bg-white/10 group-hover:scale-105'
+                      }`}>
+                        <Plus 
+                          size={18} 
+                          strokeWidth={2} 
+                          className={`transition-transform duration-500 ${activeIndex === index ? 'rotate-45' : ''}`}
+                        />
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
+                    </div>
+                  </button>
+                  
+                  <AnimatePresence initial={false}>
+                    {activeIndex === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pb-8 pr-4 flex flex-col gap-5">
+                          <p className="text-zinc-300 text-[15px] md:text-[17px] font-light leading-relaxed max-w-2xl">
+                            {service.desc}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Right Column: Dynamic Form Container that stacks below on small screens and sticks on desktop */}
+          <div className="lg:col-span-7 xl:col-span-6 w-full lg:sticky lg:top-28">
+            <BookingForm lang={lang} isEmbed={true} />
+          </div>
+
         </div>
+
       </div>
     </section>
   );
