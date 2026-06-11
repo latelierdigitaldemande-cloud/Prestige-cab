@@ -13,9 +13,9 @@ const About = ({ t }: AboutProps) => {
   return (
     <section id="about" className="relative py-24 md:py-32 bg-primary-bg border-b border-white/5 overflow-hidden flex items-center min-h-[80vh] md:min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 w-full h-full flex flex-col justify-center">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Text Content - More Compact Interactive Mechanic */}
-          <div className="flex flex-col order-2 lg:order-1">
+          <div className="flex flex-col order-2 lg:order-1 lg:col-span-6">
             <SectionHeader
               badgeIcon={ShieldCheck}
               badgeText={t.about_label}
@@ -25,6 +25,29 @@ const About = ({ t }: AboutProps) => {
             />
 
             <p className="text-text-subtle text-[15px] md:text-[17px] font-light leading-relaxed mb-6 md:mb-8" dangerouslySetInnerHTML={{ __html: t.about_desc }} />
+
+            {/* Quality Specs */}
+            <div className="grid sm:grid-cols-2 gap-6 mb-8 pt-6 border-t border-white/10">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2.5 text-white font-semibold text-sm tracking-wide">
+                  <ShieldCheck size={18} className="text-zinc-400 shrink-0" />
+                  <span>{t.about_spec1_title}</span>
+                </div>
+                <p className="text-text-subtle text-[13px] font-light leading-relaxed pl-7">
+                  {t.about_spec1_desc}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-2.5 text-white font-semibold text-sm tracking-wide">
+                  <ShieldCheck size={18} className="text-zinc-400 shrink-0" />
+                  <span>{t.about_spec2_title}</span>
+                </div>
+                <p className="text-text-subtle text-[13px] font-light leading-relaxed pl-7">
+                  {t.about_spec2_desc}
+                </p>
+              </div>
+            </div>
 
             {/* Mobile/Tablet Callout - Positioned above the image in stacked grid */}
             <div className="lg:hidden mt-4 mb-10 flex flex-col items-center text-center">
@@ -48,7 +71,7 @@ const About = ({ t }: AboutProps) => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="relative aspect-[4/4.32] md:aspect-[3/4.8] lg:aspect-[4/3.6] overflow-hidden rounded-3xl bg-tertiary-bg border border-white/10 group shadow-2xl order-1 lg:order-2"
+            className="relative aspect-[4/4.32] md:aspect-[3/4.8] lg:col-span-6 lg:aspect-[3/3.6] overflow-hidden rounded-3xl bg-tertiary-bg border border-white/10 group shadow-2xl order-1 lg:order-2"
           >
             <img
               src={aboutImage}

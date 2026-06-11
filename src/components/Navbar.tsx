@@ -20,7 +20,7 @@ const Navbar = ({ lang, setLang, t }: NavbarProps) => {
   ];
 
   return (
-    <div className="fixed top-8 left-0 right-0 z-50 flex justify-start px-4 max-w-7xl mx-auto pointer-events-none">
+    <div className="absolute top-8 left-0 right-0 z-50 flex justify-start px-4 max-w-7xl mx-auto pointer-events-none">
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl relative">
         <nav
           className="pointer-events-auto w-full transition-all duration-300 bg-black/15 backdrop-blur-lg border border-white/10 py-4 sm:py-5 px-6 rounded-3xl shadow-2xl"

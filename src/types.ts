@@ -30,6 +30,10 @@ export interface Translation {
   about_label: string;
   about_title: string;
   about_desc: string;
+  about_spec1_title: string;
+  about_spec1_desc: string;
+  about_spec2_title: string;
+  about_spec2_desc: string;
   about_feat1_title: string;
   about_feat1_desc: string;
   about_feat2_title: string;
