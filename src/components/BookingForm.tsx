@@ -242,7 +242,7 @@ ${destStr}
                 >
                   {/* Title "Réserver en ligne" in elegant size */}
                   <div className="text-left mb-6">
-                    <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">
+                    <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
                       {lang === 'fr' ? 'Réserver en ligne' : 'Book Online'}
                     </h2>
                     <div className="h-[2px] w-12 bg-white/20 mt-2 rounded" />
