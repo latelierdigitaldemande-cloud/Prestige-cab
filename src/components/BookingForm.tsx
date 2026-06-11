@@ -222,10 +222,10 @@ ${destStr}
       <div className="absolute top-0 left-1/4 w-[40rem] h-[25rem] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[30rem] h-[20rem] bg-white/[0.01] rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-2 sm:px-3 md:px-4 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
         
         {/* Centered layout on desktop (PC) */}
-        <div className="max-w-3xl mx-auto relative z-10">
+        <div className="max-w-5xl mx-auto relative z-10 w-full">
           
           {/* Main Input Form */}
           <motion.div
@@ -233,7 +233,7 @@ ${destStr}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="bg-[#111113] border border-zinc-800/60 rounded-3xl px-3 sm:px-5 md:px-6 lg:px-12 py-6 sm:py-10 lg:py-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative text-white"
+            className="bg-[#111113] border border-zinc-800/60 rounded-3xl px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-10 lg:py-12 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative text-white"
           >
             <div className="space-y-8">
               {step === 1 && (
@@ -286,7 +286,8 @@ ${destStr}
 
                   {/* Step 1: Core Ride Details */}
                   <div className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
+                    {/* First Horizontal Row: Departure, Destination / Duration, Vehicle */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                       {/* Pick up location */}
                       <div className="flex flex-col gap-2">
                         <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
@@ -349,158 +350,166 @@ ${destStr}
                           </div>
                         </div>
                       )}
+
+                      {/* Vehicle selection */}
+                      <div className="flex flex-col gap-2">
+                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                          {s.vehicle_label}
+                        </label>
+                        <div className="relative font-bold">
+                          <Car size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                          <select
+                            value={vehicle}
+                            onChange={(e) => setVehicle(e.target.value as VehicleType)}
+                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
+                          >
+                            <option value="luxury" className="bg-zinc-900 text-white">
+                              {s.berline_name} ({s.berline_class}) — Max 3 {s.pax_unit} / 2 {s.bag_unit}
+                            </option>
+                            <option value="business" className="bg-zinc-900 text-white">
+                              {s.business_name} ({s.business_class}) — Max 3 {s.pax_unit} / 3 {s.bag_unit}
+                            </option>
+                            <option value="van" className="bg-zinc-900 text-white">
+                              {s.van_name} ({s.van_class}) — Max 7 {s.pax_unit} / 6 {s.bag_unit}
+                            </option>
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Vehicle selection */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                        {s.vehicle_label}
-                      </label>
-                      <div className="relative font-bold">
-                        <Car size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-                        <select
-                          value={vehicle}
-                          onChange={(e) => setVehicle(e.target.value as VehicleType)}
-                          className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-11 pr-10 text-base text-white transition-all font-normal focus:outline-none appearance-none focus:ring-1 focus:ring-white flex items-center"
+                    {/* Second Horizontal Row: Date & Time, and Collapsible Options Trigger */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      
+                      {/* Sub-grid of Date & Time spanning 2 columns of 3 */}
+                      <div className="grid grid-cols-2 gap-4 lg:col-span-2">
+                        {/* Date selection */}
+                        <div className="flex flex-col gap-2">
+                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                            {s.date_label} <span className="text-red-500">*</span>
+                          </label>
+                          <div className="relative">
+                            <Calendar size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
+                            <input
+                              type="date"
+                              required
+                              value={date}
+                              onChange={(e) => setDate(e.target.value)}
+                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Time selection */}
+                        <div className="flex flex-col gap-2">
+                          <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
+                            {s.time_label} <span className="text-red-500">*</span>
+                          </label>
+                          <div className="relative">
+                            <Clock size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
+                            <input
+                              type="time"
+                              required
+                              value={time}
+                              onChange={(e) => setTime(e.target.value)}
+                              className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Collapsible Additional Options Trigger styled as select-like button */}
+                      <div className="flex flex-col gap-2 h-full justify-end">
+                        <label className="text-zinc-400 text-[12.5px] font-bold invisible lg:block">
+                          Options
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setShowExtraOptions(!showExtraOptions)}
+                          className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 border border-zinc-700 hover:border-zinc-500 rounded-xl px-4 sm:px-5 text-[12.5px] font-bold uppercase tracking-wider transition-all flex items-center justify-between text-zinc-300 hover:text-white"
                         >
-                          <option value="luxury" className="bg-zinc-900 text-white">
-                            {s.berline_name} ({s.berline_class}) — Max 3 {s.pax_unit} / 2 {s.bag_unit}
-                          </option>
-                          <option value="business" className="bg-zinc-900 text-white">
-                            {s.business_name} ({s.business_class}) — Max 3 {s.pax_unit} / 3 {s.bag_unit}
-                          </option>
-                          <option value="van" className="bg-zinc-900 text-white">
-                            {s.van_name} ({s.van_class}) — Max 7 {s.pax_unit} / 6 {s.bag_unit}
-                          </option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-zinc-500">
-                          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                          <span className="flex items-center gap-2.5">
+                            <div className="w-5 h-5 rounded-md border border-zinc-700 flex items-center justify-center bg-zinc-900 text-white">
+                              {showExtraOptions ? <Minus size={11} strokeWidth={3} /> : <Plus size={11} strokeWidth={3} />}
+                            </div>
+                            <span className="text-[12px] sm:text-[13px] tracking-tight">{lang === 'fr' ? 'Options supplémentaires' : 'Extra Options'}</span>
+                          </span>
+                          <svg className={`w-4 h-4 text-zinc-500 transition-transform duration-300 ${showExtraOptions ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
                           </svg>
-                        </div>
+                        </button>
                       </div>
+
                     </div>
 
-                    {/* Date & Time Group Layout */}
-                    <div className="grid grid-cols-2 gap-3 sm:gap-6">
-                      {/* Date selection */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                          {s.date_label} <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                          <Calendar size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
+                    {/* Extra options list (rendered horizontally on lg) */}
+                    {showExtraOptions && (
+                      <div className="mt-4 pl-4 py-2 space-y-3.5 lg:space-y-0 lg:flex lg:flex-row lg:items-center lg:gap-8 border-l-2 border-zinc-800">
+                        {/* Option Baby Seat */}
+                        <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
                           <input
-                            type="date"
-                            required
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
+                            type="checkbox"
+                            checked={babySeat}
+                            onChange={() => setBabySeat(!babySeat)}
+                            className="sr-only"
                           />
-                        </div>
-                      </div>
-
-                      {/* Time selection */}
-                      <div className="flex flex-col gap-2">
-                        <label className="text-zinc-400 text-[12.5px] font-bold tracking-normal flex items-center gap-2">
-                          {s.time_label} <span className="text-red-500">*</span>
+                          <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+                            babySeat 
+                              ? 'border-white bg-white text-zinc-950' 
+                              : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                          }`}>
+                            {babySeat && <Check size={12} strokeWidth={3} />}
+                          </div>
+                          <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                            {s.option_baby_seat}
+                          </span>
                         </label>
-                        <div className="relative">
-                          <Clock size={14} className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none sm:scale-110" />
+
+                        {/* Option Booster Seat */}
+                        <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
                           <input
-                            type="time"
-                            required
-                            value={time}
-                            onChange={(e) => setTime(e.target.value)}
-                            className="w-full h-12 bg-zinc-950 hover:bg-zinc-900 focus:bg-zinc-950 border border-zinc-500 focus:border-white rounded-xl pl-8 sm:pl-11 pr-2 sm:pr-5 text-[13px] sm:text-base text-white transition-all font-normal focus:outline-none [color-scheme:dark] flex items-center"
+                            type="checkbox"
+                            checked={boosterSeat}
+                            onChange={() => setBoosterSeat(!boosterSeat)}
+                            className="sr-only"
                           />
-                        </div>
+                          <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+                            boosterSeat 
+                              ? 'border-white bg-white text-zinc-950' 
+                              : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                          }`}>
+                            {boosterSeat && <Check size={12} strokeWidth={3} />}
+                          </div>
+                          <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                            {s.option_booster_seat}
+                          </span>
+                        </label>
+
+                        {/* Option Meet & Greet */}
+                        <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
+                          <input
+                            type="checkbox"
+                            checked={meetGreet}
+                            onChange={() => setMeetGreet(!meetGreet)}
+                            className="sr-only"
+                          />
+                          <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+                            meetGreet 
+                              ? 'border-white bg-white text-zinc-950' 
+                              : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
+                          }`}>
+                            {meetGreet && <Check size={12} strokeWidth={3} />}
+                          </div>
+                          <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
+                            {s.option_meet_greet}
+                          </span>
+                        </label>
                       </div>
-                    </div>
-
-                    {/* Collapsible Additional Options Trigger */}
-                    <div className="pt-2 border-t border-zinc-800/40">
-                      <button
-                        type="button"
-                        onClick={() => setShowExtraOptions(!showExtraOptions)}
-                        className="flex items-center gap-2.5 text-zinc-400 hover:text-white transition-all text-[12px] sm:text-[13px] font-bold uppercase tracking-wider focus:outline-none select-none group"
-                      >
-                        <div className="w-6 h-6 rounded-lg border border-zinc-700 group-hover:border-zinc-500 flex items-center justify-center bg-zinc-950/80 transition-all text-zinc-400 group-hover:text-white">
-                          {showExtraOptions ? (
-                            <Minus size={13} strokeWidth={3} />
-                          ) : (
-                            <Plus size={13} strokeWidth={3} />
-                          )}
-                        </div>
-                        <span>
-                          {lang === 'fr' ? 'Options supplémentaires (Siège bébé, Réhausseur...)' : 'Extra Options (Baby seat, Booster...)'}
-                        </span>
-                      </button>
-
-                      {showExtraOptions && (
-                        <div className="mt-4 pl-4 space-y-3.5 border-l-2 border-zinc-800">
-                          {/* Option Baby Seat */}
-                          <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
-                            <input
-                              type="checkbox"
-                              checked={babySeat}
-                              onChange={() => setBabySeat(!babySeat)}
-                              className="sr-only"
-                            />
-                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
-                              babySeat 
-                                ? 'border-white bg-white text-zinc-950' 
-                                : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
-                            }`}>
-                              {babySeat && <Check size={12} strokeWidth={3} />}
-                            </div>
-                            <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
-                              {s.option_baby_seat}
-                            </span>
-                          </label>
-
-                          {/* Option Booster Seat */}
-                          <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
-                            <input
-                              type="checkbox"
-                              checked={boosterSeat}
-                              onChange={() => setBoosterSeat(!boosterSeat)}
-                              className="sr-only"
-                            />
-                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
-                              boosterSeat 
-                                ? 'border-white bg-white text-zinc-950' 
-                                : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
-                            }`}>
-                              {boosterSeat && <Check size={12} strokeWidth={3} />}
-                            </div>
-                            <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
-                              {s.option_booster_seat}
-                            </span>
-                          </label>
-
-                          {/* Option Meet & Greet */}
-                          <label className="flex items-center gap-3 cursor-pointer select-none py-0.5 group">
-                            <input
-                              type="checkbox"
-                              checked={meetGreet}
-                              onChange={() => setMeetGreet(!meetGreet)}
-                              className="sr-only"
-                            />
-                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
-                              meetGreet 
-                                ? 'border-white bg-white text-zinc-950' 
-                                : 'border-zinc-700 bg-transparent group-hover:border-zinc-500'
-                            }`}>
-                              {meetGreet && <Check size={12} strokeWidth={3} />}
-                            </div>
-                            <span className="text-[13.5px] font-medium text-zinc-300 group-hover:text-white transition-colors">
-                              {s.option_meet_greet}
-                            </span>
-                          </label>
-                        </div>
-                      )}
-                    </div>
+                    )}
                   </div>
 
 

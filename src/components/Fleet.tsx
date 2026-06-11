@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CarFront, User, Briefcase, Navigation } from 'lucide-react';
+import { CarFront, User, Briefcase, Navigation, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Translation } from '../types';
 import SectionHeader from './SectionHeader';
 
@@ -41,6 +41,14 @@ const Fleet = ({ t }: FleetProps) => {
     }
   ];
 
+  const handlePrev = () => {
+    setActiveVehicle((prev) => (prev === 0 ? vehicles.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setActiveVehicle((prev) => (prev === vehicles.length - 1 ? 0 : prev + 1));
+  };
+
   const current = vehicles[activeVehicle];
 
   return (
@@ -64,30 +72,87 @@ const Fleet = ({ t }: FleetProps) => {
 
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
           
-          {/* Selector - More compact for mobile */}
-          <div className="w-full lg:w-1/4 flex lg:flex-col gap-2 lg:gap-0 border-b lg:border-b-0 lg:border-l border-white/10 pb-4 lg:pb-0 lg:pl-6 order-2 lg:order-1 overflow-x-auto lg:overflow-x-visible no-scrollbar">
-            {vehicles.map((v, idx) => (
-              <button
-                key={v.id}
-                onClick={() => setActiveVehicle(idx)}
-                className={`group relative flex-shrink-0 lg:flex-shrink py-3 px-4 lg:px-0 lg:py-4 text-left transition-all duration-500 ${
-                  activeVehicle === idx ? 'text-white' : 'text-white/25 hover:text-white/50'
-                }`}
+          {/* Selector - Original minimalist text design, enlarged with side arrows for mobile ease */}
+          <div className="w-full lg:w-1/4 flex flex-col order-2 lg:order-1 select-none">
+            
+            {/* On mobile: horizontal container with original clean design but enlarged and padded with navigation arrows */}
+            <div className="flex items-center justify-between gap-2 lg:hidden w-full border-b border-white/10 pb-4 mb-2">
+              <button 
+                type="button"
+                onClick={handlePrev}
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.03] active:bg-white/10 text-white transition-all shrink-0 active:scale-95"
+                aria-label="Previous Vehicle"
               >
-                <motion.div 
-                  initial={false}
-                  animate={{ height: activeVehicle === idx ? (window.innerWidth >= 1024 ? '100%' : '2px') : '0%' }}
-                  className="absolute left-0 bottom-0 lg:bottom-auto lg:top-0 w-full lg:w-[2px] bg-white hidden lg:block"
-                />
-                
-                <div className="flex flex-col lg:flex-row lg:items-baseline gap-1 lg:gap-3 lg:pl-6">
-                  <span className="text-[9px] font-mono opacity-40">0{idx + 1}</span>
-                  <h4 className="text-xs sm:text-sm lg:text-lg font-display font-medium uppercase tracking-wider whitespace-nowrap">
-                    {v.name}
-                  </h4>
-                </div>
+                <ArrowLeft size={16} />
               </button>
-            ))}
+
+              <div className="flex-1 flex justify-center items-center gap-3 sm:gap-6 overflow-x-auto no-scrollbar scroll-smooth">
+                {vehicles.map((v, idx) => {
+                  const isActive = activeVehicle === idx;
+                  return (
+                    <button
+                      key={v.id}
+                      type="button"
+                      onClick={() => setActiveVehicle(idx)}
+                      className={`relative py-3 px-1 transition-all duration-300 shrink-0 flex items-baseline gap-1.5 ${
+                        isActive 
+                          ? 'text-white scale-105' 
+                          : 'text-white/20 hover:text-white/40'
+                      }`}
+                    >
+                      <span className="text-[11px] font-mono opacity-45">0{idx + 1}</span>
+                      <span className="text-[14px] sm:text-base font-display font-medium uppercase tracking-wider whitespace-nowrap">
+                        {v.name}
+                      </span>
+                      {isActive && (
+                        <motion.div 
+                          layoutId="activeIndicatorMobile"
+                          className="absolute left-0 right-0 bottom-0 h-[2.5px] bg-white rounded-full"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button 
+                type="button"
+                onClick={handleNext}
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.03] active:bg-white/10 text-white transition-all shrink-0 active:scale-95"
+                aria-label="Next Vehicle"
+              >
+                <ArrowRight size={16} />
+              </button>
+            </div>
+
+            {/* Classic Desktop selector - Original design preserved */}
+            <div className="hidden lg:flex lg:flex-col border-l border-white/10 pl-6 w-full">
+              {vehicles.map((v, idx) => (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => setActiveVehicle(idx)}
+                  className={`group relative py-4 text-left transition-all duration-500 ${
+                    activeVehicle === idx ? 'text-white' : 'text-white/25 hover:text-white/50'
+                  }`}
+                >
+                  <motion.div 
+                    initial={false}
+                    animate={{ height: activeVehicle === idx ? '100%' : '0%' }}
+                    className="absolute left-[calc(-24px-1px)] top-0 w-[2.5px] bg-white"
+                  />
+                  
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-[10px] font-mono opacity-40">0{idx + 1}</span>
+                    <h4 className="text-lg font-display font-medium uppercase tracking-wider whitespace-nowrap">
+                      {v.name}
+                    </h4>
+                  </div>
+                </button>
+              ))}
+            </div>
+
           </div>
 
           {/* Immersive Showcase Stage - Now with White Background */}

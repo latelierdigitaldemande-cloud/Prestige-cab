@@ -42,7 +42,7 @@ export default function App() {
       <main>
         <Hero t={t} />
         <BookingForm lang={lang} />
-        <About t={t} />
+        <About t={t} lang={lang} />
         <Services t={t} />
         <Features t={t} />
         <Fleet t={t} />
